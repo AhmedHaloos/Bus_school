@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "1037684126292",
+    "project_id": "bus-school-3456b",
+    "storage_bucket": "bus-school-3456b.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:1037684126292:android:ebc764afbd9696769673c1",
+        "android_client_info": {
+          "package_name": "com.eng.ashm.buschool"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "1037684126292-8ejvh58pmmjan6gsnniq608khnq7464r.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDTzSKxOC05P18WcFDLEve4bzlnCLRK8dw"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "1037684126292-8ejvh58pmmjan6gsnniq608khnq7464r.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
