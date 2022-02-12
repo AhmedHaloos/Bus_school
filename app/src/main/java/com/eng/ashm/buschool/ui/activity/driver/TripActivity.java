@@ -15,7 +15,7 @@ import com.eng.ashm.buschool.databinding.DriverTripActivityBinding;
  * trip activity display trips requested by the management as a list fragment
  * and then enable the driver to open a trip and accept the trip: path, students,
  * and bus.
- * required fragments are: TripListFragment, DisplayTripFragment, AcceptCarFragment
+ * required fragments are: TripListFragment, ParentTripFragment, AcceptCarFragment
  */
 public class TripActivity extends AppCompatActivity {
     DriverTripActivityBinding binding;

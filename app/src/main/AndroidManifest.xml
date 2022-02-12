@@ -23,21 +23,35 @@
         -->
         <meta-data
             android:name="com.google.android.gms.ads.APPLICATION_ID"
-            android:value="ca-app-pub-3940256099942544~3347511713" /> <!-- Include the AdActivity configChanges and theme. -->
+            android:value="ca-app-pub-3940256099942544~3347511713" />
+        <meta-data
+            android:name="preloaded_fonts"
+            android:resource="@array/preloaded_fonts" /> <!-- Include the AdActivity configChanges and theme. -->
         <activity
             android:name="com.google.android.gms.ads.AdActivity"
             android:configChanges="keyboard|keyboardHidden|orientation|screenLayout|uiMode|screenSize|smallestScreenSize"
             android:exported="false"
             android:theme="@android:style/Theme.Translucent" />
         <activity
-            android:name=".MainActivity"
+            android:name=".test.TestActivity"
             android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.activity.management.ManagementMainActivity"
+            android:exported="false"/>
+        <activity android:name=".ui.activity.parent.ParentMainActivity"/>
+        <activity android:name=".ui.activity.driver.DriverMainActivity"/>
+        <activity android:name=".ui.activity.driver.TripActivity"/>
+        <activity android:name=".ui.activity.management.CreateCarActivity"/>
+        <activity android:name=".ui.activity.management.CreateParentActivity"/>
+        <activity android:name=".ui.activity.management.CreateTripActivity"/>
+        <activity android:name=".ui.activity.management.SearchActivity"/>
+        <activity android:name=".ui.activity.profile.TripProfileActivity"/>
+        <activity android:name=".ui.activity.management.ParentRequestActivity"/>
+        <activity android:name=".ui.activity.profile.ParentProfileActivity"/>
     </application>
 
 </manifest>

@@ -6,9 +6,9 @@ import androidx.lifecycle.ViewModel;
 
 import android.util.Patterns;
 
+import com.eng.ashm.buschool.data.IFirestoreDataModel;
 import com.eng.ashm.buschool.data.LoginRepository;
 import com.eng.ashm.buschool.data.Result;
-import com.eng.ashm.buschool.data.model.LoggedInUser;
 import com.eng.ashm.buschool.R;
 
 public class LoginViewModel extends ViewModel {
@@ -31,14 +31,8 @@ public class LoginViewModel extends ViewModel {
 
     public void login(String username, String password) {
         // can be launched in a separate asynchronous job
-        Result<LoggedInUser> result = loginRepository.login(username, password);
+        Result<IFirestoreDataModel> result = loginRepository.login(username, password);
 
-        if (result instanceof Result.Success) {
-            LoggedInUser data = ((Result.Success<LoggedInUser>) result).getData();
-            loginResult.setValue(new LoginResult(new LoggedInUserView(data.getDisplayName())));
-        } else {
-            loginResult.setValue(new LoginResult(R.string.login_failed));
-        }
     }
 
     public void loginDataChanged(String username, String password) {

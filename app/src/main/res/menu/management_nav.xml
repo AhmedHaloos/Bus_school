@@ -1,0 +1,15 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:id="@+id/management_trip_nav"
+        android:title="رحلة" android:enabled="true"
+        android:icon="@drawable/trip_icon"
+        />
+    <item android:id="@+id/management_driver_nav"
+        android:enabled="true" android:title="السائق"
+        android:icon="@drawable/parent_icon"/>
+
+    <item android:title="ولى الأمر" android:enabled="true"
+        android:id="@+id/management_parent_nav"
+        android:icon="@drawable/parent_icon"/>
+</menu>

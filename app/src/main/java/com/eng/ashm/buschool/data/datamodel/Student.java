@@ -1,15 +1,18 @@
 package com.eng.ashm.buschool.data.datamodel;
 
+import androidx.annotation.NonNull;
 import androidx.room.Entity;
 
 import com.eng.ashm.buschool.data.IFirestoreDataModel;
 
 
-@Entity(primaryKeys ={"email", "phone"})
+@Entity(primaryKeys ={"name", "phone"})
 public class Student implements IFirestoreDataModel {
-    private int yearOFStudy;
-    private Parent parent;
+    public int yearOFStudy;
+    //private Parent parent;
+    @NonNull
     public String name;
+    @NonNull
     public String phone;
     public String email;
     public String address;

@@ -16,4 +16,5 @@
     <color name="tv_background">#756D81</color>
     <color name="submit_btn_color">#6200EA</color>
     <color name="add_btn_color">#4702A6</color>
+    <color name="list_details_color">#959595</color>
 </resources>

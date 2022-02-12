@@ -31,19 +31,22 @@ public class LoginActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         loginBinding = LoginLayoutBinding.inflate(getLayoutInflater());
         setContentView(loginBinding.getRoot());
-        loginBinding.loginBtn.setOnClickListener(loginClickListener);
         Intent intent = getIntent();
         requestingDiv = intent.getIntExtra(LAUNCH_LOGIN_ACTIVITY_REQUEST , ERROR_REQUEST);
+        loginBinding.loginBtn.setOnClickListener(loginClickListener);
     }
     View.OnClickListener loginClickListener = v -> {
         switch (requestingDiv){
             case DRIVER_LOGIN_ACTIVITY_REQUEST:
+                //auth. driver login
                 startActivity(new Intent(LoginActivity.this, DriverMainActivity.class));
                 break;
             case PARENT_LOGIN_ACTIVITY_REQUEST:
+                // auth. parent login
                 startActivity(new Intent(LoginActivity.this, ParentMainActivity.class));
                 break;
             case MANAGEMENT_LOGIN_ACTIVITY_REQUEST:
+                // auth. management login
                 startActivity(new Intent(LoginActivity.this, ManagementMainActivity.class));
                 break;
             default:
