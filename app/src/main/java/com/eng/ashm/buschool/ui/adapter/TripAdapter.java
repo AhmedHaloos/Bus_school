@@ -1,34 +1,17 @@
 package com.eng.ashm.buschool.ui.adapter;
 
-import androidx.annotation.NonNull;
-import androidx.constraintlayout.widget.VirtualLayout;
-import androidx.recyclerview.widget.RecyclerView;
-
-import android.animation.Animator;
-import android.animation.AnimatorListenerAdapter;
-import android.animation.ObjectAnimator;
-import android.animation.ValueAnimator;
-import android.graphics.Color;
-import android.transition.AutoTransition;
-import android.transition.ChangeBounds;
-import android.transition.Fade;
-import android.transition.Slide;
-import android.transition.Transition;
-import android.transition.TransitionManager;
-import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.ViewPropertyAnimator;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.view.animation.Animation;
-import android.view.animation.LinearInterpolator;
+
+import androidx.annotation.NonNull;
+import androidx.recyclerview.widget.RecyclerView;
 
 import com.eng.ashm.buschool.R;
 import com.eng.ashm.buschool.data.datamodel.Trip;
 import com.eng.ashm.buschool.databinding.TripListItemBinding;
 import com.eng.ashm.buschool.ui.animation.ListItemAnimation;
-
 
 import java.util.ArrayList;
 
@@ -50,8 +33,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripListViewHo
     @Override
     public void onBindViewHolder(final TripListViewHolder holder, int position) {
         //trip data
-        holder.tripItemBinding.parentItemTripNum.setText("رحلة رقم : " + tripList.get(position).tripNum);
-        holder.tripItemBinding.parentItemTripState.setText(tripList.get(position).tripState);
+        holder.tripItemBinding.testTripItemNum.setText("رحلة رقم : " + tripList.get(position).tripNum);
+        holder.tripItemBinding.testTripItemState.setText(tripList.get(position).tripState);
         holder.tripItemBinding.parentItemTripStDateTv.setText(tripList.get(position).startTime);
         holder.tripItemBinding.parentItemTripEndDateTv.setText(tripList.get(position).endTime);
         // car data
@@ -67,9 +50,18 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripListViewHo
     public int getItemCount() {
         return tripList.size();
     }
+
+    /**
+     *
+     * @param itemClickListener
+     */
     public void setOnItemClickListener(OnItemClickListener itemClickListener){
         this.itemClickListener = itemClickListener;
     }
+
+    /**
+     *
+     */
     public interface OnItemClickListener{
         void onItemClicked(Trip trip);
     }
@@ -85,12 +77,13 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripListViewHo
             tripItemBinding.parentItemExpandBtn.setOnClickListener(expandViewListener);
             tripItemBinding.parentDisplayTripBtn.setOnClickListener(displayTripListener);
         }
-        View.OnClickListener cardClickListener = new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                if (itemClickListener != null)
-                    itemClickListener.onItemClicked(tripList.get(getAbsoluteAdapterPosition()));
-            }
+
+        /**
+         *
+         */
+        View.OnClickListener cardClickListener = v -> {
+            if (itemClickListener != null)
+                itemClickListener.onItemClicked(tripList.get(getAbsoluteAdapterPosition()));
         };
         View.OnClickListener carProfileListener = v -> {
 

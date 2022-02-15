@@ -7,12 +7,6 @@ import com.eng.ashm.buschool.data.datamodel.Parent;
 import com.eng.ashm.buschool.data.datamodel.Student;
 import com.eng.ashm.buschool.data.datamodel.Trip;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Observable;
-import java.util.Observer;
-import java.util.TreeSet;
-
 public class FirestroreRepository {
 
     public final DataListObservable<IFirestoreDataModel> requestListObservable = new DataListObservable();

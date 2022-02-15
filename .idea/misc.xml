@@ -4,14 +4,16 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Projects/BusSchool/app/src/main/res/drawable/circle_img.xml" value="0.175" />
+        <entry key="..\:/Projects/BusSchool/app/src/main/res/font/arabic_font.xml" value="0.23958333333333334" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout-w936dp/login_layout.xml" value="0.2" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/activity_login.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/activity_main.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/activity_main2.xml" value="0.1953125" />
+        <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/car_profile_activity.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/driver_activity.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/driver_car_accept_activty.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/driver_main_activity.xml" value="0.209375" />
-        <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/driver_profile_activity.xml" value="0.209375" />
+        <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/driver_profile_activity.xml" value="0.25" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/driver_registeration_activity.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/driver_requested_trips_fragment.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/driver_student_list_fragment.xml" value="0.209375" />
@@ -20,6 +22,7 @@
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/driver_trip_fragment.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/driver_trip_item_fragment.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/driver_trip_list_fragment.xml" value="0.1953125" />
+        <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/frst_scene.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/login_layout.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/management_activity.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/management_activity_layout.xml" value="0.209375" />
@@ -30,10 +33,11 @@
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/management_driver_item.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/management_driver_list.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/management_driver_profile_activity.xml" value="0.209375" />
-        <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/management_new_bus_activity.xml" value="0.209375" />
-        <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/management_new_parent_activity.xml" value="0.209375" />
+        <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/management_new_bus_activity.xml" value="0.22" />
+        <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/management_new_driver_activity.xml" value="0.25" />
+        <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/management_new_parent_activity.xml" value="0.25" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/management_new_student_activity.xml" value="0.209375" />
-        <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/management_new_trip_activity.xml" value="0.209375" />
+        <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/management_new_trip_activity.xml" value="0.25" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/management_parent_fragment.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/management_parent_item.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/management_parent_profile_activity.xml" value="0.209375" />
@@ -49,6 +53,7 @@
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/mangement_registeration_activity.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/parent_activity.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/parent_ativity.xml" value="0.209375" />
+        <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/parent_profile_activity.xml" value="0.22" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/parent_profile_fragment.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/parent_registeration_activity.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/parent_trip.xml" value="0.209375" />
@@ -56,10 +61,11 @@
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/parent_trip_fragment.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/parent_trip_item.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/search_activity.xml" value="0.209375" />
+        <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/student_profile_activity.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/test_activity.xml" value="0.209375" />
-        <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/trip_list_item.xml" value="0.1962962962962963" />
+        <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/trip_list_item.xml" value="0.22" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/trip_list_layout.xml" value="0.209375" />
-        <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/trip_profile_layout.xml" value="0.209375" />
+        <entry key="..\:/Projects/BusSchool/app/src/main/res/layout/trip_profile_layout.xml" value="0.25" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/menu/driver_menu_nav.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/menu/management_nav.xml" value="0.209375" />
         <entry key="..\:/Projects/BusSchool/app/src/main/res/menu/paren_menu_nav.xml" value="0.209375" />

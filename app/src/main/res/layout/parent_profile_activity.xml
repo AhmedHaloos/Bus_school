@@ -1,0 +1,401 @@
+<?xml version="1.0" encoding="utf-8"?>
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:padding="0dp">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="@drawable/background_8">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            android:padding="4dp"
+            android:weightSum="7"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/driver_name">
+
+            <LinearLayout
+                android:id="@+id/linearLayout4"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:elevation="3dp"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                android:padding="4dp"
+                android:textDirection="rtl"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/textView14"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/noto_kufi_arabic_semi_bold"
+                    android:layoutDirection="rtl"
+                    android:padding="4dp"
+                    android:text="العمر "
+                    android:textAlignment="center"
+                    android:textColor="#C51162"
+                    android:textDirection="rtl"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView15"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#00B8D4"
+                    android:fontFamily="@font/noto_kufi_arabic_light"
+                    android:layoutDirection="rtl"
+                    android:padding="8dp"
+                    android:text="سن ولى الامر"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textDirection="rtl" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="8dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:elevation="3dp"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                android:padding="4dp"
+                android:textDirection="rtl"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/textView7"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/noto_kufi_arabic_semi_bold"
+                    android:layoutDirection="rtl"
+                    android:padding="4dp"
+                    android:text="الايميل"
+                    android:textAlignment="center"
+                    android:textColor="#C51162"
+                    android:textDirection="rtl"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView8"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#00B8D4"
+                    android:fontFamily="@font/noto_kufi_arabic_light"
+                    android:layoutDirection="rtl"
+                    android:padding="8dp"
+                    android:text="ايميل ولى الامر"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textDirection="rtl" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/linearLayout3"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginStart="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginEnd="8dp"
+                android:layout_weight="1"
+                android:elevation="3dp"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                android:padding="4dp"
+                android:textDirection="rtl"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/textView12"
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/noto_kufi_arabic_semi_bold"
+                    android:layoutDirection="rtl"
+                    android:padding="4dp"
+                    android:text="الهاتف"
+                    android:textAlignment="center"
+                    android:textColor="#C51162"
+                    android:textDirection="rtl"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView13"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="6"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#00B8D4"
+                    android:fontFamily="@font/noto_kufi_arabic_light"
+                    android:layoutDirection="rtl"
+                    android:padding="8dp"
+                    android:text="هاتف ولى الامر"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textDirection="rtl" />
+
+                <ImageButton
+                    android:id="@+id/driver_call_btn"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_marginRight="4dp"
+                    android:layout_weight="2"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#00B8D4"
+                    android:padding="4dp"
+                    app:srcCompat="@drawable/phone_icon" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:elevation="3dp"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                android:padding="4dp"
+                android:textDirection="rtl"
+                android:weightSum="10">
+
+                <TextView
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/noto_kufi_arabic_semi_bold"
+                    android:layoutDirection="rtl"
+                    android:padding="4dp"
+                    android:text="العنوان"
+                    android:textAlignment="center"
+                    android:textColor="#C51162"
+                    android:textDirection="rtl"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#00B8D4"
+                    android:fontFamily="@font/noto_kufi_arabic_light"
+                    android:layoutDirection="rtl"
+                    android:padding="8dp"
+                    android:text="عنوان ولى الامر"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textDirection="rtl" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:elevation="3dp"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                android:padding="4dp"
+                android:textDirection="rtl"
+                android:weightSum="10">
+
+                <TextView
+
+                    android:layout_width="0dp"
+                    android:layout_height="wrap_content"
+                    android:layout_margin="4dp"
+                    android:layout_weight="2"
+                    android:fontFamily="@font/noto_kufi_arabic_semi_bold"
+                    android:layoutDirection="rtl"
+                    android:padding="4dp"
+                    android:text="الوظيفة"
+                    android:textAlignment="center"
+                    android:textColor="#C51162"
+                    android:textDirection="rtl"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="8"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#00B8D4"
+                    android:fontFamily="@font/noto_kufi_arabic_light"
+                    android:layoutDirection="rtl"
+                    android:padding="8dp"
+                    android:text="وظيفة ولى الامر"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textDirection="rtl" />
+
+            </LinearLayout>
+
+            <LinearLayout
+
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:elevation="3dp"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                android:padding="4dp"
+                android:textDirection="rtl"
+                android:weightSum="10"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/linearLayout">
+
+                <TextView
+
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:fontFamily="@font/noto_kufi_arabic_semi_bold"
+                    android:layoutDirection="rtl"
+                    android:padding="4dp"
+                    android:text="اسم المستخدم "
+                    android:textAlignment="textStart"
+                    android:textColor="#C51162"
+                    android:textDirection="rtl"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#00B8D4"
+                    android:fontFamily="@font/noto_kufi_arabic_light"
+                    android:layoutDirection="rtl"
+                    android:padding="8dp"
+                    android:text="اسم المستخدم "
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textDirection="rtl" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:id="@+id/driver_username_layout"
+                android:layout_width="match_parent"
+                android:layout_height="0dp"
+                android:layout_marginLeft="8dp"
+                android:layout_marginTop="4dp"
+                android:layout_marginRight="8dp"
+                android:layout_weight="1"
+                android:elevation="3dp"
+                android:layoutDirection="rtl"
+                android:orientation="horizontal"
+                android:padding="4dp"
+                android:textDirection="rtl"
+                android:weightSum="10">
+
+                <TextView
+                    android:id="@+id/textView10"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="4dp"
+                    android:layout_marginRight="4dp"
+                    android:fontFamily="@font/noto_kufi_arabic_semi_bold"
+                    android:layoutDirection="rtl"
+                    android:padding="4dp"
+                    android:text="كلمة السر"
+                    android:textAlignment="textStart"
+                    android:textColor="#C51162"
+                    android:textDirection="rtl"
+                    android:textSize="16sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:id="@+id/textView11"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="10"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#00B8D4"
+                    android:fontFamily="@font/noto_kufi_arabic_light"
+                    android:layoutDirection="rtl"
+                    android:padding="8dp"
+                    android:text="كلمة السر"
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textDirection="rtl" />
+            </LinearLayout>
+        </LinearLayout>
+
+        <ImageView
+            android:id="@+id/imageView"
+            android:layout_width="150dp"
+            android:layout_height="150dp"
+
+            android:layout_marginTop="100dp"
+            android:layout_marginBottom="24dp"
+            android:elevation="3dp"
+            app:layout_constraintBottom_toTopOf="@+id/driver_name"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.498"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:srcCompat="@drawable/profile_icon" />
+
+        <TextView
+            android:id="@+id/driver_name"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dp"
+            android:fontFamily="@font/noto_kufi_arabic_semi_bold"
+            android:text="اسم ولى الامر"
+            android:textAlignment="center"
+            android:textColor="#AA00FF"
+            android:textSize="34sp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toBottomOf="@+id/imageView" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

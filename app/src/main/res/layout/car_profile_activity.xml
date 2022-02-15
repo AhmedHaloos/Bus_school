@@ -4,13 +4,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_8"
+    android:background="#EDEDED"
     android:padding="4dp">
 
     <LinearLayout
+        android:id="@+id/linearLayout10"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="8dp"
         android:orientation="vertical"
+        android:weightSum="5"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/driver_name">
@@ -18,10 +21,11 @@
         <LinearLayout
             android:id="@+id/linearLayout4"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginStart="8dp"
             android:layout_marginTop="4dp"
             android:layout_marginEnd="8dp"
+            android:layout_weight="1"
             android:elevation="3dp"
             android:gravity="center"
             android:layoutDirection="rtl"
@@ -35,14 +39,14 @@
 
             <TextView
                 android:id="@+id/textView14"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:layout_weight="2"
                 android:fontFamily="@font/noto_kufi_arabic_semi_bold"
                 android:layoutDirection="rtl"
                 android:padding="4dp"
-                android:text="العمر "
+                android:text="نوع السيارة "
                 android:textAlignment="center"
                 android:textColor="#C51162"
                 android:textDirection="rtl"
@@ -68,10 +72,11 @@
         <LinearLayout
             android:id="@+id/linearLayout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
+            android:layout_weight="1"
             android:elevation="3dp"
             android:gravity="center"
             android:layoutDirection="rtl"
@@ -85,14 +90,14 @@
 
             <TextView
                 android:id="@+id/textView7"
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:layout_weight="2"
                 android:fontFamily="@font/noto_kufi_arabic_semi_bold"
                 android:layoutDirection="rtl"
                 android:padding="4dp"
-                android:text="الايميل"
+                android:text="موديل السيارة "
                 android:textAlignment="center"
                 android:textColor="#C51162"
                 android:textDirection="rtl"
@@ -116,71 +121,12 @@
         </LinearLayout>
 
         <LinearLayout
-            android:id="@+id/linearLayout3"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginStart="8dp"
-            android:layout_marginTop="4dp"
-            android:layout_marginEnd="8dp"
-            android:elevation="3dp"
-            android:gravity="center"
-            android:layoutDirection="rtl"
-            android:orientation="horizontal"
-            android:padding="4dp"
-            android:textDirection="rtl"
-            android:weightSum="10"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/driver_username_layout">
-
-            <TextView
-                android:id="@+id/textView12"
-                android:layout_width="0dp"
-                android:layout_height="wrap_content"
-                android:layout_margin="4dp"
-                android:layout_weight="2"
-                android:fontFamily="@font/noto_kufi_arabic_semi_bold"
-                android:layoutDirection="rtl"
-                android:padding="4dp"
-                android:text="الهاتف"
-                android:textAlignment="center"
-                android:textColor="#C51162"
-                android:textDirection="rtl"
-                android:textSize="16sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:id="@+id/textView13"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_weight="6"
-                android:background="@drawable/border"
-                android:backgroundTint="#00B8D4"
-                android:fontFamily="@font/noto_kufi_arabic_light"
-                android:layoutDirection="rtl"
-                android:padding="8dp"
-                android:text="name"
-                android:textAlignment="textStart"
-                android:textColor="#000000"
-                android:textDirection="rtl" />
-
-            <ImageButton
-                android:id="@+id/driver_call_btn"
-                android:layout_width="0dp"
-                android:layout_height="match_parent"
-                android:layout_marginRight="4dp"
-                android:layout_weight="2"
-                android:background="@drawable/border"
-                android:backgroundTint="#00B8D4"
-                app:srcCompat="@drawable/phone_icon" />
-        </LinearLayout>
-
-        <LinearLayout
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="4dp"
             android:layout_marginRight="8dp"
+            android:layout_weight="1"
             android:elevation="3dp"
             android:gravity="center"
             android:layoutDirection="rtl"
@@ -194,14 +140,14 @@
 
             <TextView
 
-                android:layout_width="0dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="4dp"
                 android:layout_weight="2"
                 android:fontFamily="@font/noto_kufi_arabic_semi_bold"
                 android:layoutDirection="rtl"
                 android:padding="4dp"
-                android:text="العنوان"
+                android:text="لون السيارة "
                 android:textAlignment="center"
                 android:textColor="#C51162"
                 android:textDirection="rtl"
@@ -223,13 +169,15 @@
                 android:textColor="#000000"
                 android:textDirection="rtl" />
         </LinearLayout>
+
         <LinearLayout
 
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="4dp"
             android:layout_marginRight="8dp"
+            android:layout_weight="1"
             android:elevation="3dp"
             android:gravity="center"
             android:layoutDirection="rtl"
@@ -250,7 +198,7 @@
                 android:fontFamily="@font/noto_kufi_arabic_semi_bold"
                 android:layoutDirection="rtl"
                 android:padding="4dp"
-                android:text="اسم المستخدم "
+                android:text="عدد مقاعد السيارة "
                 android:textAlignment="textStart"
                 android:textColor="#C51162"
                 android:textDirection="rtl"
@@ -272,13 +220,15 @@
                 android:textColor="#000000"
                 android:textDirection="rtl" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/driver_username_layout"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="0dp"
             android:layout_marginLeft="8dp"
             android:layout_marginTop="4dp"
             android:layout_marginRight="8dp"
+            android:layout_weight="1"
             android:elevation="3dp"
             android:gravity="center"
             android:layoutDirection="rtl"
@@ -299,7 +249,7 @@
                 android:fontFamily="@font/noto_kufi_arabic_semi_bold"
                 android:layoutDirection="rtl"
                 android:padding="4dp"
-                android:text="كلمة السر"
+                android:text="موديل السيارة "
                 android:textAlignment="textStart"
                 android:textColor="#C51162"
                 android:textDirection="rtl"
@@ -328,7 +278,7 @@
         android:layout_width="150dp"
         android:layout_height="150dp"
 
-        android:layout_marginTop="100dp"
+        android:layout_marginTop="50dp"
         android:layout_marginBottom="24dp"
         android:elevation="3dp"
         app:layout_constraintBottom_toTopOf="@+id/driver_name"
@@ -336,7 +286,7 @@
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:srcCompat="@drawable/profile_icon" />
+        app:srcCompat="@drawable/bus_image" />
 
     <TextView
         android:id="@+id/driver_name"
@@ -344,7 +294,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/noto_kufi_arabic_semi_bold"
-        android:text="اسم السائق"
+        android:text="رقم السيارة "
         android:textAlignment="center"
         android:textColor="#AA00FF"
         android:textSize="34sp"

@@ -1,63 +1,133 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_3"
-    android:gravity="center_horizontal|center_vertical"
-    android:orientation="vertical">
+    android:layout_gravity="center"
+    android:animateLayoutChanges="true"
+    android:background="#FFFFFF"
+    android:backgroundTint="#FFFFFF"
+    android:gravity="center">
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/management_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="64dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="#2962FF"
-        android:gravity="center"
-        android:src="@android:drawable/ic_input_add"
-        android:text="الإدارة"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold|italic"></com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
+    <androidx.core.widget.NestedScrollView
+        style="@style/management_cardview_style"
+        android:layout_gravity="center"
+        android:background="#FFFFFF"
+        android:backgroundTint="#FFFFFF">
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/driver_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="#2962FF"
-        android:gravity="center"
-        android:src="@android:drawable/ic_input_add"
-        android:text="السائق"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold|italic">
+        <TableLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layout_gravity="center"
+            android:background="#FFFFFF"
+            android:backgroundTint="#FFFFFF"
+            android:gravity="center">
 
-    </com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_gravity="center"
+                android:background="#FFFFFF"
+                android:backgroundTint="#FFFFFF"
+                android:gravity="center"
+                android:padding="4dp">
 
-    <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/parent_btn"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_gravity="right"
-        android:layout_marginStart="32dp"
-        android:layout_marginEnd="32dp"
-        android:layout_marginBottom="24dp"
-        android:backgroundTint="#2962FF"
-        android:gravity="center"
-        android:src="@android:drawable/ic_input_add"
-        android:text="ولى الأمر"
-        android:textAlignment="center"
-        android:textColor="#000000"
-        android:textSize="24sp"
-        android:textStyle="bold|italic"></com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton>
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/management_store"
+                    style="@style/management_cardview_style"
+                    android:background="#FFFFFF"
+                    android:backgroundTint="#FFFFFF">
+
+                    <LinearLayout
+                        style="@style/management_linearlayout_style"
+                        android:background="#FFFFFF"
+                        android:backgroundTint="#FFFFFF">
+
+                        <ImageView
+                            style="@style/management_imageview_style"
+                            android:background="#FFFFFF"
+                            android:backgroundTint="#FFFFFF" />
+
+                        <TextView
+                            style="@style/management_textview_style"
+                            android:layout_height="wrap_content"
+                            android:background="#FFFFFF"
+                            android:backgroundTint="#FFFFFF"
+                            android:text="ادارة المدرسة "
+                            android:textColor="#000000"
+                            android:textSize="24sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/management_offer"
+                    style="@style/management_cardview_style"
+                    android:background="#FFFFFF"
+                    android:backgroundTint="#FFFFFF">
+
+                    <LinearLayout
+                        style="@style/management_linearlayout_style"
+                        android:background="#FFFFFF"
+                        android:backgroundTint="#FFFFFF">
+
+                        <ImageView
+                            style="@style/management_imageview_style"
+                            android:background="#FFFFFF"
+                            android:backgroundTint="#FFFFFF" />
+
+                        <TextView
+                            style="@style/management_textview_style"
+                            android:layout_height="wrap_content"
+                            android:background="#FFFFFF"
+                            android:backgroundTint="#FFFFFF"
+                            android:text="السائق"
+                            android:textAlignment="center"
+                            android:textColor="#000000"
+                            android:textSize="24sp" />
+                    </LinearLayout>
+
+                </com.google.android.material.card.MaterialCardView>
+            </TableRow>
+
+            <TableRow
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:layout_gravity="center"
+                android:background="#FFFFFF"
+                android:backgroundTint="#FFFFFF"
+                android:gravity="center"
+                android:padding="4dp">
+
+                <com.google.android.material.card.MaterialCardView
+                    android:id="@+id/management_sell"
+                    style="@style/management_cardview_style"
+                    android:background="#FFFFFF"
+                    android:backgroundTint="#FFFFFF">
+
+                    <LinearLayout
+                        style="@style/management_linearlayout_style"
+                        android:background="#FFFFFF"
+                        android:backgroundTint="#FFFFFF">
+
+                        <ImageView
+                            style="@style/management_imageview_style"
+                            android:background="#FFFFFF"
+                            android:backgroundTint="#FFFFFF" />
+
+                        <TextView
+                            style="@style/management_textview_style"
+                            android:layout_height="wrap_content"
+                            android:background="#FFFFFF"
+                            android:backgroundTint="#FFFFFF"
+                            android:text="ولى الامر"
+                            android:textAlignment="center"
+                            android:textColor="#000000"
+                            android:textSize="24sp" />
+                    </LinearLayout>
+                </com.google.android.material.card.MaterialCardView>
+
+            </TableRow>
+
+        </TableLayout>
+    </androidx.core.widget.NestedScrollView>
 </LinearLayout>
