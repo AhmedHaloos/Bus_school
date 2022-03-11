@@ -18,41 +18,23 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 
+import com.eng.ashm.buschool.data.datamodel.Trip;
 import com.eng.ashm.buschool.databinding.DriverTripActivityBinding;
 import com.eng.ashm.buschool.databinding.ManagementTripActivityBinding;
-import com.eng.ashm.buschool.databinding.ParentTripActivityBinding;
+import com.eng.ashm.buschool.databinding.TripProfileLayoutBinding;
 
 public class TripProfileActivity  extends AppCompatActivity {
 
-    DriverTripActivityBinding driverBinding;
-    ManagementTripActivityBinding managementBinding;
-    ParentTripActivityBinding parentBinding;
-    private int requestingDiv = ERROR_REQUEST;
-    View currentView = null;
+
+    TripProfileLayoutBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        driverBinding = DriverTripActivityBinding.inflate(getLayoutInflater());
-        managementBinding = ManagementTripActivityBinding.inflate(getLayoutInflater());
-        parentBinding = ParentTripActivityBinding.inflate(getLayoutInflater());
-        Intent intent = getIntent();
-        requestingDiv = intent.getIntExtra(LAUNCH_TRIP_ACTIVITY_REQUEST , ERROR_REQUEST);
-        switch (requestingDiv){
-            case DRIVER_TRIP_ACTIVITY_REQUEST:
-                currentView = driverBinding.getRoot();
-                break;
-            case PARENT_TRIP_ACTIVITY_REQUEST:
-                currentView = parentBinding.getRoot();
-                break;
-            case MANAGEMENT_TRIP_ACTIVITY_REQUEST:
-                currentView = managementBinding.getRoot();
-                break;
-            default:
-                showDialog("no data to display on the activity");
-                finish();
-        }
-        setContentView(currentView);
+        binding = TripProfileLayoutBinding.inflate(getLayoutInflater());
+        Trip trip = (Trip)getIntent().getSerializableExtra(Trip.COLLECTION);
+        displayTrip(trip);
+        setContentView(binding.getRoot());
     }
 
     /**
@@ -82,5 +64,27 @@ public class TripProfileActivity  extends AppCompatActivity {
 
                 })
                 .create();
+    }
+
+    /**
+     *
+     * @param trip
+     */
+    private void displayTrip(Trip trip){
+        //driver
+        binding.tripProfileDriverName.setText(trip.tripDriver.name);
+        binding.tripProfileDriverPhone.setText(trip.tripDriver.phone);
+        //car
+        binding.tripProfileCarNum.setText(trip.bus.carNum);
+        binding.tripProfileCarSeats.setText(trip.bus.noOfSeats);
+        //trip data
+        binding.tripProfileTripNum.setText(trip.tripNum + "");
+        binding.tripProfileTripState.setText(trip.tripState);
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding = null;
     }
 }

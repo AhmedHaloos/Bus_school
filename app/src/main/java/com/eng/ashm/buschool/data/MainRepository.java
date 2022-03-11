@@ -1,32 +1,39 @@
 package com.eng.ashm.buschool.data;
 
-import androidx.lifecycle.MutableLiveData;
+import android.content.Context;
+import android.widget.Toast;
 
 import com.eng.ashm.buschool.data.datamodel.DataListObservable;
 
+import java.util.ArrayList;
 import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
 import java.util.concurrent.ExecutorService;
 import java.util.concurrent.Executors;
 
 /**
- * Repository class for getting data from fireStore database
+ * Repository class for getting data from fireStore database.
+ * determine the datasource to get the data from
+ * provide the result data in observables
  */
 public class MainRepository {
 
-    // constants
-    public static final int EMPTY = 10;
-    public static final int AVAILABLE = 20;
-    public static final int DATA_NOT_AVAILABLE = 30;
-    public static final int DATA_AVAILABLE = 30;
+    public final DataListObservable<IDataModel> mainRequestListObservable = new DataListObservable();
+    public final DataListObservable<IDataModel> mainSearchListObservable = new DataListObservable();
+    public final DataListObservable<Boolean> mainAddObservable = new DataListObservable();
+    public final DataListObservable<Boolean> mainUpdateObservable = new DataListObservable();
+    public final DataListObservable<Boolean> mainDeleteObservable = new DataListObservable();
 
     //fields
-    private FirestoreDataSource firestoreDataSource = FirestoreDataSource.createInstance();
-    private DataListObservable<Result<IFirestoreDataModel>> dataListObservable = firestoreDataSource.list;
-    public final MutableLiveData<IFirestoreDataModel> resultLiveData = new MutableLiveData<>();
+    public DataListObservable<IDataModel> dataListObservable = new DataListObservable<>();
 
     private static CacheRepository cacheRepository;
     private static FirestroreRepository firestroreRepository;
     private static MainRepository repositoryInstance = null;
+    private static Context context;
+    private Object value = null;
+    private Class<? extends IDataModel> customClass = null;
     ExecutorService executor = Executors.newCachedThreadPool();
 
 
@@ -36,54 +43,117 @@ public class MainRepository {
      * create instance from the MAinRepository class
      * @return
      */
-    public static final MainRepository getInstance(){
-        if (repositoryInstance == null)
+    public static final MainRepository getInstance(Context context){
+        //if (repositoryInstance == null){
+            MainRepository.context = context;
             repositoryInstance = new MainRepository();
-        firestroreRepository = FirestroreRepository.getInstance();
-        cacheRepository = CacheRepository.getInstance();
+            firestroreRepository = FirestroreRepository.getInstance();
+            cacheRepository = CacheRepository.getInstance(context);
+      //  }
         return repositoryInstance;
-    }
-    /**
-     * add observers to the observable dataListObservable object to get notification
-     * when FirestoreDataSource retrieve the data and add it to the observable.
-     * it check if the retrieved result state: if succeed the add the data to
-     * the liveData or
-     */
-    private void observeDataList(){
-        dataListObservable.addObserver(((o, arg) -> {
-            List<Result<IFirestoreDataModel>> list = (List<Result<IFirestoreDataModel>>) arg;
-            for (Result<IFirestoreDataModel> result: list) {
-                if(result.STATE == Result.SUCCEED){
-                    resultLiveData.setValue(result.getResult());
-                }
-                else if(result.STATE == Result.ERROR)
-                    resultLiveData.setValue(null);
-            }
-        }));
-    }
-    /**
-     * check  if the data cached in the app room is exist ir not, or check
-     * if the app room is empty or not
-     * @return the state of the room
-     */
-    private int checkCacheData(){
-        return 0;
     }
     /**
      * Cache/Room database handling -> data requests not
      * all the cache data.
      */
+    private boolean addDataCache(IDataModel dataModel){
+        return cacheRepository.addDataCache(dataModel);
+    }
+    private boolean updateDataCache(IDataModel updatedData){
+        return cacheRepository.updateDataCache(updatedData);
+    }
+    private boolean deleteDataCache(IDataModel deletedData){
+        return cacheRepository.deleteDataCache(deletedData);
+    }
+    private List<? extends IDataModel> requestDataListCache(Class<? extends IDataModel> customClass){
+        return cacheRepository.requestDataList(customClass);
+    }
+    private List<? extends IDataModel> searchDataCache(Object searchCondition, Class<? extends IDataModel> customClass){
+        return cacheRepository.searchData(searchCondition, customClass);
+    }
 
     /**
      * update the data cache after download data from
      * fireStore.
+     * @param updatedList:
      */
-    private void updateCache(){}
+    private void updateCache(List< ? extends IDataModel> updatedList){
+        if (updatedList.isEmpty() || updatedList == null)
+            return;
+        List<? extends IDataModel> cacheList = cacheRepository.requestDataList(updatedList
+                .get(0).getClass());
+        for (IDataModel dataModel: cacheList){
+            cacheRepository.deleteDataCache(dataModel);
+        }
+        for (IDataModel dataModel : updatedList){
+            cacheRepository.addDataCache(dataModel);
+        }
+    }
+
+    // FireStore db handling
 
     /**
-     * fill the cache with data loaded from fireStore
+     *
+     * @param requestClass
      */
-    private void fillCache(){}
+    private void requestDataListOnline(Class<? extends IDataModel> requestClass){
+        firestroreRepository.requestListFirestore(requestClass);
+        firestroreRepository.requestListObservable.addObserver(new Observer() {
+            @Override
+            public void update(Observable o, Object arg) {
+                mainRequestListObservable.updateList((List<? extends IDataModel>)arg);
+                updateCache((ArrayList<? extends IDataModel>)arg);
+            }
+        });
+    }
+    /**
+     *
+     * @param addedData
+     */
+    private void addDataOnline(IDataModel addedData){
+        firestroreRepository.addDataFirestore(addedData);
+        firestroreRepository.addObservable.addObserver(new Observer() {
+            @Override
+            public void update(Observable o, Object arg) {
+                if (arg != null)
+                mainAddObservable.addElement(true);
+                else mainAddObservable.addElement(false);
+            }
+        });
+    }
+    /**
+     *
+     * @param deletedData
+     */
+    private void deleteDataOnline(IDataModel deletedData){
+        firestroreRepository.addDataFirestore(deletedData);
+        firestroreRepository.deleteObservable.addObserver(new Observer() {
+            @Override
+            public void update(Observable o, Object arg) {
+                if (arg != null)
+                    mainDeleteObservable.addElement(true);
+                else mainDeleteObservable.addElement(false);
+            }
+        });
+
+    }
+    /**
+     *
+     * @param updatedData
+     */
+    private void updateDataOnline(IDataModel updatedData){
+        firestroreRepository.addDataFirestore(updatedData);
+        firestroreRepository.updateObservable.addObserver(new Observer() {
+            @Override
+            public void update(Observable o, Object arg) {
+                if (arg != null)
+                    mainUpdateObservable.addElement(true);
+                else mainUpdateObservable.addElement(false);
+            }
+        });
+    }
+
+
     /**
      * Firestore database handling -> data requests not all the
      * fireStore data
@@ -102,15 +172,115 @@ public class MainRepository {
      */
     public void requestData(){
     }
-    public void requestList(Class<? extends IFirestoreDataModel> c){
+    public void requestList(Class<? extends IDataModel> c){
+        customClass = c;
+        firestroreRepository.requestListFirestore(c);
+        firestroreRepository.requestListObservable.addObserver(itemListObserver);
     }
-    public void searchData(String field, Object value){
+    /**
+     *
+     * @param value
+     * @param customClass
+     */
+    public void searchData(Object value, Class<? extends IDataModel> customClass){
+        this.value = value;
+        this.customClass = customClass;
+        firestroreRepository.requestListFirestore(customClass);
+        firestroreRepository.requestListObservable.addObserver(itemSearchObserver);
     }
-    public void updateData(IFirestoreDataModel updatedDataModel){
+    /**
+     *
+     * @param updatedDataModel
+     */
+    public void updateData(IDataModel updatedDataModel){
+        cacheRepository.updateDataCache(updatedDataModel);
+        firestroreRepository.updateDataFirestore(updatedDataModel, updatedDataModel.getClass());
+        firestroreRepository.updateObservable.addObserver(itemUpdateObserver);
     }
-    public void addData(IFirestoreDataModel dataModel){
+    /**
+     *
+     * @param dataModel
+     */
+    public void addData(IDataModel dataModel){
+        cacheRepository.addDataCache(dataModel);
+        firestroreRepository.addDataFirestore(dataModel);
+        firestroreRepository.addObservable.addObserver(itemAddObserver);
+    }
+    /**
+     *
+     * @param dataModel
+     */
+    public void deleteData(IDataModel dataModel){
+        cacheRepository.deleteDataCache(dataModel);
+        firestroreRepository.deleteDataFirestore(dataModel);
+        firestroreRepository.deleteObservable.addObserver(itemDeleteObserver);
+    }
+    /**
+     *
+     */
+    private Observer itemAddObserver = new Observer() {
+        @Override
+        public void update(Observable o, Object arg) {
+            if (arg != null)
+                mainAddObservable.addElement(true);
+            else mainAddObservable.addElement(false);
+        }
+    };
+    /**
+     *
+     */
+    private Observer itemUpdateObserver = new Observer() {
+        @Override
+        public void update(Observable o, Object arg) {
+            if (arg != null)
+                mainUpdateObservable.addElement(true);
+            else mainUpdateObservable.addElement(false);
+        }
+    };
+    /**
+     *
+     */
+    private Observer itemDeleteObserver = new Observer() {
+        @Override
+        public void update(Observable o, Object arg) {
+            if (arg != null)
+                mainDeleteObservable.addElement(true);
+            else mainDeleteObservable.addElement(false);
+        }
+    };
+    /**
+     *
+     */
+    private Observer itemListObserver = new Observer() {
+        @Override
+        public void update(Observable o, Object arg) {
+            List<? extends IDataModel> resultList = (List<? extends IDataModel>) arg;
+            if (arg != null) {
+                mainRequestListObservable.updateList(resultList);
+                updateCache(resultList);
+            }
+            else {
+                mainRequestListObservable.updateList(cacheRepository.requestDataList(customClass));
+            }
+        }
+    };
+    /**
+     *
+     */
+    private Observer itemSearchObserver = new Observer() {
+        @Override
+        public void update(Observable o, Object arg) {
+            if (arg != null){
+                List<? extends IDataModel> resultList = (List<? extends IDataModel>)arg;
+                updateCache(resultList);
+                List<? extends IDataModel> searchListResult = cacheRepository.searchData(value, customClass);
+                if(searchListResult != null || !searchListResult.isEmpty())
+                mainSearchListObservable.updateList(searchListResult);
+            }
+            else {
+                mainSearchListObservable.updateList(null);
+            }
 
-    }
-    public void deleteData(IFirestoreDataModel dataModel){
-    }
+        }
+    };
 }

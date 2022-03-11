@@ -1,5 +1,6 @@
 package com.eng.ashm.buschool.ui.fragment.driver;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -7,7 +8,10 @@ import android.view.ViewGroup;
 
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.eng.ashm.buschool.data.datamodel.Student;
@@ -15,13 +19,18 @@ import com.eng.ashm.buschool.data.datamodel.Trip;
 import com.eng.ashm.buschool.databinding.DriverStudentListFragmentBinding;
 import com.eng.ashm.buschool.ui.adapter.StudentAdapter;
 import com.eng.ashm.buschool.ui.adapter.TripAdapter;
+import com.eng.ashm.buschool.ui.viewmodel.DriverViewModel;
+import com.eng.ashm.buschool.ui.viewmodel.StudentViewModel;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 public class DisplayStudentsFragment extends Fragment {
 
     DriverStudentListFragmentBinding studentListBinding;
+    StudentViewModel studentViewModel;
+    StudentAdapter studentAdapter;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,7 +40,17 @@ public class DisplayStudentsFragment extends Fragment {
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
        studentListBinding = DriverStudentListFragmentBinding.inflate(inflater);
-       studentListBinding.driverStudentListRv.setAdapter(new StudentAdapter(createTestStudentList()));
+       if (studentAdapter == null)
+           studentAdapter = new StudentAdapter(new ArrayList<>());
+        studentViewModel = new ViewModelProvider(getActivity()).get(StudentViewModel.class);
+        studentViewModel.getAllStudents();
+        studentViewModel.requestStudentListResult.observe(getActivity(), new Observer<List<Student>>() {
+            @Override
+            public void onChanged(List<Student> students) {
+                studentAdapter.updateStudentList((ArrayList<Student>) students);
+            }
+        });
+        studentListBinding.driverStudentListRv.setAdapter(studentAdapter);
        studentListBinding.driverStudentListRv.setLayoutManager(new LinearLayoutManager(getContext()));
         return studentListBinding.getRoot();
     }
@@ -40,6 +59,16 @@ public class DisplayStudentsFragment extends Fragment {
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        studentListBinding = null;
+        studentViewModel.requestStudentListResult = null;
+        studentViewModel  = null;
+        studentAdapter = null;
+    }
+
     private ArrayList<Student> createTestStudentList(){
         ArrayList<Student> list = new ArrayList<>();
         for(int i = 0; i< 10; i++){

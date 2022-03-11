@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginTop="8dp"
+    android:layout_marginRight="8dp"
+    android:padding="4dp">
+
+    <TextView
+        android:id="@+id/search_item_first_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:fontFamily="@font/noto_sans_arabic_semi_condensed_semi_bold"
+        android:padding="4dp"
+        android:text="TextView"
+        android:textAlignment="textEnd"
+        android:textColor="#000000"
+        android:textDirection="rtl"
+        android:textSize="16sp"
+        android:textStyle="bold"
+        app:layout_constraintEnd_toStartOf="@+id/search_item_selecttion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/search_item_second_field"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_margin="8dp"
+        android:layout_marginLeft="4dp"
+        android:layout_marginRight="4dp"
+        android:fontFamily="@font/noto_sans_arabic_semi_condensed_semi_bold"
+        android:padding="4dp"
+        android:text="TextView"
+        android:textAlignment="textEnd"
+        android:textColor="#000000"
+        android:textDirection="rtl"
+        android:textSize="14sp"
+        app:layout_constraintEnd_toStartOf="@+id/search_item_selecttion"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/search_item_first_field" />
+
+    <CheckBox
+        android:id="@+id/search_item_selecttion"
+        style="@style/Widget.Material3.CompoundButton.CheckBox"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="4dp"
+        android:gravity="center"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/search_item_first_field"
+        app:layout_constraintTop_toTopOf="parent" />
+</androidx.constraintlayout.widget.ConstraintLayout>

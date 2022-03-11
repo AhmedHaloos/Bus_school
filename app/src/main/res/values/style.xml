@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
 
+
     <style name="add_btn_style" parent="Widget.MaterialComponents.ExtendedFloatingActionButton">
         <item name="android:textSize">18sp</item>
         <item name="android:textColor">@color/black</item>
@@ -14,7 +15,10 @@
         <item name="android:drawableRight">@android:drawable/ic_input_add</item>
         <item name="backgroundTint">@color/add_btn_color</item>
     </style>
-
+    <style name="roundedImageViewRounded">
+        <item name="cornerFamily">rounded</item>
+        <item name="cornerSize">50%</item>
+    </style>
     <style name="floating_button_theme" parent="Theme.BusSchool">
         <item name="colorSecondary">#000000</item>
     </style>

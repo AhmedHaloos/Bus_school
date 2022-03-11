@@ -1,46 +1,38 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout
-    xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:orientation="vertical">
+    android:layoutDirection="rtl"
+    android:orientation="vertical"
+    android:textDirection="rtl">
+
     <LinearLayout
         android:id="@+id/title_layout"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#7B1EFD"
         android:gravity="center"
+        android:layoutDirection="rtl"
         android:orientation="vertical"
+        android:textDirection="rtl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
 
-        <ImageView
-            android:id="@+id/new_car_pic"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_margin="8dp"
-            app:srcCompat="@drawable/profile_img_1" />
-
-        <Button
-            android:id="@+id/add_new_car_pic"
-            style="@style/Widget.MaterialComponents.Button.TextButton"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:text="اضف صورة"
-            android:textColor="@color/white" />
-
         <TextView
-            android:id="@+id/textView6"
+            android:id="@+id/new_trip_title"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_margin="8dp"
+            android:layout_marginTop="32dp"
+            android:layout_marginBottom="8dp"
             android:fontFamily="@font/noto_sans_arabic_semi_bold"
             android:gravity="center"
+            android:layoutDirection="rtl"
             android:text="بيانات الرحلة"
             android:textColor="#FFFFFF"
+            android:textDirection="rtl"
             android:textSize="34sp" />
     </LinearLayout>
 
@@ -48,7 +40,9 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#ECECEC"
-        android:orientation="vertical">
+        android:layoutDirection="rtl"
+        android:orientation="vertical"
+        android:textDirection="rtl">
 
         <com.google.android.material.textfield.TextInputLayout
             android:id="@+id/textInputLayout"
@@ -69,15 +63,18 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/title_layout"
-            app:startIconDrawable="@drawable/name_icon">
+            app:startIconDrawable="@drawable/age_icon">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_trip_num"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTintMode="src_in"
                 android:inputType="number|text"
+                android:layoutDirection="rtl"
                 android:textAlignment="textEnd"
-                android:textColor="#000000" />
+                android:textColor="#000000"
+                android:textDirection="rtl" />
         </com.google.android.material.textfield.TextInputLayout>
 
         <View
@@ -87,10 +84,12 @@
             android:layout_marginLeft="8dp"
             android:layout_marginTop="32dp"
             android:layout_marginRight="8dp"
-            android:background="?android:attr/listDivider" />
+            android:background="?android:attr/listDivider"
+            android:layoutDirection="rtl"
+            android:textDirection="rtl" />
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/add_new_trip_points"
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -98,7 +97,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="4dp"
-            android:backgroundTint="#304FFE"
+            android:backgroundTint="#515FAC"
             android:layoutDirection="rtl"
             android:text="اضافة نقاط التوقف"
             android:textAlignment="viewStart"
@@ -115,10 +114,12 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_margin="8dp"
-            android:background="?android:attr/listDivider" />
+            android:background="?android:attr/listDivider"
+            android:layoutDirection="rtl"
+            android:textDirection="rtl" />
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/add_new_trip_bus"
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -126,7 +127,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="4dp"
-            android:backgroundTint="#304FFE"
+            android:backgroundTint="#515FAC"
             android:layoutDirection="rtl"
             android:text="اضافة باص الرحلة"
             android:textAlignment="viewStart"
@@ -143,10 +144,12 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_margin="8dp"
-            android:background="?android:attr/listDivider" />
+            android:background="?android:attr/listDivider"
+            android:layoutDirection="rtl"
+            android:textDirection="rtl" />
 
         <Button
-            android:id="@+id/button5"
+            android:id="@+id/add_new_trip_driver"
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -154,7 +157,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="4dp"
-            android:backgroundTint="#304FFE"
+            android:backgroundTint="#515FAC"
             android:layoutDirection="rtl"
             android:text="اضافة سائق الرحلة"
             android:textAlignment="viewStart"
@@ -171,10 +174,12 @@
             android:layout_width="match_parent"
             android:layout_height="1dp"
             android:layout_margin="8dp"
-            android:background="?android:attr/listDivider" />
+            android:background="?android:attr/listDivider"
+            android:layoutDirection="rtl"
+            android:textDirection="rtl" />
 
         <Button
-            android:id="@+id/button6"
+            android:id="@+id/add_new_trip_student"
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
@@ -182,7 +187,7 @@
             android:layout_marginTop="4dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="4dp"
-            android:backgroundTint="#304FFE"
+            android:backgroundTint="#515FAC"
             android:layoutDirection="rtl"
             android:text="اضافة الطلبة "
             android:textAlignment="viewStart"
@@ -193,6 +198,52 @@
             app:icon="@drawable/arrow_lefy_icon"
             app:iconGravity="end"
             app:iconTint="#FFFFFF" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:layoutDirection="rtl"
+            android:orientation="horizontal"
+            android:textDirection="rtl">
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/add_new_trip_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:fontFamily="@font/noto_sans_arabic_condensed_semi_bold"
+                android:gravity="center"
+                android:layoutDirection="rtl"
+                android:padding="4dp"
+                android:text="إضافة"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textDirection="rtl"
+                app:backgroundTint="#00C853"
+                app:srcCompat="@android:drawable/btn_plus" />
+
+            <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+                android:id="@+id/cancel_add_trip_btn"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_gravity="bottom"
+                android:layout_margin="8dp"
+                android:layout_weight="1"
+                android:clickable="true"
+                android:fontFamily="@font/noto_sans_arabic_condensed_semi_bold"
+                android:gravity="center"
+                android:layoutDirection="rtl"
+                android:padding="4dp"
+                android:text="إلغاء"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
+                android:textDirection="rtl"
+                app:backgroundTint="#00C853"
+                app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
+        </LinearLayout>
 
     </LinearLayout>
 

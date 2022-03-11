@@ -6,7 +6,7 @@ package com.eng.ashm.buschool.data;
  */
 public class LoginDataSource {
 
-    public Result<IFirestoreDataModel> login(String username, String password) {
+    public Result<IDataModel> login(String username, String password) {
 
       return null;
     }

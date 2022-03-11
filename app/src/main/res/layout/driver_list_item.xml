@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="8dp"
+    android:layout_marginTop="4dp"
+    android:layout_marginRight="8dp"
+    android:layout_marginBottom="4dp"
+    android:background="@drawable/border"
+    android:backgroundTint="#D1D0D0"
+    android:orientation="vertical"
+    android:padding="4dp">
+
+    <LinearLayout
+        android:id="@+id/linearLayout4"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="4dp"
+        android:elevation="3dp"
+        android:gravity="center"
+        android:layoutDirection="rtl"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:textDirection="rtl"
+        android:weightSum="10">
+
+        <TextView
+            android:id="@+id/trip_item_num_tv"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="2"
+            android:fontFamily="@font/noto_kufi_arabic_semi_bold"
+            android:layoutDirection="rtl"
+            android:padding="4dp"
+            android:text="اسم السائق"
+            android:textAlignment="center"
+            android:textColor="#C51162"
+            android:textDirection="rtl"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/driver_item_name"
+            android:layout_width="0dp"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:background="@drawable/border"
+            android:backgroundTint="#00B8D4"
+            android:fontFamily="@font/noto_kufi_arabic_light"
+            android:layoutDirection="rtl"
+            android:padding="8dp"
+            android:text="20"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textDirection="rtl" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/trip_item_short_view"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:elevation="3dp"
+        android:gravity="center"
+        android:layoutDirection="rtl"
+        android:orientation="horizontal"
+        android:padding="4dp"
+        android:textDirection="rtl"
+        android:weightSum="10">
+
+        <TextView
+            android:id="@+id/textView14"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_margin="4dp"
+            android:layout_weight="2"
+            android:fontFamily="@font/noto_kufi_arabic_semi_bold"
+            android:layoutDirection="rtl"
+            android:padding="4dp"
+            android:text="هاتف السائق"
+            android:textAlignment="center"
+            android:textColor="#C51162"
+            android:textDirection="rtl"
+            android:textSize="16sp"
+            android:textStyle="bold" />
+
+        <TextView
+            android:id="@+id/driver_item_phone"
+            android:layout_width="wrap_content"
+            android:layout_height="match_parent"
+            android:layout_weight="8"
+            android:background="@drawable/border"
+            android:backgroundTint="#00B8D4"
+            android:fontFamily="@font/noto_kufi_arabic_light"
+            android:layoutDirection="rtl"
+            android:padding="8dp"
+            android:text="انتهت"
+            android:textAlignment="center"
+            android:textColor="#FFFFFF"
+            android:textDirection="rtl" />
+    </LinearLayout>
+</LinearLayout>

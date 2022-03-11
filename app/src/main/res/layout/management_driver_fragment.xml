@@ -3,87 +3,75 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
-
-    <TextView
-        android:id="@+id/textView"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layoutDirection="rtl"
-        android:padding="4dp"
-        android:text="السائقين"
-        android:textColor="#000000"
-        android:textDirection="rtl"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/management_car_rv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
+    android:layout_height="match_parent"
+    android:background="#F3F3F3"
+    android:layoutDirection="rtl"
+    android:textDirection="rtl">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/management_car_rv"
+        android:id="@+id/driver_list_rv"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="100dp"
+        android:layout_height="0dp"
         android:layoutDirection="rtl"
         android:padding="4dp"
         android:textDirection="rtl"
+        app:layout_constraintBottom_toTopOf="@+id/manage_add_new_driver"
         app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.5"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent">
-
-    </androidx.recyclerview.widget.RecyclerView>
-
-    <TextView
-        android:id="@+id/textView3"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:layoutDirection="rtl"
-        android:padding="4dp"
-        android:text="الباصات"
-        android:textColor="#000000"
-        android:textDirection="rtl"
-        android:textSize="24sp"
-        android:textStyle="bold"
-        app:layout_constraintBottom_toTopOf="@+id/management_driver_rv"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent" />
-
-    <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/management_driver_rv"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="50dp"
-        android:layoutDirection="rtl"
-        android:padding="4dp"
-        android:textDirection="rtl"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/management_car_rv" />
+        app:layout_constraintTop_toTopOf="parent" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/management_new_driver_btn"
+        android:id="@+id/disp_bus_list"
+        style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:text="اضافة  باص جديد"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:layout_marginBottom="4dp"
+        android:fontFamily="@font/noto_sans_arabic_extra_condensed_semi_bold"
+        android:layoutDirection="rtl"
+        android:text="عرض السيارات"
         android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textDirection="rtl"
+        android:textSize="16dp"
+        app:backgroundTint="#2C64FB"
+        app:cornerRadius="0dp"
+        app:icon="@drawable/arrow_lefy_icon"
+        app:iconGravity="end"
+        app:iconPadding="2dp"
+        app:iconTint="#FFFFFF"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toStartOf="@+id/management_new_car_btn"
-        app:layout_constraintHorizontal_chainStyle="packed"
-        app:layout_constraintStart_toStartOf="parent" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="#80FFFFFF"
+        app:strokeColor="#2962FF" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-        android:id="@+id/management_new_car_btn"
+        android:id="@+id/manage_add_new_driver"
+        style="@style/Widget.Material3.Button.TextButton"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:layout_marginBottom="16dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginRight="8dp"
+        android:fontFamily="@font/noto_sans_arabic_extra_condensed_semi_bold"
+        android:layoutDirection="rtl"
         android:text="اضافة سائق"
         android:textAlignment="center"
-        app:layout_constraintBottom_toBottomOf="parent"
+        android:textColor="#FFFFFF"
+        android:textDirection="rtl"
+        android:textSize="16dp"
+        app:backgroundTint="#2C64FB"
+        app:cornerRadius="0dp"
+        app:icon="@drawable/arrow_lefy_icon"
+        app:iconGravity="end"
+        app:iconPadding="2dp"
+        app:iconTint="#FFFFFF"
+        app:layout_constraintBottom_toTopOf="@+id/disp_bus_list"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toEndOf="@id/management_new_driver_btn" />
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:rippleColor="#80FFFFFF" />
+
 </androidx.constraintlayout.widget.ConstraintLayout>

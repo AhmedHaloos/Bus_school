@@ -27,6 +27,7 @@ import java.util.Calendar;
 public class DriverTripFragment extends Fragment {
 
     DriverTripFragmentBinding driverBinding;
+    TripAdapter tripAdapter = null;
 
 
     @Override
@@ -39,8 +40,10 @@ public class DriverTripFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container,
                              @Nullable Bundle savedInstanceState) {
         driverBinding = DriverTripFragmentBinding.inflate(inflater);
-        driverBinding.driverTripList.setAdapter(new TripAdapter(createTestTripList()));
-        driverBinding.driverTripList.setLayoutManager(new LinearLayoutManager(getContext()));
+        if (tripAdapter == null)
+        tripAdapter = new TripAdapter(new ArrayList<>());
+        driverBinding.manageStudentListRv.setAdapter(tripAdapter);
+        driverBinding.manageStudentListRv.setLayoutManager(new LinearLayoutManager(getContext()));
         return  driverBinding.getRoot();
     }
 
@@ -56,6 +59,18 @@ public class DriverTripFragment extends Fragment {
         }
         return list;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        driverBinding = null;
+    }
+
+    /**
+     *
+     * @param i
+     * @return
+     */
     private Trip createTrip(int i){
         Trip t = new Trip();
         t.tripNum = i;

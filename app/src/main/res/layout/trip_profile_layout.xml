@@ -58,7 +58,7 @@
             app:layout_constraintTop_toBottomOf="@+id/textView5" />
 
         <Button
-            android:id="@+id/parent_item_driver_profile_btn"
+            android:id="@+id/trip_profile_disp_driver_btn"
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -81,7 +81,7 @@
             app:layout_constraintTop_toBottomOf="@+id/linearLayout8" />
 
         <Button
-            android:id="@+id/parent_item_driver_profile_btn_2"
+            android:id="@+id/trip_profile_disp_trip_btn"
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -115,7 +115,7 @@
             android:textDirection="rtl"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/parent_item_driver_profile_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/trip_profile_disp_driver_btn" />
 
         <TextView
             android:id="@+id/car_tv"
@@ -133,10 +133,10 @@
             android:textStyle="bold"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/parent_item_driver_profile_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/trip_profile_disp_driver_btn" />
 
         <Button
-            android:id="@+id/parent_item_car_profile_btn"
+            android:id="@+id/trip_profile_disp_car_btn"
             style="@style/Widget.Material3.Button.TextButton"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
@@ -168,7 +168,7 @@
             android:textDirection="rtl"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/parent_item_car_profile_btn" />
+            app:layout_constraintTop_toBottomOf="@+id/trip_profile_disp_car_btn" />
 
         <LinearLayout
             android:id="@+id/linearLayout2"
@@ -200,7 +200,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView_2"
+                android:id="@+id/trip_profile_trip_num"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
@@ -243,7 +243,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView511"
+                android:id="@+id/trip_profile_trip_state"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
@@ -290,7 +290,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView_4"
+                android:id="@+id/trip_profile_driver_name"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
@@ -337,7 +337,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/trip_profile_driver_phone"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
@@ -383,7 +383,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView_6"
+                android:id="@+id/trip_profile_car_num"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"
@@ -430,7 +430,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView51"
+                android:id="@+id/trip_profile_car_seats"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_margin="4dp"

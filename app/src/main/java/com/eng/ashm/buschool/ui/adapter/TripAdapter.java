@@ -9,6 +9,7 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eng.ashm.buschool.R;
+import com.eng.ashm.buschool.data.OnItemClickListener;
 import com.eng.ashm.buschool.data.datamodel.Trip;
 import com.eng.ashm.buschool.databinding.TripListItemBinding;
 import com.eng.ashm.buschool.ui.animation.ListItemAnimation;
@@ -18,7 +19,11 @@ import java.util.ArrayList;
 public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripListViewHolder> {
 
     private final ArrayList<Trip> tripList = new ArrayList<>();
-    private OnItemClickListener itemClickListener = null;
+    private OnItemClickListener <Trip>itemClickListener = null;
+
+
+    //constructors
+    public TripAdapter(){}
     public TripAdapter(ArrayList<Trip> items) {
         tripList.addAll(items);
     }
@@ -33,17 +38,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripListViewHo
     @Override
     public void onBindViewHolder(final TripListViewHolder holder, int position) {
         //trip data
-        holder.tripItemBinding.testTripItemNum.setText("رحلة رقم : " + tripList.get(position).tripNum);
-        holder.tripItemBinding.testTripItemState.setText(tripList.get(position).tripState);
-        holder.tripItemBinding.parentItemTripStDateTv.setText(tripList.get(position).startTime);
-        holder.tripItemBinding.parentItemTripEndDateTv.setText(tripList.get(position).endTime);
-        // car data
-        holder.tripItemBinding.parentItemCarKindTv.setText(tripList.get(position).bus.kind);
-        holder.tripItemBinding.parentItemCarNumTv.setText("باص رقم : "+ tripList.get(position).bus.carNum);
-        //driver data
-        holder.tripItemBinding.parentItemDriverNameTv.setText(tripList.get(position).tripDriver.name);
-        holder.tripItemBinding.parentItemDriverPhoneTv.setText(tripList.get(position).tripDriver.phone);
-
+        holder.tripItemBinding.tripItemNum.setText("رحلة رقم : " + tripList.get(position).tripNum);
+        holder.tripItemBinding.tripItemState.setText(tripList.get(position).tripState);
     }
 
     @Override
@@ -53,17 +49,68 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripListViewHo
 
     /**
      *
-     * @param itemClickListener
+     * @param dataList
      */
-    public void setOnItemClickListener(OnItemClickListener itemClickListener){
-        this.itemClickListener = itemClickListener;
+    public void addTripList(ArrayList<Trip> dataList){
+        for (Trip trip: dataList) {
+            if (!tripList.contains(trip))
+                tripList.add(trip);
+            //notifyItemInserted(tripList.size());
+        }
+        notifyDataSetChanged();
     }
 
     /**
      *
+     * @param dataList
      */
-    public interface OnItemClickListener{
-        void onItemClicked(Trip trip);
+    public void updateTripList(ArrayList<Trip> dataList){
+        tripList.clear();
+        for (Trip trip: dataList) {
+            if (!tripList.contains(trip))
+            {
+                tripList.add(trip);
+            notifyItemInserted(tripList.size());
+            }
+        }
+        notifyDataSetChanged();
+    }
+
+    /**
+     *
+     * @param trip
+     */
+    public void addTrip(Trip trip){
+        if (!tripList.contains(trip))
+        tripList.add(trip);
+        notifyItemInserted(tripList.size());
+    }
+
+    /**
+     *
+     * @param trip
+     */
+    public void deleteTrip(Trip trip){
+        int index = tripList.indexOf(trip);
+        tripList.remove(trip);
+        notifyItemRemoved(index);
+    }
+    public boolean isExist(Trip trip){
+        if (tripList.contains(trip))
+            return true;
+        return false;
+    }
+    private void reOrderList(){
+        for (Trip trip: tripList) {
+
+        }
+    }
+    /**
+     *
+     * @param itemClickListener
+     */
+    public void setOnItemClickListener(OnItemClickListener itemClickListener){
+        this.itemClickListener = itemClickListener;
     }
 
     public class TripListViewHolder extends RecyclerView.ViewHolder {
@@ -72,10 +119,10 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripListViewHo
             super(itemView);
             tripItemBinding = TripListItemBinding.bind(itemView);
             tripItemBinding.parentTripItemCardview.setOnClickListener(cardClickListener);
-            tripItemBinding.parentItemCarProfileBtn.setOnClickListener(carProfileListener);
-            tripItemBinding.parentItemDriverProfileBtn.setOnClickListener(driverProfileListener);
-            tripItemBinding.parentItemExpandBtn.setOnClickListener(expandViewListener);
-            tripItemBinding.parentDisplayTripBtn.setOnClickListener(displayTripListener);
+            //tripItemBinding.parentItemCarProfileBtn.setOnClickListener(carProfileListener);
+            //tripItemBinding.parentItemDriverProfileBtn.setOnClickListener(driverProfileListener);
+            tripItemBinding.tripItemExpandBtn.setOnClickListener(expandViewListener);
+          //  tripItemBinding.parentDisplayTripBtn.setOnClickListener(displayTripListener);
         }
 
         /**
@@ -84,6 +131,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripListViewHo
         View.OnClickListener cardClickListener = v -> {
             if (itemClickListener != null)
                 itemClickListener.onItemClicked(tripList.get(getAbsoluteAdapterPosition()));
+
         };
         View.OnClickListener carProfileListener = v -> {
 
@@ -101,15 +149,15 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripListViewHo
 
             if (view.getVisibility() == View.VISIBLE) {
                 ListItemAnimation.collapse(view);
-                tripItemBinding.parentItemExpandBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.down_arrow, 0, 0, 0);
-                ViewPropertyAnimator animator = tripItemBinding.parentItemExpandBtn.animate();
+                tripItemBinding.tripItemExpandBtn.setCompoundDrawablesWithIntrinsicBounds(R.drawable.down_arrow, 0, 0, 0);
+                ViewPropertyAnimator animator = tripItemBinding.tripItemExpandBtn.animate();
                 if (animator != null) animator.cancel();
                 animator.rotation(180).setDuration(300);
             } else if (view.getVisibility() == View.GONE) {
                 ListItemAnimation.expand(view);
-                tripItemBinding.parentItemExpandBtn
+                tripItemBinding.tripItemExpandBtn
                         .setCompoundDrawablesWithIntrinsicBounds(R.drawable.up_arrow, 0, 0, 0);
-                ViewPropertyAnimator animator = tripItemBinding.parentItemExpandBtn.animate();
+                ViewPropertyAnimator animator = tripItemBinding.tripItemExpandBtn.animate();
                 if (animator != null) animator.cancel();
                 animator.rotation(180).setDuration(300);
             }
@@ -117,7 +165,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripListViewHo
         };
 
         View.OnClickListener displayTripListener = v -> {
-
         };
 
     }

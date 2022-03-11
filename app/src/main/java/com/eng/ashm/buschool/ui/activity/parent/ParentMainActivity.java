@@ -18,13 +18,13 @@ import com.google.android.material.navigation.NavigationBarView;
 
 public class ParentMainActivity extends AppCompatActivity {
 
-    ParentActivityBinding parentBinding;
+    ParentActivityBinding binding;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        parentBinding = ParentActivityBinding.inflate(getLayoutInflater());
-        parentBinding.parentNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
+        binding = ParentActivityBinding.inflate(getLayoutInflater());
+        binding.parentNav.setOnItemSelectedListener(new NavigationBarView.OnItemSelectedListener() {
             @Override
             public boolean onNavigationItemSelected(@NonNull MenuItem item) {
                 switch(item.getItemId()){
@@ -38,13 +38,23 @@ public class ParentMainActivity extends AppCompatActivity {
                 return true;
             }
         });
-        setContentView(parentBinding.getRoot());
+        setContentView(binding.getRoot());
     }
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        binding = null;
+    }
+
+    /**
+     *
+     * @param fragment
+     */
     private void showFragment(Fragment fragment){
         FragmentManager fragmentManager = getSupportFragmentManager();
         FragmentTransaction transaction = fragmentManager.beginTransaction();
-        transaction.replace(parentBinding.parentFragmentContainer.getId(),fragment )
+        transaction.replace(binding.parentFragmentContainer.getId(),fragment )
                 .setReorderingAllowed(true)
                 .commit();
     }

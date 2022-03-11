@@ -1,277 +1,439 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
+    android:layout_height="wrap_content"
     android:animateLayoutChanges="true"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
     <com.google.android.material.card.MaterialCardView
         android:id="@+id/parent_trip_item_cardview"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
+        android:layout_height="wrap_content"
         android:layout_marginLeft="8dp"
-        android:layout_marginTop="2dp"
+        android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
-        android:layout_marginBottom="2dp"
-
+        android:background="#E6E6E6"
         android:elevation="3dp"
         android:layoutDirection="rtl"
         android:textDirection="rtl"
-        app:cardCornerRadius="25dp">
+        android:visibility="visible"
+        app:cardCornerRadius="25dp"
+        app:rippleColor="#00FFFFFF">
 
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-
+            android:background="#DFDDDD"
             android:orientation="vertical">
 
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:layout_margin="8dp"
-                android:layoutDirection="rtl"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="8dp"
+                android:layout_marginBottom="4dp"
+                android:background="@drawable/border"
+                android:backgroundTint="#C5C5C5"
                 android:orientation="vertical"
-                android:textDirection="rtl">
+                android:padding="4dp">
 
-                <TextView
-                    android:id="@+id/test_trip_item_num"
+                <LinearLayout
+                    android:id="@+id/linearLayout4"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:elevation="3dp"
+                    android:gravity="center"
                     android:layoutDirection="rtl"
-                    android:text="رقم الرحلة"
-                    android:textAlignment="textStart"
-                    android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+                    android:orientation="horizontal"
+                    android:padding="4dp"
                     android:textDirection="rtl"
-                    android:transitionName="test_trip_num" />
+                    android:weightSum="10">
 
-                <TextView
-                    android:id="@+id/test_trip_item_state"
+                    <TextView
+                        android:id="@+id/trip_item_num_tv"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_margin="4dp"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/noto_kufi_arabic_semi_bold"
+                        android:layoutDirection="rtl"
+                        android:padding="4dp"
+                        android:text="رقم الرحلة "
+                        android:textAlignment="center"
+                        android:textColor="#C51162"
+                        android:textDirection="rtl"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/trip_item_num"
+                        android:layout_width="0dp"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:background="@drawable/border"
+                        android:backgroundTint="#00B8D4"
+                        android:fontFamily="@font/noto_kufi_arabic_light"
+                        android:layoutDirection="rtl"
+                        android:padding="8dp"
+                        android:text="20"
+                        android:textAlignment="center"
+                        android:textColor="#FFFFFF"
+                        android:textDirection="rtl" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/trip_item_short_view"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
+                    android:layout_marginStart="8dp"
+                    android:layout_marginEnd="8dp"
+                    android:elevation="3dp"
+                    android:gravity="center"
                     android:layoutDirection="rtl"
-                    android:text="حالة الرحلة "
-                    android:textAlignment="textStart"
-                    android:textAppearance="@style/TextAppearance.AppCompat.Body2"
+                    android:orientation="horizontal"
+                    android:padding="4dp"
                     android:textDirection="rtl"
-                    android:transitionName="test_trip_state" />
+                    android:weightSum="10">
+
+                    <TextView
+                        android:id="@+id/textView14"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_margin="4dp"
+                        android:layout_weight="2"
+                        android:fontFamily="@font/noto_kufi_arabic_semi_bold"
+                        android:layoutDirection="rtl"
+                        android:padding="4dp"
+                        android:text="حالة الرحلة "
+                        android:textAlignment="center"
+                        android:textColor="#C51162"
+                        android:textDirection="rtl"
+                        android:textSize="16sp"
+                        android:textStyle="bold" />
+
+                    <TextView
+                        android:id="@+id/trip_item_state"
+                        android:layout_width="wrap_content"
+                        android:layout_height="match_parent"
+                        android:layout_weight="8"
+                        android:background="@drawable/border"
+                        android:backgroundTint="#00B8D4"
+                        android:fontFamily="@font/noto_kufi_arabic_light"
+                        android:layoutDirection="rtl"
+                        android:padding="8dp"
+                        android:text="انتهت"
+                        android:textAlignment="center"
+                        android:textColor="#FFFFFF"
+                        android:textDirection="rtl" />
+                </LinearLayout>
             </LinearLayout>
 
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:orientation="horizontal">
+                android:backgroundTint="#E6E6E6"
+                android:elevation="3dp"
+                android:gravity="left"
+                android:orientation="horizontal"
+                android:weightSum="1">
 
                 <Button
-                    android:id="@+id/parent_display_trip_btn"
-                    style="@style/Widget.Material3.Button.TextButton"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_margin="8dp"
-                    android:layoutDirection="rtl"
-                    android:text="عرض الرحلة"
-                    android:textDirection="rtl"
-                    android:textSize="14sp" />
-
-                <Button
-                    android:id="@+id/parent_item_expand_btn"
+                    android:id="@+id/trip_item_expand_btn"
                     style="@style/Widget.Material3.Button.TextButton"
                     android:layout_width="50dp"
-                    android:layout_height="50dp"
-                    android:layout_marginTop="8dp"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
                     android:layoutDirection="rtl"
+                    android:textAlignment="viewStart"
                     android:textDirection="rtl"
                     android:textSize="14sp"
-                    app:icon="@drawable/down_arrow" />
-            </LinearLayout>
+                    app:icon="@drawable/down_arrow"
+                    app:iconGravity="textEnd"
+                    app:iconTint="#000000" />
 
+                <Button
+                    android:id="@+id/trip_item_display_map"
+                    style="@style/Widget.Material3.Button.TextButton"
+                    android:layout_width="0dp"
+                    android:layout_height="match_parent"
+                    android:layout_weight="1"
+                    android:backgroundTint="#108497"
+                    android:gravity="center"
+                    android:text="عرض مسار الرحلة "
+                    android:textAlignment="center"
+                    android:textColor="#FFFFFF"
+                    android:textSize="16sp"
+                    app:icon="@drawable/arrow_lefy_icon"
+                    app:iconGravity="end"
+                    app:iconTint="#FFFFFF" />
+
+            </LinearLayout>
 
             <LinearLayout
                 android:id="@+id/parent_item_details_layout"
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="8dp"
+                android:layout_height="match_parent"
+                android:background="#E6E6E6"
+                android:orientation="vertical"
                 android:visibility="gone">
 
-                <androidx.constraintlayout.widget.ConstraintLayout
+                <View
+                    android:id="@+id/divider10"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="1dp"
+                    android:layout_marginLeft="8dp"
+                    android:layout_marginTop="16dp"
+                    android:layout_marginRight="8dp"
+                    android:layout_marginBottom="16dp"
+                    android:background="?android:attr/listDivider" />
 
-                    <TextView
-                        android:id="@+id/textView5"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:text="بيانات الرحلة"
-                        android:textAlignment="center"
-                        android:textColor="#000000"
-                        android:textSize="24sp"
-                        android:textStyle="bold"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toTopOf="parent" />
+                <TextView
+                    android:id="@+id/textView22"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#848BB1"
+                    android:fontFamily="@font/noto_sans_arabic_condensed_semi_bold"
+                    android:padding="4dp"
+                    android:text="بيانات السائق"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
 
-                    <TextView
-                        android:id="@+id/driver_tv"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:layoutDirection="rtl"
-                        android:padding="4dp"
-                        android:text="السائق"
-                        android:textColor="#000000"
-                        android:textDirection="rtl"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/textView5" />
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#F4F4F4"
+                    android:orientation="vertical"
+                    android:padding="4dp">
 
-                    <TextView
-                        android:id="@+id/parent_item_driver_name_tv"
+                    <LinearLayout
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:elevation="3dp"
+                        android:gravity="center"
                         android:layoutDirection="rtl"
+                        android:orientation="horizontal"
                         android:padding="4dp"
-                        android:text="اسم السائق "
                         android:textDirection="rtl"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/driver_tv" />
+                        android:weightSum="10">
 
-                    <TextView
-                        android:id="@+id/parent_item_driver_phone_tv"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:layoutDirection="rtl"
-                        android:padding="4dp"
-                        android:text="رقم الهاتف"
-                        android:textDirection="rtl"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/parent_item_driver_name_tv" />
+                        <TextView
+                            android:id="@+id/trip_item_driver_name_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/noto_kufi_arabic_semi_bold"
+                            android:layoutDirection="rtl"
+                            android:padding="4dp"
+                            android:text="اسم السائق"
+                            android:textAlignment="center"
+                            android:textColor="#C51162"
+                            android:textDirection="rtl"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
-                    <Button
-                        android:id="@+id/parent_item_driver_profile_btn"
-                        style="@style/Widget.Material3.Button.TextButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:layoutDirection="rtl"
-                        android:padding="4dp"
-                        android:text="عرض بيانات السائق"
-                        android:textDirection="rtl"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/parent_item_driver_phone_tv" />
+                        <TextView
+                            android:id="@+id/trip_item_driver_name"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="8"
+                            android:background="@drawable/border"
+                            android:backgroundTint="#00B8D4"
+                            android:fontFamily="@font/noto_kufi_arabic_light"
+                            android:layoutDirection="rtl"
+                            android:padding="8dp"
+                            android:text="محمد"
+                            android:textAlignment="center"
+                            android:textColor="#FFFFFF"
+                            android:textDirection="rtl" />
+                    </LinearLayout>
 
-                    <View
-                        android:id="@+id/divider3"
+                    <LinearLayout
+
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_margin="8dp"
-                        android:background="?android:attr/listDivider"
-                        android:layoutDirection="rtl"
-                        android:textDirection="rtl"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/parent_item_driver_profile_btn" />
-
-                    <TextView
-                        android:id="@+id/car_tv"
-                        android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:elevation="3dp"
+                        android:gravity="center"
                         android:layoutDirection="rtl"
+                        android:orientation="horizontal"
                         android:padding="4dp"
-                        android:text="السيارة"
-                        android:textColor="#000000"
                         android:textDirection="rtl"
-                        android:textSize="20sp"
-                        android:textStyle="bold"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/parent_item_driver_profile_btn" />
+                        android:weightSum="10">
 
-                    <TextView
-                        android:id="@+id/parent_item_car_num_tv"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:layoutDirection="rtl"
-                        android:padding="4dp"
-                        android:text="رقم السيارة"
-                        android:textDirection="rtl"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/car_tv" />
+                        <TextView
+                            android:id="@+id/textView12"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_margin="4dp"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/noto_kufi_arabic_semi_bold"
+                            android:layoutDirection="rtl"
+                            android:padding="4dp"
+                            android:text="رقم الهاتف"
+                            android:textAlignment="center"
+                            android:textColor="#C51162"
+                            android:textDirection="rtl"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
 
-                    <TextView
-                        android:id="@+id/parent_item_car_kind_tv"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
-                        android:layoutDirection="rtl"
-                        android:padding="4dp"
-                        android:text="نوع السيارة"
-                        android:textDirection="rtl"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/parent_item_car_num_tv" />
+                        <TextView
+                            android:id="@+id/trip_item_driver_phone"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="8"
+                            android:background="@drawable/border"
+                            android:backgroundTint="#00B8D4"
+                            android:fontFamily="@font/noto_kufi_arabic_light"
+                            android:layoutDirection="rtl"
+                            android:padding="8dp"
+                            android:text="052585"
+                            android:textAlignment="center"
+                            android:textColor="#FFFFFF"
+                            android:textDirection="rtl" />
+                    </LinearLayout>
+                </LinearLayout>
 
-                    <Button
-                        android:id="@+id/parent_item_car_profile_btn"
-                        style="@style/Widget.Material3.Button.TextButton"
-                        android:layout_width="0dp"
-                        android:layout_height="wrap_content"
-                        android:layoutDirection="rtl"
-                        android:text="عرض بيانات السيارة"
-                        android:textDirection="rtl"
-                        android:textSize="14sp"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/parent_item_car_kind_tv" />
+                <TextView
+                    android:id="@+id/textView23"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center"
+                    android:layout_margin="4dp"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#848BB1"
+                    android:fontFamily="@font/noto_sans_arabic_condensed_semi_bold"
+                    android:padding="4dp"
+                    android:text="بيانات الباص"
+                    android:textColor="#FFFFFF"
+                    android:textSize="20sp" />
 
-                    <View
-                        android:id="@+id/divider4"
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_margin="8dp"
+                    android:background="@drawable/border"
+                    android:backgroundTint="#F4F4F4"
+                    android:orientation="vertical"
+                    android:padding="4dp">
+
+                    <LinearLayout
                         android:layout_width="match_parent"
-                        android:layout_height="1dp"
-                        android:layout_margin="8dp"
-                        android:background="?android:attr/listDivider"
-                        android:layoutDirection="rtl"
-                        android:textDirection="rtl"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/parent_item_car_profile_btn" />
-
-                    <TextView
-                        android:id="@+id/parent_item_trip_st_date_tv"
-                        android:layout_width="0dp"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:elevation="3dp"
+                        android:gravity="center"
                         android:layoutDirection="rtl"
+                        android:orientation="horizontal"
                         android:padding="4dp"
-                        android:text="توقيت بداية الرحلة"
                         android:textDirection="rtl"
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/parent_item_car_profile_btn" />
+                        android:weightSum="10">
 
-                    <TextView
-                        android:id="@+id/parent_item_trip_end_date_tv"
-                        android:layout_width="0dp"
+                        <TextView
+                            android:id="@+id/trip_item_bus_num_tv"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_margin="4dp"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/noto_kufi_arabic_semi_bold"
+                            android:layoutDirection="rtl"
+                            android:padding="4dp"
+                            android:text="رقم الباص"
+                            android:textAlignment="center"
+                            android:textColor="#C51162"
+                            android:textDirection="rtl"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/trip_item_bus_num"
+                            android:layout_width="0dp"
+                            android:layout_height="match_parent"
+                            android:layout_weight="8"
+                            android:background="@drawable/border"
+                            android:backgroundTint="#00B8D4"
+                            android:fontFamily="@font/noto_kufi_arabic_light"
+                            android:layoutDirection="rtl"
+                            android:padding="8dp"
+                            android:text="30"
+                            android:textAlignment="center"
+                            android:textColor="#FFFFFF"
+                            android:textDirection="rtl" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
-                        android:layout_margin="8dp"
+                        android:layout_marginStart="8dp"
+                        android:layout_marginTop="4dp"
+                        android:layout_marginEnd="8dp"
+                        android:elevation="3dp"
+                        android:gravity="center"
+                        android:layoutDirection="rtl"
+                        android:orientation="horizontal"
                         android:padding="4dp"
-                        android:text="توقيت نهاية الرحلة "
-                        app:layout_constraintEnd_toEndOf="parent"
-                        app:layout_constraintStart_toStartOf="parent"
-                        app:layout_constraintTop_toBottomOf="@+id/parent_item_trip_st_date_tv" />
-                </androidx.constraintlayout.widget.ConstraintLayout>
+                        android:textDirection="rtl"
+                        android:weightSum="10">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_margin="4dp"
+                            android:layout_weight="2"
+                            android:fontFamily="@font/noto_kufi_arabic_semi_bold"
+                            android:layoutDirection="rtl"
+                            android:padding="4dp"
+                            android:text="لون الباص"
+                            android:textAlignment="center"
+                            android:textColor="#C51162"
+                            android:textDirection="rtl"
+                            android:textSize="16sp"
+                            android:textStyle="bold" />
+
+                        <TextView
+                            android:id="@+id/trip_item_bus_color"
+                            android:layout_width="wrap_content"
+                            android:layout_height="match_parent"
+                            android:layout_weight="8"
+                            android:background="@drawable/border"
+                            android:backgroundTint="#00B8D4"
+                            android:fontFamily="@font/noto_kufi_arabic_light"
+                            android:layoutDirection="rtl"
+                            android:padding="8dp"
+                            android:text="اصفر"
+                            android:textAlignment="center"
+                            android:textColor="#FFFFFF"
+                            android:textDirection="rtl" />
+                    </LinearLayout>
+
+                </LinearLayout>
+
             </LinearLayout>
 
         </LinearLayout>
     </com.google.android.material.card.MaterialCardView>
+
+    <View
+        android:id="@+id/divider11"
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:layout_marginLeft="8dp"
+        android:layout_marginTop="8dp"
+        android:layout_marginRight="8dp"
+        android:background="#A3A3A3" />
 </LinearLayout>

@@ -6,7 +6,7 @@ import java.util.Observable;
 
 public class DataListObservable<T> extends Observable {
 
-    List<T> observables;
+    private List<T> observables;
 
     public DataListObservable(){
         observables = new ArrayList<>();
@@ -19,9 +19,32 @@ public class DataListObservable<T> extends Observable {
     public void addElement(T t){
         observables.add(t);
         setChanged();
+        notifyObservers(t);
+    }
+    /**
+     *
+     * @param list
+     */
+    public void updateList(List< ? extends T>list){
+        if (!observables.isEmpty())
+            observables.clear();
+        observables.addAll(list);
+        setChanged();
         notifyObservers(observables);
     }
 
+    public boolean isListEmpty(){
+        if (observables.size() <= 0)
+            return true;
+        return false;
+    }
+    /**
+     *
+     */
+    public void clearList(){
+        if (observables != null)
+            observables.clear();
+    }
     /**
      *
      * @return

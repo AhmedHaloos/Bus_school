@@ -68,4 +68,10 @@ public class LoginActivity extends AppCompatActivity {
                 })
                 .create();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        loginBinding = null;
+    }
 }

@@ -43,4 +43,10 @@ public class DriverMainActivity extends AppCompatActivity {
                 .setReorderingAllowed(true)
                 .commit();
     }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        driverBinding = null;
+    }
 }

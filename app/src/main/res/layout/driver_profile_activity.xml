@@ -10,10 +10,11 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
         android:orientation="vertical"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/driver_name">
+        app:layout_constraintTop_toBottomOf="@+id/driver_profile_name">
 
         <LinearLayout
             android:id="@+id/linearLayout4"
@@ -50,7 +51,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView15"
+                android:id="@+id/driver_profile_age"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="8"
@@ -59,9 +60,9 @@
                 android:fontFamily="@font/noto_kufi_arabic_light"
                 android:layoutDirection="rtl"
                 android:padding="8dp"
-                android:text="name"
-                android:textAlignment="textStart"
-                android:textColor="#000000"
+                android:text="30"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
                 android:textDirection="rtl" />
         </LinearLayout>
 
@@ -100,7 +101,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView8"
+                android:id="@+id/driver_profile_email"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="8"
@@ -109,9 +110,9 @@
                 android:fontFamily="@font/noto_kufi_arabic_light"
                 android:layoutDirection="rtl"
                 android:padding="8dp"
-                android:text="name"
-                android:textAlignment="textStart"
-                android:textColor="#000000"
+                android:text="ex@gmail.com"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
                 android:textDirection="rtl" />
         </LinearLayout>
 
@@ -150,7 +151,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView13"
+                android:id="@+id/driver_profile_phone"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="6"
@@ -159,13 +160,13 @@
                 android:fontFamily="@font/noto_kufi_arabic_light"
                 android:layoutDirection="rtl"
                 android:padding="8dp"
-                android:text="name"
-                android:textAlignment="textStart"
-                android:textColor="#000000"
+                android:text="055155"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
                 android:textDirection="rtl" />
 
             <ImageButton
-                android:id="@+id/driver_call_btn"
+                android:id="@+id/driver_profile_call_btn"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_marginRight="4dp"
@@ -209,7 +210,7 @@
                 android:textStyle="bold" />
 
             <TextView
-
+                android:id="@+id/driver_profile_address"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="8"
@@ -218,11 +219,12 @@
                 android:fontFamily="@font/noto_kufi_arabic_light"
                 android:layoutDirection="rtl"
                 android:padding="8dp"
-                android:text="name"
-                android:textAlignment="textStart"
-                android:textColor="#000000"
+                android:text="البلد - المنطقة - الشارع - رقم المنزل"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
                 android:textDirection="rtl" />
         </LinearLayout>
+
         <LinearLayout
 
             android:layout_width="match_parent"
@@ -258,7 +260,7 @@
                 android:textStyle="bold" />
 
             <TextView
-
+                android:id="@+id/driver_profile_username"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="10"
@@ -267,11 +269,12 @@
                 android:fontFamily="@font/noto_kufi_arabic_light"
                 android:layoutDirection="rtl"
                 android:padding="8dp"
-                android:text="name"
-                android:textAlignment="textStart"
-                android:textColor="#000000"
+                android:text="driver_username"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
                 android:textDirection="rtl" />
         </LinearLayout>
+
         <LinearLayout
             android:id="@+id/driver_username_layout"
             android:layout_width="match_parent"
@@ -307,7 +310,7 @@
                 android:textStyle="bold" />
 
             <TextView
-                android:id="@+id/textView11"
+                android:id="@+id/driver_profile_password"
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="10"
@@ -316,22 +319,22 @@
                 android:fontFamily="@font/noto_kufi_arabic_light"
                 android:layoutDirection="rtl"
                 android:padding="8dp"
-                android:text="name"
-                android:textAlignment="textStart"
-                android:textColor="#000000"
+                android:text="driver_acc_password"
+                android:textAlignment="center"
+                android:textColor="#FFFFFF"
                 android:textDirection="rtl" />
         </LinearLayout>
     </LinearLayout>
 
     <ImageView
-        android:id="@+id/imageView"
+        android:id="@+id/driver_profile_pic"
         android:layout_width="150dp"
         android:layout_height="150dp"
 
         android:layout_marginTop="100dp"
         android:layout_marginBottom="24dp"
         android:elevation="3dp"
-        app:layout_constraintBottom_toTopOf="@+id/driver_name"
+        app:layout_constraintBottom_toTopOf="@+id/driver_profile_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
         app:layout_constraintStart_toStartOf="parent"
@@ -339,7 +342,7 @@
         app:srcCompat="@drawable/profile_icon" />
 
     <TextView
-        android:id="@+id/driver_name"
+        android:id="@+id/driver_profile_name"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
@@ -352,6 +355,6 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/imageView" />
+        app:layout_constraintTop_toBottomOf="@+id/driver_profile_pic" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

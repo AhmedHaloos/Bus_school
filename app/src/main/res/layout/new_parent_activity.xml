@@ -24,14 +24,14 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/new_car_pic"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                android:id="@+id/new_parent_pic"
+                android:layout_width="150dp"
+                android:layout_height="150dp"
                 android:layout_margin="8dp"
                 app:srcCompat="@drawable/profile_img_1" />
 
             <Button
-                android:id="@+id/add_new_car_pic"
+                android:id="@+id/add_new_parent_pic"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -39,7 +39,7 @@
                 android:textColor="@color/white" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/new_trip_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -75,7 +75,7 @@
             app:layout_constraintTop_toBottomOf="@id/textInputLayout7">
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/cancel_add_bus"
+                android:id="@+id/cancel_add_parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -88,7 +88,7 @@
                 app:srcCompat="@android:drawable/btn_plus" />
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/add_new_bus"
+                android:id="@+id/add_new_parent"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -125,6 +125,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/new_parent_name"
                 android:backgroundTintMode="src_in"
                 android:inputType="text"
                 android:textAlignment="textEnd"
@@ -158,6 +159,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/new_parent_phone"
                 android:inputType="phone"
                 android:textAlignment="textEnd"
                 android:textColor="#000000" />
@@ -189,6 +191,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/new_parent_email"
                 android:inputType="textEmailAddress"
                 android:textAlignment="textEnd"
                 android:textColor="#000000" />
@@ -221,6 +224,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/new_parent_address"
                 android:inputType="text"
                 android:textAlignment="textEnd"
                 android:textColor="#000000" />
@@ -252,6 +256,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/new_parent_age"
                 android:inputType="number"
                 android:textAlignment="textEnd"
                 android:textColor="#000000" />
@@ -281,9 +286,10 @@
             app:startIconDrawable="@drawable/age_icon">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_parent_job"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:inputType="number"
+                android:inputType="text"
                 android:textAlignment="textEnd"
                 android:textColor="#000000" />
         </com.google.android.material.textfield.TextInputLayout>
@@ -313,6 +319,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/new_parent_username"
                 android:inputType="text"
                 android:textAlignment="textEnd"
                 android:textColor="#000000" />
@@ -326,7 +333,7 @@
             android:layout_marginTop="8dp"
             android:layout_marginRight="8dp"
             android:layout_marginBottom="8dp"
-            android:hint="الحالة الاجتماعية"
+            android:hint="صلة القرابة"
             android:layoutDirection="rtl"
             android:textDirection="rtl"
             app:boxBackgroundColor="#FFFFFF"
@@ -344,6 +351,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/new_parent_relation"
                 android:inputType="text"
                 android:textAlignment="textEnd"
                 android:textColor="#000000" />
@@ -376,6 +384,7 @@
             <com.google.android.material.textfield.TextInputEditText
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
+                android:id="@+id/new_parent_password"
                 android:inputType="textPassword"
                 android:textAlignment="textEnd"
                 android:textColor="#000000" />

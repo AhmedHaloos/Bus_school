@@ -23,9 +23,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         binding = ActivityMainBinding.inflate(getLayoutInflater());
         setContentView(binding.getRoot());
-        //initView();
+        initView();
     }
-   /* private void initView(){
+    private void initView(){
         binding.managementBtn.setOnClickListener((v)->{
             Intent intent = new Intent(MainActivity.this, LoginActivity.class);
             intent.putExtra(LAUNCH_LOGIN_ACTIVITY_REQUEST, MANAGEMENT_LOGIN_ACTIVITY_REQUEST);
@@ -41,5 +41,5 @@ public class MainActivity extends AppCompatActivity {
             intent.putExtra(LAUNCH_LOGIN_ACTIVITY_REQUEST, PARENT_LOGIN_ACTIVITY_REQUEST);
             startActivity(intent);
         });
-    }*/
+    }
 }

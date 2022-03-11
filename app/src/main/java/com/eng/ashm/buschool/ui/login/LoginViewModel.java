@@ -6,7 +6,7 @@ import androidx.lifecycle.ViewModel;
 
 import android.util.Patterns;
 
-import com.eng.ashm.buschool.data.IFirestoreDataModel;
+import com.eng.ashm.buschool.data.IDataModel;
 import com.eng.ashm.buschool.data.LoginRepository;
 import com.eng.ashm.buschool.data.Result;
 import com.eng.ashm.buschool.R;
@@ -31,7 +31,7 @@ public class LoginViewModel extends ViewModel {
 
     public void login(String username, String password) {
         // can be launched in a separate asynchronous job
-        Result<IFirestoreDataModel> result = loginRepository.login(username, password);
+        Result<IDataModel> result = loginRepository.login(username, password);
 
     }
 

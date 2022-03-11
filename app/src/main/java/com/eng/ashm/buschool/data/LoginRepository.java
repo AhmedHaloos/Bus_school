@@ -35,9 +35,9 @@ public class LoginRepository {
         dataSource.logout();
     }
 
-    public Result<IFirestoreDataModel> login(String username, String password) {
+    public Result<IDataModel> login(String username, String password) {
         // handle login
-        Result<IFirestoreDataModel> result = dataSource.login(username, password);
+        Result<IDataModel> result = dataSource.login(username, password);
         return result;
     }
 }

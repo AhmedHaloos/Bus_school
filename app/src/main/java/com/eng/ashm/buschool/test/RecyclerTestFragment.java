@@ -34,8 +34,8 @@ public class RecyclerTestFragment extends Fragment {
         binding.parentTripLisRv.setAdapter(tripAdapter);
         binding.parentTripLisRv.setLayoutManager(new LinearLayoutManager(getContext()));
         tripAdapter.setOnItemClickListener(trip -> {
-           if (onTripSelected !=null)
-               onTripSelected.onTripSelected(trip);
+          // if (onTripSelected !=null)
+             //  onTripSelected.onTripSelected(trip);
         });
         return binding.getRoot();
     }

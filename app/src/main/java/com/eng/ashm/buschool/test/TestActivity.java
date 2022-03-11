@@ -1,24 +1,20 @@
 package com.eng.ashm.buschool.test;
 
-import static android.view.ViewGroup.LayoutParams.MATCH_PARENT;
-import static android.view.ViewGroup.LayoutParams.WRAP_CONTENT;
-
-import android.animation.ValueAnimator;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Rect;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
-import android.transition.AutoTransition;
-import android.transition.ChangeBounds;
-import android.transition.ChangeTransform;
 import android.transition.Fade;
-import android.transition.Scene;
-import android.transition.Slide;
+
 import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.view.View;
-import android.view.animation.AccelerateDecelerateInterpolator;
-import android.widget.TextView;
-
+import androidx.activity.result.ActivityResultCallback;
+import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.IdRes;
-import androidx.annotation.LayoutRes;
+import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
@@ -28,8 +24,6 @@ import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.eng.ashm.buschool.R;
 import com.eng.ashm.buschool.data.datamodel.Trip;
-import com.eng.ashm.buschool.databinding.ManagementNewDriverActivityBinding;
-import com.eng.ashm.buschool.databinding.ManagementNewParentActivityBinding;
 import com.eng.ashm.buschool.databinding.ParentProfileActivityBinding;
 import com.eng.ashm.buschool.databinding.TestActivityBinding;
 import com.eng.ashm.buschool.databinding.TripListItemBinding;
@@ -40,31 +34,63 @@ import com.eng.ashm.buschool.ui.fragment.parent.ParentTripFragment;
 import java.util.ArrayList;
 
 public class TestActivity extends AppCompatActivity {
-
+/*
+    public static final String SELECTED_IMAGE = "selected image";
     TestActivityBinding binding;
     TripListItemBinding tripItemBinding;
     ManagementNewDriverActivityBinding newDriverActivityBinding;
     ManagementNewParentActivityBinding parentActivityBinding;
     ParentProfileActivityBinding parentProfileActivityBinding;
     TripProfileLayoutBinding tripProfilelayout;
+*/
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        newDriverActivityBinding = ManagementNewDriverActivityBinding.inflate(getLayoutInflater());
+       /* newDriverActivityBinding = ManagementNewDriverActivityBinding.inflate(getLayoutInflater());
         binding = TestActivityBinding.inflate(getLayoutInflater());
         tripItemBinding = TripListItemBinding.inflate(getLayoutInflater());
         parentProfileActivityBinding = ParentProfileActivityBinding.inflate(getLayoutInflater());
         parentActivityBinding = ManagementNewParentActivityBinding.inflate(getLayoutInflater());
         tripProfilelayout = TripProfileLayoutBinding.inflate(getLayoutInflater());
-        View v = tripItemBinding.testTripItemNum;
-        String transName = tripItemBinding.testTripItemNum.getTransitionName();
-        setContentView(tripProfilelayout.getRoot());
+        View v = tripItemBinding.tripItemNum;
+        String transName = tripItemBinding.tripItemNum.getTransitionName();
+        setContentView(newDriverActivityBinding.getRoot());
+        ActivityResultLauncher<String> launcher = registerForActivityResult(contract, resultCallback);
+        newDriverActivityBinding.addNewDriverPic.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                launcher.launch("image/*");
+            }
+        });
 
         RecyclerTestFragment listFragment = new RecyclerTestFragment();
         listFragment.addOnTripSelectedListener(trip ->
                 showFragment(new TestTripItemFragment(trip), binding.tripFragmentContainer.getId(),v, transName ));
-       // showFragment(listFragment, binding.tripListFragment.getId());
+       // showFragment(listFragment, binding.tripListFragment.getId());*/
     }
+    ActivityResultContract<String, Uri> contract = new ActivityResultContract<String, Uri>() {
+        @NonNull
+        @Override
+        public Intent createIntent(@NonNull Context context, String input) {
+            Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+            intent.setType(input);
+            return intent;
+        }
+
+        @Override
+        public Uri parseResult(int resultCode, @Nullable Intent intent) {
+            if (resultCode == RESULT_OK){
+               return intent.getData();
+            }
+            return null;
+        }
+    };
+    ActivityResultCallback<Uri> resultCallback = new ActivityResultCallback<Uri>() {
+        @Override
+        public void onActivityResult(Uri result) {
+           // newDriverActivityBinding.newDriverPic.setImageURI(result);
+        }
+    };
     /**
      *
      * @param fragment
@@ -79,6 +105,13 @@ public class TestActivity extends AppCompatActivity {
                  //  .addSharedElement(v, transName)
                    .commit();
 
+    }
+    private Drawable pickImage(){
+
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.setType("image/*");
+        startActivity(intent);
+return null;
     }
     public static final int EXPAND = 1;
     public static final int COLLAPSE = 2;
@@ -117,11 +150,11 @@ public class TestActivity extends AppCompatActivity {
      *
      */
     private void transit(){
-        Scene scene = Scene.getSceneForLayout(binding.getRoot(), R.layout.trip_profile_layout,this);
+        /*Scene scene = Scene.getSceneForLayout(binding.getRoot(), R.layout.trip_profile_layout,this);
         Transition transition  =new Slide();
         transition.setInterpolator(new AccelerateDecelerateInterpolator());
         transition.setDuration(2000);
-        TransitionManager.go(scene, transition);
+        TransitionManager.go(scene, transition);*/
     }
     /**
      *

@@ -6,9 +6,9 @@
     android:gravity="center"
     android:orientation="vertical">
 
-       <androidx.fragment.app.FragmentContainerView
-           android:id="@+id/trip_fragment_container"
-           android:name="com.eng.ashm.buschool.test.RecyclerTestFragment"
-           android:layout_width="match_parent"
-           android:layout_height="match_parent" />
+       <Button
+           android:id="@+id/test_data"
+           android:layout_width="wrap_content"
+           android:layout_height="wrap_content"
+           android:text="DO" />
 </LinearLayout>

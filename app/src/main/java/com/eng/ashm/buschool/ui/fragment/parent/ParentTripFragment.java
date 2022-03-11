@@ -1,5 +1,6 @@
 package com.eng.ashm.buschool.ui.fragment.parent;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -8,21 +9,24 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
-import com.eng.ashm.buschool.data.datamodel.Car;
-import com.eng.ashm.buschool.data.datamodel.Driver;
+import com.eng.ashm.buschool.data.OnItemClickListener;
+import com.eng.ashm.buschool.data.datamodel.Parent;
 import com.eng.ashm.buschool.data.datamodel.Trip;
 import com.eng.ashm.buschool.databinding.ParentTripFragmentBinding;
+import com.eng.ashm.buschool.ui.activity.profile.TripProfileActivity;
 import com.eng.ashm.buschool.ui.adapter.TripAdapter;
+import com.eng.ashm.buschool.ui.viewmodel.TripViewModel;
 
 import java.util.ArrayList;
-import java.util.Calendar;
 
 public class ParentTripFragment extends Fragment {
 
-    ParentTripFragmentBinding tripBinding;
-
+    ParentTripFragmentBinding binding;
+    TripAdapter tripAdapter = null;
+    TripViewModel tripViewModel = null;
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -31,11 +35,30 @@ public class ParentTripFragment extends Fragment {
     @Nullable
     @Override
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
-      tripBinding = ParentTripFragmentBinding.inflate(inflater);
+      binding = ParentTripFragmentBinding.inflate(inflater);
+      if(tripAdapter == null)
+        tripAdapter = new TripAdapter();
+      binding.parentTripLisRv.setAdapter(tripAdapter);
+      binding.parentTripLisRv.setLayoutManager(new LinearLayoutManager(getContext()));
+        initView();
+        return binding.getRoot();
 
-      tripBinding.parentTripLisRv.setAdapter(new TripAdapter(createTestTripList()));
-      tripBinding.parentTripLisRv.setLayoutManager(new LinearLayoutManager(getContext()));
-        return tripBinding.getRoot();
+    }
+    private void initView(){
+        //adapter
+
+        tripAdapter.setOnItemClickListener((OnItemClickListener<Parent>) parent -> {
+            if (parent != null){
+                startActivity(new Intent(getActivity(), TripProfileActivity.class));
+            }
+        });
+        //binding
+        tripViewModel  = new ViewModelProvider(getActivity()).get(TripViewModel.class);
+        tripViewModel.getAllTrips();
+        tripViewModel.requestTripListResult.observe(getActivity(), trips -> {
+            tripAdapter.addTripList((ArrayList<Trip>) trips);
+        });
+
     }
 
     @Override
@@ -49,6 +72,20 @@ public class ParentTripFragment extends Fragment {
         }
         return list;
     }
+
+    @Override
+    public void onDestroyView() {
+        super.onDestroyView();
+        binding = null;
+        tripViewModel = null;
+        tripAdapter = null;
+    }
+
+    /**
+     *
+     * @param i
+     * @return
+     */
     private Trip createTrip(int i){
         Trip t = new Trip();
         t.tripNum = i;

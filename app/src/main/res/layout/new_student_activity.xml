@@ -10,7 +10,6 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="#F3F3F3">
-
         <LinearLayout
             android:id="@+id/title_layout"
             android:layout_width="match_parent"
@@ -23,14 +22,14 @@
             app:layout_constraintTop_toTopOf="parent">
 
             <ImageView
-                android:id="@+id/new_car_pic"
+                android:id="@+id/new_student_pic"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
                 app:srcCompat="@drawable/profile_img_1" />
 
             <Button
-                android:id="@+id/add_new_car_pic"
+                android:id="@+id/add_new_student_pic"
                 style="@style/Widget.MaterialComponents.Button.TextButton"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
@@ -38,7 +37,7 @@
                 android:textColor="@color/white" />
 
             <TextView
-                android:id="@+id/textView6"
+                android:id="@+id/new_trip_title"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -64,16 +63,17 @@
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout12" />
 
         <LinearLayout
+            android:id="@+id/linearLayout11"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:layout_margin="8dp"
             android:orientation="horizontal"
+            app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/textInputLayout7">
+            app:layout_constraintStart_toStartOf="parent">
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/cancel_add_bus"
+                android:id="@+id/cancel_add_student"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -82,11 +82,11 @@
                 android:gravity="center"
                 android:text="الغاء"
                 android:textColor="#FFFFFF"
-                app:backgroundTint="#00C853"
+                app:backgroundTint="#7B1EFD"
                 app:srcCompat="@android:drawable/btn_plus" />
 
             <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
-                android:id="@+id/add_new_bus"
+                android:id="@+id/add_new_student"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_margin="8dp"
@@ -95,7 +95,7 @@
                 android:gravity="center"
                 android:text="اضافة"
                 android:textColor="#FFFFFF"
-                app:backgroundTint="#00C853"
+                app:backgroundTint="#7B1EFD"
                 app:srcCompat="@android:drawable/ic_menu_close_clear_cancel" />
         </LinearLayout>
 
@@ -103,9 +103,9 @@
             android:id="@+id/textInputLayout"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="32dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
             android:hint="الاسم"
             android:layoutDirection="rtl"
             android:textDirection="rtl"
@@ -121,6 +121,7 @@
             app:startIconDrawable="@drawable/name_icon">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_student_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:backgroundTintMode="src_in"
@@ -133,9 +134,9 @@
             android:id="@+id/textInputLayout2"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
             android:hint="رقم الهاتف"
             android:layoutDirection="rtl"
             android:textDirection="rtl"
@@ -154,6 +155,7 @@
             app:startIconTintMode="src_in">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_student_phone"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="phone"
@@ -165,9 +167,9 @@
             android:id="@+id/textInputLayout3"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
             android:hint="الايميل"
             android:layoutDirection="rtl"
             android:textDirection="rtl"
@@ -185,6 +187,7 @@
             app:startIconDrawable="@android:drawable/sym_action_email">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_student_email"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textEmailAddress"
@@ -196,9 +199,9 @@
             android:id="@+id/textInputLayout4"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
             android:hint="العنوان"
             android:layoutDirection="rtl"
             android:textDirection="rtl"
@@ -217,6 +220,7 @@
             app:startIconDrawable="@drawable/address_icon">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_student_address"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -228,9 +232,9 @@
             android:id="@+id/textInputLayout5"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
             android:hint="العمر"
             android:layoutDirection="rtl"
             android:textDirection="rtl"
@@ -248,6 +252,7 @@
             app:startIconDrawable="@drawable/age_icon">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_student_age"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -259,9 +264,9 @@
             android:id="@+id/textInputLayout10"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
             android:hint="السنة الدراسية"
             android:layoutDirection="rtl"
             android:textDirection="rtl"
@@ -279,6 +284,7 @@
             app:startIconDrawable="@drawable/age_icon">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_student_year"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="number"
@@ -290,8 +296,8 @@
             android:id="@+id/textInputLayout6"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
             android:layout_marginRight="8dp"
             android:hint="اسم المستخدم"
             android:layoutDirection="rtl"
@@ -309,6 +315,7 @@
             app:startIconDrawable="@drawable/username">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_student_username"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -320,9 +327,9 @@
             android:id="@+id/textInputLayout12"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
             android:hint="اسم  ولى الامر"
             android:layoutDirection="rtl"
             android:textDirection="rtl"
@@ -339,6 +346,7 @@
             app:startIconDrawable="@drawable/username">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_student_parent_name"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="text"
@@ -350,9 +358,10 @@
             android:id="@+id/textInputLayout7"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="8dp"
-            android:layout_marginTop="8dp"
-            android:layout_marginRight="8dp"
+            android:layout_marginLeft="4dp"
+            android:layout_marginTop="4dp"
+            android:layout_marginRight="4dp"
+            android:layout_marginBottom="4dp"
             android:hint="كلمة السر"
             android:layoutDirection="rtl"
             android:textDirection="rtl"
@@ -365,17 +374,39 @@
             app:endIconDrawable="@drawable/password_toggle"
             app:endIconMode="password_toggle"
             app:endIconTint="#6200EA"
+            app:layout_constraintBottom_toTopOf="@id/student_add_location"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout6"
             app:startIconDrawable="@drawable/password">
 
             <com.google.android.material.textfield.TextInputEditText
+                android:id="@+id/new_student_password"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:inputType="textPassword"
                 android:textAlignment="textEnd"
                 android:textColor="#000000" />
         </com.google.android.material.textfield.TextInputLayout>
+
+        <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+            android:id="@+id/student_add_location"
+            android:layout_width="0dp"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="4dp"
+            android:layout_marginRight="4dp"
+            app:layout_goneMarginTop="4dp"
+            android:layout_weight="1"
+            android:clickable="true"
+            android:gravity="center"
+            android:text="اضافة الموقع"
+            android:textColor="#FFFFFF"
+            app:backgroundTint="#7B1EFD"
+            android:layout_marginTop="4dp"
+            app:layout_constraintBottom_toTopOf="@id/linearLayout11"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:srcCompat="@android:drawable/btn_plus" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>
