@@ -37,41 +37,54 @@ public class StudentViewModel extends AndroidViewModel {
        // }
     }
     /**
+     * Observers
+     */
+    //add observer
+    private Observer addObserver = (o, arg) -> {
+        if (arg != null) {
+            addStudentResult.setValue(true);
+        } else if (arg == null) {
+            addStudentResult.setValue(false);
+        }
+    };
+    // update observer
+    private Observer updateObserver = (o, arg) -> {
+        if (arg == null)
+            updateStudentResult.setValue(false);
+        else if (arg != null)
+            updateStudentResult.setValue(true);
+    };
+    // delete observer
+    private Observer deleteObserver = (o, arg) -> {
+        if (arg == null)
+            deleteStudentResult.setValue(false);
+        else if (arg != null)
+            deleteStudentResult.setValue(true);
+    };
+    //request list observer
+    private Observer requestListObserver =(o, arg) -> requestStudentListResult.setValue((List<Student>) arg);
+    // search observer
+    private Observer searchObserver = (o, arg) -> searchStudentResult.setValue((List<Student>) arg);
+    /**
      *
      * @param student
      */
     public void addNewStudent(Student student) {
         if (student != null) {
             repository.addData(student);
-            repository.mainAddObservable.addObserver((o, arg) -> {
-                if (arg != null) {
-                    addStudentResult.setValue(true);
-                } else if (arg == null) {
-                    addStudentResult.setValue(false);
-                }
-            });
+            repository.mainAddObservable.addObserver(addObserver);
     }
     }
     public void deleteStudent(Student student){
         if (student != null) {
         repository.deleteData(student);
-        repository.mainDeleteObservable.addObserver((o, arg) -> {
-            if (arg == null)
-                deleteStudentResult.setValue(false);
-            else if (arg != null)
-                deleteStudentResult.setValue(true);
-        });
+        repository.mainDeleteObservable.addObserver(deleteObserver);
         }
     }
     public void updateStudentData(Student updatedStudent) {
         if (updatedStudent != null) {
             repository.updateData(updatedStudent);
-            repository.mainUpdateObservable.addObserver((o, arg) -> {
-                if (arg == null)
-                    updateStudentResult.setValue(false);
-                else if (arg != null)
-                    updateStudentResult.setValue(true);
-            });
+            repository.mainUpdateObservable.addObserver(updateObserver);
         }
     }
     /**
@@ -79,8 +92,7 @@ public class StudentViewModel extends AndroidViewModel {
      */
     public void getAllStudents(){
         repository.requestList(Student.class);
-        repository.mainRequestListObservable.addObserver(
-                (o, arg) -> requestStudentListResult.setValue((List<Student>) arg));
+        repository.mainRequestListObservable.addObserver(requestListObserver);
     }
     /**
      *
@@ -89,8 +101,7 @@ public class StudentViewModel extends AndroidViewModel {
     public void searchStudentByName(String name){
 
             repository.searchData(name, Student.class);
-            repository.mainSearchListObservable.addObserver(
-                    (o, arg) -> searchStudentResult.setValue((List<Student>) arg));
+            repository.mainSearchListObservable.addObserver(searchObserver);
     }
     /**
      *

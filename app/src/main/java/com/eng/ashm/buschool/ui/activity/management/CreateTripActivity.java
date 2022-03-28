@@ -43,8 +43,8 @@ public class CreateTripActivity extends AppCompatActivity {
 
     //fields
     private NewTripActivityBinding binding;
-    private TripViewModel tripViewModel = null;
     private String request = NO_REQUEST;
+    private TripViewModel tripViewModel;
     private Trip trip = null;
     private long tripNum = -1;
     private Driver tripDriver;
@@ -62,6 +62,7 @@ public class CreateTripActivity extends AppCompatActivity {
         launcher = registerForActivityResult(contract, resultCallback);
     }
     private void initView(){
+        //viewModel
         tripViewModel = new ViewModelProvider(this).get(TripViewModel.class);
         binding.addNewTripBtn.setOnClickListener(addTripListener);
         binding.addNewTripBus.setOnClickListener(addBusListener);
@@ -70,27 +71,28 @@ public class CreateTripActivity extends AppCompatActivity {
         binding.addNewTripStudent.setOnClickListener(addStudentsListener);
         binding.cancelAddTripBtn.setOnClickListener(v -> { finish(); });
     }
-    Observer<Boolean> observer = isTripAdded -> {
+    /**
+     * studentAddedObserver
+     */
+    Observer<Boolean> addTripObserver = isTripAdded -> {
         if (isTripAdded){
-            Toast.makeText(CreateTripActivity.this, "تم اضافة الرحلة", Toast.LENGTH_SHORT).show();
-            Intent intent = new Intent();
-            intent.putExtra(Trip.COLLECTION, (Parcelable) trip);
-            setResult(RESULT_OK, intent);
+            Toast.makeText(getApplicationContext(), "تم اضافة الرحلة", Toast.LENGTH_SHORT).show();
+
         }
         else
-            Toast.makeText(CreateTripActivity.this, "لم يتم اضافة الرحلة", Toast.LENGTH_SHORT).show();
+            Toast.makeText(getApplicationContext(), "لم يتم اضافة الرحلة", Toast.LENGTH_SHORT).show();
     };
-
     View.OnClickListener addTripListener = v -> {
         boolean isTripFilled = fillTripData();
        if (isTripFilled)
        {
+           if (trip != null)
            tripViewModel.addNewTrip(trip);
+           tripViewModel.addTripResult.observe(this, addTripObserver);
            resetFields();
        }
        else
            Toast.makeText(CreateTripActivity.this, "لم يتم اكتمال بيانات الرحلة", Toast.LENGTH_SHORT).show();
-        tripViewModel.addTripResult.observe(CreateTripActivity.this, observer);
     };
 
     /**
@@ -110,6 +112,7 @@ public class CreateTripActivity extends AppCompatActivity {
             trip.tripStudents = tripStudents;
             trip.bus = tripCar;
             trip.tripNum = tripNum;
+            trip.tripState = Trip.INACTIVE_TRIP;
             return true;
         }
         return false;
@@ -150,12 +153,13 @@ public class CreateTripActivity extends AppCompatActivity {
     View.OnClickListener addBusListener = v -> launcher.launch(Car.COLLECTION);
     View.OnClickListener addDriverListener = v -> launcher.launch(Driver.COLLECTION);
     View.OnClickListener addStudentsListener = v -> launcher.launch(Student.COLLECTION);
+
+
     /**
      * activity result
      */
     ActivityResultCallback<List<? extends Parcelable>> resultCallback =
             result ->{ fillTripData(result);};
-
 
     ActivityResultContract< String, List<? extends Parcelable>> contract = new ActivityResultContract<String, List<? extends Parcelable>>() {
         @NonNull
@@ -201,10 +205,11 @@ public class CreateTripActivity extends AppCompatActivity {
             }
         }
     }
+
     @Override
     protected void onDestroy() {
         super.onDestroy();
         binding = null;
-        tripViewModel = null;
+        getViewModelStore().clear();
     }
 }

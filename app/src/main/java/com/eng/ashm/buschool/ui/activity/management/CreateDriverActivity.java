@@ -21,13 +21,16 @@ import androidx.lifecycle.ViewModelProvider;
 
 import com.eng.ashm.buschool.data.datamodel.Car;
 import com.eng.ashm.buschool.data.datamodel.Driver;
+import com.eng.ashm.buschool.data.datamodel.LoggedInUser;
 import com.eng.ashm.buschool.databinding.NewDriverActivityBinding;
 import com.eng.ashm.buschool.ui.viewmodel.DriverViewModel;
+import com.eng.ashm.buschool.ui.viewmodel.LoginViewModel;
 
 public class CreateDriverActivity extends AppCompatActivity {
 
     NewDriverActivityBinding binding;
     DriverViewModel driverViewModel;
+    LoginViewModel loginViewModel;
     private Driver mDriver = null;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -39,7 +42,9 @@ public class CreateDriverActivity extends AppCompatActivity {
     private void iniView(){
 
         driverViewModel = new ViewModelProvider(this).get(DriverViewModel.class);
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
         driverViewModel.addDriverResult.observe(this, observer);
+        loginViewModel.addLoggedUserObservable.observe(this, addLoggedInDriver);
         // listeners
         ActivityResultLauncher<String> launcher = registerForActivityResult(contract, resultCallback);
         binding.addNewDriverPic.setOnClickListener(view->{
@@ -49,6 +54,7 @@ public class CreateDriverActivity extends AppCompatActivity {
             Driver driver = getDriverData();
             if (driver != null){
                 driverViewModel.addNewDriver(driver);
+                loginViewModel.addLoggedInUser(getLoggedUser(driver));
                 mDriver = driver;
                 resetFields();
                 }
@@ -56,8 +62,34 @@ public class CreateDriverActivity extends AppCompatActivity {
         binding.cancelAddDriver.setOnClickListener(view->{
             finish();
         });
-
     }
+    /**
+     *
+     * @param driver
+     * @return
+     */
+    private LoggedInUser getLoggedUser(Driver driver){
+        LoggedInUser user = new LoggedInUser();
+        user.phone = driver.phone;
+        user.username = driver.username;
+        user.email = driver.email;
+        user.isLoggedIn = true;
+        user.password = driver.password;
+        user.userCollection = Driver.COLLECTION;
+        return user;
+    }
+    /**
+     *
+     */
+    Observer<Boolean> addLoggedInDriver  = isAdded -> {
+        if (isAdded)
+            Toast.makeText(this, "تم اضافة حساب السائق", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this, "لم يتم اضافة حساب السائق", Toast.LENGTH_SHORT).show();
+    };
+    /**
+     *
+     */
     Observer<Boolean> observer = (isDriverAdded)->{
         if (isDriverAdded) {
             Toast.makeText(CreateDriverActivity.this, "تم اضافة السائق", Toast.LENGTH_SHORT).show();

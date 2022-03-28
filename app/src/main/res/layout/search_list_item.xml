@@ -7,7 +7,8 @@
     android:layout_marginLeft="8dp"
     android:layout_marginTop="8dp"
     android:layout_marginRight="8dp"
-    android:padding="4dp">
+    android:padding="4dp"
+    android:layoutDirection="rtl">
 
     <TextView
         android:id="@+id/search_item_first_field"
@@ -16,9 +17,10 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:fontFamily="@font/noto_sans_arabic_semi_condensed_semi_bold"
+        android:layoutDirection="rtl"
         android:padding="4dp"
         android:text="TextView"
-        android:textAlignment="textEnd"
+        android:textAlignment="textStart"
         android:textColor="#000000"
         android:textDirection="rtl"
         android:textSize="16sp"
@@ -35,9 +37,10 @@
         android:layout_marginLeft="4dp"
         android:layout_marginRight="4dp"
         android:fontFamily="@font/noto_sans_arabic_semi_condensed_semi_bold"
+        android:layoutDirection="rtl"
         android:padding="4dp"
         android:text="TextView"
-        android:textAlignment="textEnd"
+        android:textAlignment="textStart"
         android:textColor="#000000"
         android:textDirection="rtl"
         android:textSize="14sp"
@@ -52,8 +55,10 @@
         android:layout_height="wrap_content"
         android:layout_margin="4dp"
         android:gravity="center"
+        android:layoutDirection="rtl"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toEndOf="@+id/search_item_first_field"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        />
 </androidx.constraintlayout.widget.ConstraintLayout>

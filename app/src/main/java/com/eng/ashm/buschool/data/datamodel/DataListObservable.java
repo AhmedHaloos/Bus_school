@@ -31,6 +31,7 @@ public class DataListObservable<T> extends Observable {
         observables.addAll(list);
         setChanged();
         notifyObservers(observables);
+
     }
 
     public boolean isListEmpty(){
@@ -60,7 +61,6 @@ public class DataListObservable<T> extends Observable {
     public T getElement(int index){
         return observables.get(index);
     }
-
     /**
      *
      * @return the last element from the observable list
@@ -68,4 +68,5 @@ public class DataListObservable<T> extends Observable {
     public T getLastElement(){
         return observables.get(observables.size() - 1);
     }
+
 }

@@ -3,16 +3,15 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/login_background_bus"
     android:gravity="center"
     android:orientation="vertical">
 
     <com.google.android.material.textfield.TextInputLayout
+        android:layoutDirection="rtl"
         style="@style/input_layout_style"
-        android:hint="اسم المستخدم"
-        app:startIconDrawable="@drawable/username"
         android:layout_weight="0"
-        >
+        android:hint="اسم المستخدم"
+        app:startIconDrawable="@drawable/username">
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/username"
@@ -25,6 +24,9 @@
         style="@style/input_layout_style"
         android:layout_weight="0"
         android:hint="كلمة السر"
+        android:layoutDirection="rtl"
+        app:passwordToggleDrawable="@drawable/password_toggle"
+        app:passwordToggleEnabled="true"
         app:startIconDrawable="@drawable/password">
 
         <com.google.android.material.textfield.TextInputEditText
@@ -47,6 +49,7 @@
         android:textStyle="bold" />
 
     <com.google.android.material.floatingactionbutton.ExtendedFloatingActionButton
+        android:id="@+id/login_btn"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginLeft="16dp"
@@ -54,10 +57,10 @@
         android:layout_marginRight="16dp"
         android:text="تسجيل الدخول"
         android:textAlignment="center"
-        android:textColor="@color/black"
+        android:textColor="#FFFFFF"
         android:textStyle="bold"
-        app:backgroundTint="#0091EA"
+        app:backgroundTint="#4B7C9A"
         app:elevation="3dp"
-        android:id="@+id/login_btn"/>
+        app:cornerRadius="30dp"/>
 
 </LinearLayout>

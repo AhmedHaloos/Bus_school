@@ -79,30 +79,39 @@ public class DriverViewModel extends AndroidViewModel {
     /**
      * Observers
      */
-    private Observer requestListObserver = (o, arg) ->
-        requestDriverListResult.setValue((List<Driver>)arg);
-
-    private Observer searchListObserver = (o, arg) -> searchDriverResult.setValue((List<Driver>)arg);
-
+    // request list observer
+    private Observer requestListObserver = (o, arg) -> {
+        requestDriverListResult.setValue((List<Driver>) arg);
+        repository.mainRequestListObservable.deleteObservers();
+    };
+    // search observer
+    private Observer searchListObserver = (o, arg) -> {
+        searchDriverResult.setValue((List<Driver>) arg);
+        repository.mainSearchListObservable.deleteObservers();
+    };
+    //add observer
     private Observer addObserver = (o, arg) -> {
         if (arg == null)
             addDriverResult.setValue(false);
         else if (arg != null)
             addDriverResult.setValue(true);
+        repository.mainAddObservable.deleteObservers();
     };
-
+    // delete observer
     private Observer deleteObserver = (o, arg) -> {
         if (arg != null)
             deleteDriverResult.setValue(true);
         else if (arg == null)
             deleteDriverResult.setValue(false);
+        repository.mainDeleteObservable.deleteObservers();
     };
-
+    // update observer
     private Observer updateObserver = (o, arg) -> {
         if (arg == null)
             updateDriverResult.setValue(false);
         else if (arg != null)
             addDriverResult.setValue(true);
+        repository.mainUpdateObservable.deleteObservers();
     };
 
     /**

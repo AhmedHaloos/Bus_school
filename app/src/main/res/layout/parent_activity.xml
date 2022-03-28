@@ -9,7 +9,7 @@
         android:id="@+id/parent_fragment_container"
         android:layout_width="match_parent"
         android:layout_height="0dp"
-        android:name="com.eng.ashm.buschool.ui.fragment.parent.ParentProfileFragment"
+        android:name="com.eng.ashm.buschool.ui.fragment.parent.ParentTripFragment"
         app:layout_constraintBottom_toTopOf="@+id/parent_nav"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"

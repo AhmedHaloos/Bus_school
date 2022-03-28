@@ -61,13 +61,10 @@ public class SearchAdapter extends RecyclerView.Adapter<SearchAdapter.SearchVH> 
         SearchVH(View view){
             super(view);
             binding = SearchListItemBinding.bind(view);
-            binding.searchItemSelecttion.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
-                @Override
-                public void onCheckedChanged(CompoundButton buttonView, boolean isChecked) {
-                    if (isChecked)
-                        searchList.get(getAbsoluteAdapterPosition()).isSelected = true;
-                    else searchList.get(getAbsoluteAdapterPosition()).isSelected = false;
-                }
+            binding.searchItemSelecttion.setOnCheckedChangeListener((buttonView, isChecked) -> {
+                if (isChecked)
+                    searchList.get(getAbsoluteAdapterPosition()).isSelected = true;
+                else searchList.get(getAbsoluteAdapterPosition()).isSelected = false;
             });
         }
     }

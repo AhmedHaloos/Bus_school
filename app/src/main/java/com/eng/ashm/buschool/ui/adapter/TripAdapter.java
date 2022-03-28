@@ -1,5 +1,6 @@
 package com.eng.ashm.buschool.ui.adapter;
 
+import android.graphics.Color;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,7 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
 import com.eng.ashm.buschool.R;
+import com.eng.ashm.buschool.data.ItemLongClickListener;
 import com.eng.ashm.buschool.data.OnItemClickListener;
+import com.eng.ashm.buschool.data.datamodel.Driver;
 import com.eng.ashm.buschool.data.datamodel.Trip;
 import com.eng.ashm.buschool.databinding.TripListItemBinding;
 import com.eng.ashm.buschool.ui.animation.ListItemAnimation;
@@ -20,12 +23,14 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripListViewHo
 
     private final ArrayList<Trip> tripList = new ArrayList<>();
     private OnItemClickListener <Trip>itemClickListener = null;
+    private ItemLongClickListener itemLongClickListener = null;
+    private String tripSource = null;
 
 
     //constructors
     public TripAdapter(){}
-    public TripAdapter(ArrayList<Trip> items) {
-        tripList.addAll(items);
+    public TripAdapter(String tripSource) {
+        this.tripSource = tripSource;
     }
 
     @Override
@@ -37,9 +42,24 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripListViewHo
 
     @Override
     public void onBindViewHolder(final TripListViewHolder holder, int position) {
+        Trip trip = tripList.get(position);
+        StringBuilder tripState = null;
+        if (trip.tripState.equals(Trip.ACTIVE_TRIP)){
+            holder.tripItemBinding.tripItemDisplayMap.setBackgroundColor(Color.GREEN);
+            tripState = new StringBuilder("جارية الان");
+        }
+        else if (trip.tripState.equals(Trip.INACTIVE_TRIP)){
+            holder.tripItemBinding.tripItemDisplayMap.setBackgroundColor(Color.GRAY);
+            holder.tripItemBinding.tripItemDisplayMap.setEnabled(false);
+            tripState = new StringBuilder("ليست جارية الان");
+        }
+        if (tripSource != null && tripSource.equals(Driver.COLLECTION)){
+            holder.tripItemBinding.tripItemDisplayMap.setText("أبدأ الرحلة");
+            holder.tripItemBinding.tripItemDisplayMap.setEnabled(true);
+        }
         //trip data
-        holder.tripItemBinding.tripItemNum.setText("رحلة رقم : " + tripList.get(position).tripNum);
-        holder.tripItemBinding.tripItemState.setText(tripList.get(position).tripState);
+        holder.tripItemBinding.tripItemNum.setText("رحلة رقم : " + trip.tripNum);
+        holder.tripItemBinding.tripItemState.setText(tripState.toString());
     }
 
     @Override
@@ -84,6 +104,7 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripListViewHo
         if (!tripList.contains(trip))
         tripList.add(trip);
         notifyItemInserted(tripList.size());
+        notifyDataSetChanged();
     }
 
     /**
@@ -100,17 +121,15 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripListViewHo
             return true;
         return false;
     }
-    private void reOrderList(){
-        for (Trip trip: tripList) {
-
-        }
-    }
     /**
      *
      * @param itemClickListener
      */
     public void setOnItemClickListener(OnItemClickListener itemClickListener){
         this.itemClickListener = itemClickListener;
+    }
+    public void setOnItemLongClick(ItemLongClickListener itemLongClickListener){
+        this.itemLongClickListener = itemLongClickListener;
     }
 
     public class TripListViewHolder extends RecyclerView.ViewHolder {
@@ -119,10 +138,8 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripListViewHo
             super(itemView);
             tripItemBinding = TripListItemBinding.bind(itemView);
             tripItemBinding.parentTripItemCardview.setOnClickListener(cardClickListener);
-            //tripItemBinding.parentItemCarProfileBtn.setOnClickListener(carProfileListener);
-            //tripItemBinding.parentItemDriverProfileBtn.setOnClickListener(driverProfileListener);
             tripItemBinding.tripItemExpandBtn.setOnClickListener(expandViewListener);
-          //  tripItemBinding.parentDisplayTripBtn.setOnClickListener(displayTripListener);
+            tripItemBinding.tripItemDisplayMap.setOnClickListener(displayTripListener);
         }
 
         /**
@@ -131,7 +148,6 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripListViewHo
         View.OnClickListener cardClickListener = v -> {
             if (itemClickListener != null)
                 itemClickListener.onItemClicked(tripList.get(getAbsoluteAdapterPosition()));
-
         };
         View.OnClickListener carProfileListener = v -> {
 
@@ -139,12 +155,20 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripListViewHo
         View.OnClickListener driverProfileListener = v -> {
 
         };
+        View.OnLongClickListener longClickListener = new View.OnLongClickListener() {
+            @Override
+            public boolean onLongClick(View v) {
+                Trip trip = tripList.get(getAbsoluteAdapterPosition());
+                if (itemLongClickListener != null){
+                    itemLongClickListener.onItemLongClick(trip);
+                }
+                return true;
+            }
+        };
         /**
          *
          */
         View.OnClickListener expandViewListener = v -> {
-            int state = tripItemBinding.parentItemDetailsLayout.getVisibility();
-            int heightOfView = tripItemBinding.parentItemDetailsLayout.getHeight();
             View view = tripItemBinding.parentItemDetailsLayout;
 
             if (view.getVisibility() == View.VISIBLE) {
@@ -161,10 +185,9 @@ public class TripAdapter extends RecyclerView.Adapter<TripAdapter.TripListViewHo
                 if (animator != null) animator.cancel();
                 animator.rotation(180).setDuration(300);
             }
-
         };
-
         View.OnClickListener displayTripListener = v -> {
+            itemClickListener.onItemBtnClicked(tripList.get(getAbsoluteAdapterPosition()));
         };
 
     }

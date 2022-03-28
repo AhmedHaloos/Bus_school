@@ -1,8 +1,17 @@
 package com.eng.ashm.buschool.ui.activity.management;
 
+import static android.Manifest.permission.ACCESS_COARSE_LOCATION;
+import static android.Manifest.permission.ACCESS_FINE_LOCATION;
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+
+import android.content.ActivityNotFoundException;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
 import android.graphics.drawable.Drawable;
+import android.location.LocationManager;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
@@ -26,30 +35,48 @@ import com.google.android.gms.maps.model.LatLng;
 
 public class CreateStudentActivity extends AppCompatActivity {
 
-    NewStudentActivityBinding binding;
-    StudentViewModel studentViewModel;
+    private static final int Filled  = 10;
+    private static final int NOT_FILLED =  -10;
+    public static final int LOCATION_REQUEST_CODE = 25;
+    public static final String PERMISSION_REQUEST_STATUS = "permission request";
+    public static final String IS_PERMISSION_REQUESTED = "is permission requested";
+
+    private NewStudentActivityBinding binding;
+    private StudentViewModel studentViewModel;
+    private Boolean isPermissionRequested = false;
+    private boolean isLocPermGranted = false;
     private Student mStudent = null;
+    private LocationManager locationManager = null;
+    //launcher
+    ActivityResultLauncher<String> locationLauncher = null;
+    ActivityResultLauncher<String> imgLauncher = null;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = NewStudentActivityBinding.inflate(getLayoutInflater());
+        SharedPreferences preferences = getSharedPreferences(PERMISSION_REQUEST_STATUS, MODE_PRIVATE);
+        isPermissionRequested = preferences.getBoolean(IS_PERMISSION_REQUESTED, false);
+        locationManager = getSystemService(LocationManager.class);
         setContentView(binding.getRoot());
         initView();
     }
     private void initView(){
+        mStudent = new Student();
         studentViewModel = new ViewModelProvider(this).get(StudentViewModel.class);
-        studentViewModel.addStudentResult.observe(this, observer);
+        studentViewModel.addStudentResult.observe(this, studentAddedObserver);
         ActivityResultLauncher<String> imgLauncher = registerForActivityResult(imgContract, imgResultCallback);
-        ActivityResultLauncher<String> locationLauncher = registerForActivityResult(mapContract, maprResultCallback);
+        locationLauncher = registerForActivityResult(mapContract, mapsResultCallback);
         binding.addNewStudentPic.setOnClickListener(view->{
             imgLauncher.launch("image/*");
         });
         binding.addNewStudent.setOnClickListener(view->{
-            Student  student = getStudentData();
-            if (student != null){
-            studentViewModel.addNewStudent(student);
-            mStudent = student;
-            studentViewModel.addStudentResult.observe(CreateStudentActivity.this,  observer);
+            int state = fillStudentData();
+            if (state == Filled){
+            studentViewModel.addNewStudent(mStudent);
+            studentViewModel.addStudentResult.observe(CreateStudentActivity.this, studentAddedObserver);
+            Intent intent = new Intent();
+            intent.putExtra(Student.COLLECTION,(Parcelable) mStudent);
+            setResult(RESULT_OK, intent);
             resetFields();
             }
         });
@@ -57,10 +84,112 @@ public class CreateStudentActivity extends AppCompatActivity {
             finish();
         });
         binding.studentAddLocation.setOnClickListener(v->{
-            locationLauncher.launch("");
+            getLocationPermission();
+            if (isLocPermGranted)
+                locationLauncher.launch("");
         });
     }
-    Observer<Boolean> observer = (isStudentAdded)->{
+
+    /**
+     * *********************** Location Permission **************************************
+     */
+    private void getLocationPermission(){
+        int finePerm = checkSelfPermission(ACCESS_FINE_LOCATION) ;
+        int coarsePerm = checkSelfPermission(ACCESS_COARSE_LOCATION);
+        if ( finePerm == PERMISSION_GRANTED || coarsePerm == PERMISSION_GRANTED ){
+            isLocPermGranted = true;
+            if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+            showAlertMessageNoGps();
+        }
+        else if (finePerm == PackageManager.PERMISSION_DENIED || coarsePerm == PackageManager.PERMISSION_DENIED) {
+            isLocPermGranted = false;
+            if (!isPermissionRequested)
+                requestPermissions(new String[]{ACCESS_FINE_LOCATION, ACCESS_COARSE_LOCATION}, LOCATION_REQUEST_CODE);
+            else
+                showPermissionDialog();
+        }
+    }
+    /**
+     * Alert dialog to inform the user that he needs to allow location permission
+     */
+    private void showPermissionDialog(){
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setCancelable(true)
+                .setMessage("يجب اعطاء الاذونات لاستخدام الخريطة")
+                .setNegativeButton("cancel", (dialog1,
+                                              which) -> {
+                    dialog1.cancel();
+                })
+                .setPositiveButton("settings", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        try {
+                            //Open the specific App Info page:
+                            Intent intent = new Intent(android.provider.Settings.ACTION_APPLICATION_DETAILS_SETTINGS);
+                            intent.setData(Uri.parse("package:" + "com.eng.ashm.buschool"));
+                            startActivity(intent);
+                        } catch ( ActivityNotFoundException e ) {
+                            e.printStackTrace();
+                            //Open the generic Apps page:
+                            Intent intent = new Intent(android.provider.Settings.ACTION_MANAGE_APPLICATIONS_SETTINGS);
+                            startActivity(intent);
+                        }
+                    }
+                })
+                .create();
+        dialog.show();
+    }
+    /**
+     *
+     */
+    private void showAlertMessageNoGps() {
+        final AlertDialog.Builder builder = new AlertDialog.Builder(this);
+        builder.setMessage("الGPS مغلق .. هل تريد تفعيله؟")
+                .setCancelable(false)
+                .setPositiveButton("نعم", new DialogInterface.OnClickListener() {
+                    public void onClick(@SuppressWarnings("unused") final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        startActivity(new Intent(android.provider.Settings.ACTION_LOCATION_SOURCE_SETTINGS));
+                    }
+                })
+                .setNegativeButton("لا", new DialogInterface.OnClickListener() {
+                    public void onClick(final DialogInterface dialog, @SuppressWarnings("unused") final int id) {
+                        dialog.cancel();
+                    }
+                });
+        final AlertDialog alert = builder.create();
+        alert.show();
+    }
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        if (requestCode == LOCATION_REQUEST_CODE) {
+            if (grantResults.length > 0 && (grantResults[0] == PERMISSION_GRANTED
+                    || grantResults[1] == PERMISSION_GRANTED)) {
+                isLocPermGranted = true;
+                if (!locationManager.isProviderEnabled(LocationManager.GPS_PROVIDER))
+                    showAlertMessageNoGps();
+                else locationLauncher.launch("");
+            }
+            else {
+                isLocPermGranted = false;
+                if (isPermissionRequested){
+                    showPermissionDialog();
+                }
+                else {
+                    SharedPreferences preferences = getSharedPreferences(PERMISSION_REQUEST_STATUS, MODE_PRIVATE);
+                    SharedPreferences.Editor editor = preferences.edit();
+                    editor.putBoolean(IS_PERMISSION_REQUESTED, true);
+                    editor.apply();
+                }
+            }
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+    }
+    /****************************************************************************************************/
+    /**
+     *
+     */
+    Observer<Boolean> studentAddedObserver = (isStudentAdded)->{
         if (isStudentAdded){
             Toast.makeText(CreateStudentActivity.this, "تم اضافة الطالب", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent();
@@ -88,8 +217,8 @@ public class CreateStudentActivity extends AppCompatActivity {
      *
      * @return
      */
-    private Student getStudentData(){
-        Student student = new Student();
+    private int fillStudentData(){
+
         if(isAnyFieldEmpty()){
             new AlertDialog.Builder(this)
                     .setMessage("يجب ملء جميع البيانات للسائق ")
@@ -99,16 +228,16 @@ public class CreateStudentActivity extends AppCompatActivity {
                     .setCancelable(true)
                     .create()
                     .show();
-            return null;
+            return NOT_FILLED;
         }
-        student.name = binding.newStudentName.getText().toString();
-        student.phone = binding.newStudentPhone.getText().toString();
-        student.email = binding.newStudentEmail.getText().toString();
-        student.address = binding.newStudentAddress.getText().toString();
-        student.yearOFStudy = Integer.valueOf(binding.newStudentYear.getText().toString());
-        student.parentName = binding.newStudentParentName.getText().toString();
-        student.age = Integer.valueOf(binding.newStudentAge.getText().toString());
-        return student;
+        mStudent.name = binding.newStudentName.getText().toString();
+        mStudent.phone = binding.newStudentPhone.getText().toString();
+        mStudent.email = binding.newStudentEmail.getText().toString();
+        mStudent.address = binding.newStudentAddress.getText().toString();
+        mStudent.yearOFStudy = Integer.valueOf(binding.newStudentYear.getText().toString());
+        mStudent.parentName = binding.newStudentParentName.getText().toString();
+        mStudent.age = Integer.valueOf(binding.newStudentAge.getText().toString());
+        return Filled;
     }
 
     /**
@@ -123,8 +252,10 @@ public class CreateStudentActivity extends AppCompatActivity {
                 || binding.newStudentAge.getText().toString().isEmpty()
                 || binding.newStudentUsername.getText().toString().isEmpty()
                 || binding.newStudentPassword.getText().toString().isEmpty()
-                || binding.newStudentYear.getText().toString().isEmpty()){
-            return true; }
+                || binding.newStudentYear.getText().toString().isEmpty()
+                    || mStudent.location == null){
+            return true;
+            }
         return false;
     }
 
@@ -171,6 +302,7 @@ public class CreateStudentActivity extends AppCompatActivity {
         @Override
         public Intent createIntent(@NonNull Context context, String input) {
             Intent intent = new Intent(context, MapsActivity.class);
+            intent.putExtra(MapsActivity.SOURCE_OF_MAP, Student.COLLECTION);
             return intent;
         }
 
@@ -183,14 +315,18 @@ public class CreateStudentActivity extends AppCompatActivity {
             return null;
         }
     };
-    ActivityResultCallback<LatLng> maprResultCallback =
-            point -> mStudent.location = point.latitude + "+" + point.latitude;
+    ActivityResultCallback<LatLng> mapsResultCallback =
+            point ->{
+        if (point != null){
+            mStudent.location = Student.getStringLocation(point);
+        }
+    } ;
 
     @Override
     protected void onDestroy() {
         super.onDestroy();
         binding = null;
+        studentViewModel.addStudentResult.removeObservers(this);
         studentViewModel = null;
-        observer = null;
     }
 }

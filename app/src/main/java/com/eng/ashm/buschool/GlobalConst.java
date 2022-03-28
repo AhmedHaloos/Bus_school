@@ -13,6 +13,9 @@ public class GlobalConst {
     public static final int DRIVER_LOGIN_ACTIVITY_REQUEST = 201;
     public static final int MANAGEMENT_LOGIN_ACTIVITY_REQUEST = 202;
     public static final int PARENT_LOGIN_ACTIVITY_REQUEST = 203;
-    //
+    public static final String USER_PROFILE_KEY = "user profile key";
+    //profile requesting source
+    public static final String REQUEST_PROFILE_KEY = "request profile key";
+
 
 }

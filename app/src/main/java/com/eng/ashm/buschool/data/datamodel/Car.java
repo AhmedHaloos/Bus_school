@@ -14,7 +14,7 @@ public class Car implements IDataModel {
     public static final String COLLECTION = "Car";
     @PrimaryKey
     @NonNull
-    public String carNum;
+    public String carNum = "";
     public String kind;
     public int noOfSeats;
     public String color;

@@ -23,13 +23,13 @@ public class FirestoreDataSource {
     private static FirebaseFirestore db = FirebaseFirestore.getInstance();
     public final DataListObservable<Result<IDataModel>> resultList = new DataListObservable();
     private static FirestoreDataSource dataSource = null;
-    IDataModel dataModel = null;
-    Class<? extends IDataModel> customClass = null;
+    private IDataModel dataModel = null;
+    private Class<? extends IDataModel> customClass = null;
 
     /**
      *
      */
-    private FirestoreDataSource(){}
+     private FirestoreDataSource(){}
     public static final FirestoreDataSource createInstance(){
        if(dataSource == null){
             dataSource = new FirestoreDataSource();
@@ -37,7 +37,8 @@ public class FirestoreDataSource {
                 .setPersistenceEnabled(true)
                 .setCacheSizeBytes(10 * MEGABYTE)
                 .build();
-        db.setFirestoreSettings(settings);}
+        db.setFirestoreSettings(settings);
+    }
         return dataSource;
     }
     /**
@@ -97,7 +98,6 @@ public class FirestoreDataSource {
         db.collection(collection).document(document)
                 .get().addOnCompleteListener(requestDataListener);
     }
-
     /**
      *
      * @param dataModel
@@ -105,7 +105,6 @@ public class FirestoreDataSource {
      */
     public void updateData(IDataModel dataModel, Class<? extends IDataModel> c ){
         customClass = c;
-        this.dataModel = dataModel;
         db.collection(dataModel.collection())
                 .document(dataModel.document())
                 .set(dataModel).addOnCompleteListener(updateCompleteListener);
@@ -116,16 +115,15 @@ public class FirestoreDataSource {
      * @param collection
      * @param document
      */
-    public void deleteData(String collection, String document){
-        db.collection(collection).document(document).delete().addOnCompleteListener(task -> {
-
-        });
+    public void deleteData(String collection, String document, Class<? extends IDataModel> c){
+        customClass = c;
+        db.collection(collection).document(document).delete().addOnCompleteListener(deleteCompleteListener);
     }
     /**
-     ** operation tasks
+     ************************ COMPLETE LISTENERS ****************************
      */
     /**
-     *
+     * ADD DATA LISTENER
      */
     OnCompleteListener<Void> addCompleteListener = task -> {
         Result<IDataModel> result = null;
@@ -140,11 +138,10 @@ public class FirestoreDataSource {
         }
     };
     /**
-     *
+     *RESULT DATALIST OBSERVER
      */
     OnCompleteListener<QuerySnapshot> listCompleteListener = task -> {
-
-        ArrayList<Result<IDataModel>> arrayList = new ArrayList<>();
+        List<Result<IDataModel>> arrayList = new ArrayList<>();
         if (task.isSuccessful()){
             for (DocumentSnapshot document : task.getResult().getDocuments()) {
                 Result<IDataModel>  result = Result.createResult(document.toObject(customClass), null);
@@ -157,37 +154,55 @@ public class FirestoreDataSource {
             arrayList.add(result);
         }
         resultList.updateList(arrayList);
-
     };
     /**
-     *
+     * DELETE DATA OBSERVER
      */
-    OnCompleteListener<DocumentSnapshot> deleteCompleteListener = task -> {
-        Result<IDataModel> result = Result.createResult(null, null);
+    OnCompleteListener<Void> deleteCompleteListener = task -> {
+        Result<IDataModel> result = null;
         if (task.isSuccessful()){
+            result = Result.createResult(null, null);
             result.STATE = Result.SUCCEED;
+            resultList.addElement(result);
         }
-        else result.STATE = Result.ERROR;
+        else {
+            result = Result.createResult(null, new Exception("data did not delete"));
+            result.STATE = Result.ERROR;
+            resultList.addElement(result);
+        }
     };
     /**
-     *
+     * UPDATE DATA OBSERVER
      */
     OnCompleteListener<Void> updateCompleteListener = task -> {
         Result<IDataModel> result = null;
         if (task.isSuccessful()){
-            result = Result.createResult(dataModel, null);
+            result = Result.createResult(null, null);
             result.STATE = Result.SUCCEED;
+            resultList.addElement(result);
         }
         else {
             result = Result.createResult(null, new Exception("data did not updated"));
             result.STATE = Result.ERROR;
+            resultList.addElement(result);
         }
     };
     /**
-     *
+     * REQUEST DATA OBSERVER
      */
     OnCompleteListener<DocumentSnapshot> requestDataListener = task -> {
-
+        Result<IDataModel> result = null;
+        if (task.isSuccessful()){
+            IDataModel dataModel = task.getResult().toObject(customClass);
+            result = Result.createResult(dataModel, null);
+            result.STATE = Result.SUCCEED;
+            resultList.addElement(result);
+        }
+        else {
+            result = Result.createResult(null, new Exception("data did not updated"));
+            result.STATE = Result.ERROR;
+            resultList.addElement(result);
+        }
     };
 
 }

@@ -4,14 +4,15 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="@drawable/background_8"
     android:padding="4dp">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
+        android:layoutDirection="rtl"
         android:orientation="vertical"
+        android:textDirection="rtl"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/driver_profile_name">
@@ -55,14 +56,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="8"
-                android:background="@drawable/border"
-                android:backgroundTint="#00B8D4"
                 android:fontFamily="@font/noto_kufi_arabic_light"
                 android:layoutDirection="rtl"
                 android:padding="8dp"
                 android:text="30"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
                 android:textDirection="rtl" />
         </LinearLayout>
 
@@ -105,14 +104,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="8"
-                android:background="@drawable/border"
-                android:backgroundTint="#00B8D4"
                 android:fontFamily="@font/noto_kufi_arabic_light"
                 android:layoutDirection="rtl"
                 android:padding="8dp"
                 android:text="ex@gmail.com"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
                 android:textDirection="rtl" />
         </LinearLayout>
 
@@ -155,14 +152,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="6"
-                android:background="@drawable/border"
-                android:backgroundTint="#00B8D4"
                 android:fontFamily="@font/noto_kufi_arabic_light"
                 android:layoutDirection="rtl"
                 android:padding="8dp"
                 android:text="055155"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
                 android:textDirection="rtl" />
 
             <ImageButton
@@ -171,8 +166,9 @@
                 android:layout_height="match_parent"
                 android:layout_marginRight="4dp"
                 android:layout_weight="2"
-                android:background="@drawable/border"
-                android:backgroundTint="#00B8D4"
+                android:background="@null"
+                android:layoutDirection="rtl"
+                android:textDirection="rtl"
                 app:srcCompat="@drawable/phone_icon" />
         </LinearLayout>
 
@@ -214,14 +210,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="8"
-                android:background="@drawable/border"
-                android:backgroundTint="#00B8D4"
                 android:fontFamily="@font/noto_kufi_arabic_light"
                 android:layoutDirection="rtl"
                 android:padding="8dp"
                 android:text="البلد - المنطقة - الشارع - رقم المنزل"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
                 android:textDirection="rtl" />
         </LinearLayout>
 
@@ -264,14 +258,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="10"
-                android:background="@drawable/border"
-                android:backgroundTint="#00B8D4"
                 android:fontFamily="@font/noto_kufi_arabic_light"
                 android:layoutDirection="rtl"
                 android:padding="8dp"
                 android:text="driver_username"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
                 android:textDirection="rtl" />
         </LinearLayout>
 
@@ -314,14 +306,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="10"
-                android:background="@drawable/border"
-                android:backgroundTint="#00B8D4"
                 android:fontFamily="@font/noto_kufi_arabic_light"
                 android:layoutDirection="rtl"
                 android:padding="8dp"
                 android:text="driver_acc_password"
-                android:textAlignment="center"
-                android:textColor="#FFFFFF"
+                android:textAlignment="textStart"
+                android:textColor="#000000"
                 android:textDirection="rtl" />
         </LinearLayout>
     </LinearLayout>
@@ -334,6 +324,8 @@
         android:layout_marginTop="100dp"
         android:layout_marginBottom="24dp"
         android:elevation="3dp"
+        android:layoutDirection="rtl"
+        android:textDirection="rtl"
         app:layout_constraintBottom_toTopOf="@+id/driver_profile_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.498"
@@ -347,10 +339,11 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="8dp"
         android:fontFamily="@font/noto_kufi_arabic_semi_bold"
+        android:layoutDirection="rtl"
         android:text="اسم السائق"
         android:textAlignment="center"
-        android:textColor="#AA00FF"
-        android:textSize="34sp"
+        android:textDirection="rtl"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

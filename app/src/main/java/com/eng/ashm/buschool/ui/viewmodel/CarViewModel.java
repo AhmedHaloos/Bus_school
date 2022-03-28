@@ -33,17 +33,39 @@ public class CarViewModel extends AndroidViewModel {
             repository = MainRepository.getInstance(application.getApplicationContext());
     }
     /**
+     * Observers
+     */
+    // add observer
+    private Observer addObserver = (o, arg) -> {
+        if (arg != null) {
+            addCarResult.setValue(true);
+        }
+        repository.mainAddObservable.deleteObservers();
+    };
+    // update observer
+    private Observer updateObserver = (o, arg) -> {
+        if (arg != null)
+            updateCarResult.setValue(true);
+        repository.mainUpdateObservable.deleteObservers();
+    };
+    // delete observer
+    private Observer deleteObserver = (o, arg) -> {
+        if (arg != null)
+            deleteCarResult.setValue(true);
+    };
+    // request data observer
+    private Observer requestListObserver =
+            (o, arg) -> requestCarListResult.setValue((List<Car>) arg);
+    // search observer
+    private Observer searchObserver = (o, arg) -> searchCarResult.setValue((List<Car>) arg);
+    /**
      *
      * @param bus
      */
     public void addNewCar(Car bus) {
         if (bus != null){
             repository.addData(bus);
-        repository.mainAddObservable.addObserver((o, arg) -> {
-            if (arg != null) {
-                addCarResult.setValue(true);
-            }
-        });
+        repository.mainAddObservable.addObserver(addObserver);
     }
     }
     /**
@@ -52,10 +74,7 @@ public class CarViewModel extends AndroidViewModel {
      */
     public void deleteCar(Car bus){
         repository.deleteData(bus);
-        repository.mainDeleteObservable.addObserver((o, arg) -> {
-            if (arg != null)
-                deleteCarResult.setValue(true);
-        });
+        repository.mainDeleteObservable.addObserver(deleteObserver);
     }
     /**
      *
@@ -63,18 +82,14 @@ public class CarViewModel extends AndroidViewModel {
      */
     public void updateCarData(Car updatedBus){
         repository.updateData(updatedBus);
-        repository.mainUpdateObservable.addObserver((o, arg) -> {
-            if (arg != null)
-            updateCarResult.setValue(true);
-        });
+        repository.mainUpdateObservable.addObserver(updateObserver);
     }
     /**
      *
      */
     public void getAllCars(){
         repository.requestList(Car.class);
-        repository.mainRequestListObservable.addObserver(
-                (o, arg) -> requestCarListResult.setValue((List<Car>) arg));
+        repository.mainRequestListObservable.addObserver(requestListObserver);
     }
     /**
      *
@@ -84,7 +99,7 @@ public class CarViewModel extends AndroidViewModel {
         boolean validateState = validateCarNum(carNum);
         if (validateState){
             repository.searchData( carNum, Car.class);
-            repository.mainSearchListObservable.addObserver((o, arg) -> searchCarResult.setValue((List<Car>) arg));
+            repository.mainSearchListObservable.addObserver(searchObserver);
         }
 
     }

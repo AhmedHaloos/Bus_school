@@ -34,10 +34,53 @@ public class ParentViewModel extends AndroidViewModel {
 
     public ParentViewModel(@NonNull Application application){
         super(application);
-       // if (repository == null){
+       if (repository == null){
             repository = MainRepository.getInstance(application.getApplicationContext());
-       // }
+        }
     }
+    /**
+     * Observers
+     */
+    // request parent data
+            private Observer requestDataObserver = (o, arg) -> {
+                if (arg != null){
+                    if (arg instanceof Parent){
+                        requestParentResult.setValue((Parent) arg);
+                    }
+                    else requestParentResult.setValue(null);
+                }
+                else requestParentResult.setValue(null);
+            };
+    // Add Observer
+    private Observer addObserver = (o, arg) -> {
+        if (arg != null){
+            addParentResult.setValue(true);
+        }
+        repository.mainAddObservable.deleteObservers();
+    };
+    // update observer
+    private Observer updateObserver = (o, arg) -> {
+        if (arg == null)
+            deleteParentResult.setValue(false);
+        else if (arg != null)
+            deleteParentResult.setValue(true);
+        repository.mainUpdateObservable.deleteObservers();
+    };
+    // delete observer
+    private Observer deleteObserver = (o, arg) -> {
+        if (arg == null)
+            deleteParentResult.setValue(false);
+        else if (arg != null)
+            deleteParentResult.setValue(true);
+        repository.mainDeleteObservable.deleteObservers();
+    };
+    //request data observer
+    private Observer requestListObserver = (o, arg) -> {
+        requestParentListResult.setValue((List<Parent>) arg);
+        repository.mainRequestListObservable.deleteObservers();
+    };
+    // search observer
+    private Observer searchObserver =(o, arg) -> searchParentResult.setValue((List<Parent>) arg);
     /**
      *
      * @param parent
@@ -45,11 +88,7 @@ public class ParentViewModel extends AndroidViewModel {
     public void addNewParent(Parent parent){
         if (parent != null){
         repository.addData(parent);
-        repository.mainAddObservable.addObserver((o, arg) -> {
-            if (arg != null){
-                addParentResult.setValue(true);
-            }
-        });
+        repository.mainAddObservable.addObserver(addObserver);
     }
     }
     /**
@@ -58,12 +97,7 @@ public class ParentViewModel extends AndroidViewModel {
      */
     public void deleteParent(Parent parent){
         repository.deleteData(parent);
-        repository.mainDeleteObservable.addObserver((o, arg) -> {
-            if (arg == null)
-                deleteParentResult.setValue(false);
-            else if (arg != null)
-                deleteParentResult.setValue(true);
-        });
+        repository.mainDeleteObservable.addObserver(deleteObserver);
     }
     /**
      *
@@ -71,20 +105,14 @@ public class ParentViewModel extends AndroidViewModel {
      */
     public void updateParentData(Parent updatedParent){
         repository.updateData(updatedParent);
-        repository.mainUpdateObservable.addObserver((o, arg) -> {
-            if (arg == null)
-                deleteParentResult.setValue(false);
-            else if (arg != null)
-                deleteParentResult.setValue(true);
-        });
+        repository.mainUpdateObservable.addObserver(updateObserver);
     }
     /**
      *
      */
     public void getAllParents(){
         repository.requestList(Parent.class);
-        repository.mainRequestListObservable.addObserver(
-                (o, arg) -> requestParentListResult.setValue((List<Parent>) arg));
+        repository.mainRequestListObservable.addObserver(requestListObserver);
     }
     /**
      *
@@ -93,9 +121,13 @@ public class ParentViewModel extends AndroidViewModel {
     public void searchParentByName(String name){
         if (validateName(name)){
             repository.searchData(name, Driver.class);
-            repository.mainSearchListObservable.addObserver(
-                    (o, arg) -> searchParentResult.setValue((List<Parent>) arg));
+            repository.mainSearchListObservable.addObserver(searchObserver);
         }
+    }
+    public void requestParentData(String phone, String email){
+        String document = "/" + phone + "-" + email;
+        repository.requestData(Parent.COLLECTION ,  document, Parent.class);
+        repository.mainDataObservable.addObserver(requestDataObserver);
     }
     /**
      *

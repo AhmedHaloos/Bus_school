@@ -9,14 +9,20 @@ import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.lifecycle.AndroidViewModel;
+import androidx.lifecycle.Observer;
+import androidx.lifecycle.ViewModelProvider;
 
 import com.eng.ashm.buschool.R;
 import com.eng.ashm.buschool.databinding.ManagementActivityBinding;
 import com.eng.ashm.buschool.ui.fragment.management.ManagementDriverFragment;
 import com.eng.ashm.buschool.ui.fragment.management.ManagementParentFragment;
 import com.eng.ashm.buschool.ui.fragment.management.ManagementTripFragment;
+import com.eng.ashm.buschool.ui.viewmodel.LocationViewModel;
+import com.google.android.gms.maps.model.LatLng;
 
 public class ManagementMainActivity extends AppCompatActivity {
+
+    public static final String MANAG_COLLECTION = "Management";
 
     ManagementActivityBinding binding;
 
@@ -38,12 +44,6 @@ public class ManagementMainActivity extends AppCompatActivity {
             }
             return true;
         });
-    }
-
-    @Override
-    protected void onResume() {
-        super.onResume();
-        Toast.makeText(this, "onResume", Toast.LENGTH_SHORT).show();
     }
 
     @Override

@@ -25,6 +25,9 @@ public class TripViewModel extends AndroidViewModel {
     public MutableLiveData<Boolean> deleteTripResult = new MutableLiveData<>();
     public MutableLiveData<List<Trip>> searchTripResult = new MutableLiveData<>();
     public MutableLiveData<Boolean> updateTripResult = new MutableLiveData<>();
+    public MutableLiveData<Boolean> tripStartedResult = new MutableLiveData<>();
+    public MutableLiveData<Boolean> tripStoppedResult = new MutableLiveData<>();
+
 
     private MainRepository repository = null;
 
@@ -34,19 +37,62 @@ public class TripViewModel extends AndroidViewModel {
             repository = MainRepository.getInstance(application.getApplicationContext());
        // }
     }
-
+    /**
+     * Trips Observer
+     */
+    //trip state start observer
+     private Observer stateStartObserver = (o, arg)->{
+        if (arg == null)
+            tripStartedResult.setValue(false);
+        else
+            tripStartedResult.setValue(true);
+    };
+     // trip state stop
+     private Observer stateStopObserver = (o, arg)->{
+         if (arg == null)
+             tripStoppedResult.setValue(false);
+         else
+             tripStoppedResult.setValue(true);
+     };
+    // add observer
+    private Observer addObserver = (o, arg) -> {
+        if (arg == null)
+            addTripResult.setValue(false);
+        else
+            addTripResult.setValue(true);
+    };
+    //delete observer
+    private Observer deleteObserver = (o, arg) -> {
+        if (arg == null)
+            deleteTripResult.setValue(false);
+        else
+            deleteTripResult.setValue(true);
+    };
+    // update observer
+    private Observer updateObserver = (o, arg) -> {
+        if (arg == null)
+            updateTripResult.setValue(false);
+        else updateTripResult.setValue(true);
+    };
+    //request list observer
+    private Observer requestListObserver = (o, arg) ->{
+        if (arg != null) {
+            requestTripListResult.setValue((List<Trip>)arg);
+        }
+    };
+    // request data observer
+    private Observer searchObserver = (o, arg) ->{
+        if (arg != null) {
+            searchTripResult.setValue((List<Trip>)arg);
+        }
+    };
     /**
      *
      * @param trip
      */
     public void addNewTrip(Trip trip){
         repository.addData(trip);
-        repository.mainAddObservable.addObserver((o, arg) -> {
-            if (arg == null)
-                addTripResult.setValue(false);
-            else if (arg != null)
-                addTripResult.setValue(true);
-        });
+        repository.mainAddObservable.addObserver(addObserver);
     }
     /**
      *
@@ -54,12 +100,7 @@ public class TripViewModel extends AndroidViewModel {
      */
     public void deleteTrip(Trip trip){
         repository.deleteData(trip);
-        repository.mainDeleteObservable.addObserver((o, arg) -> {
-            if (arg == null)
-                deleteTripResult.setValue(false);
-            else
-                deleteTripResult.setValue(true);
-        });
+        repository.mainDeleteObservable.addObserver(deleteObserver);
     }
     /**
      *
@@ -67,19 +108,14 @@ public class TripViewModel extends AndroidViewModel {
      */
     public void updateTripData(Trip trip){
         repository.updateData(trip);
-        repository.mainUpdateObservable.addObserver((o, arg) -> {
-            if (arg == null)
-                updateTripResult.setValue(false);
-            else updateTripResult.setValue(true);
-        });
+        repository.mainUpdateObservable.addObserver(updateObserver);
     }
     /**
      *
      */
     public void getAllTrips(){
         repository.requestList(Trip.class);
-        repository.mainRequestListObservable.addObserver(
-                (o, arg) -> requestTripListResult.setValue((List<Trip>)arg));
+        repository.mainRequestListObservable.addObserver(requestListObserver);
     }
     /**
      *
@@ -87,8 +123,25 @@ public class TripViewModel extends AndroidViewModel {
      */
     public void searchTrip(String tripNum){
             repository.searchData( tripNum, Student.class);
-            repository.mainSearchListObservable.addObserver(
-                    (o, arg) -> searchTripResult.setValue((List<Trip>)arg));
+            repository.mainSearchListObservable.addObserver(searchObserver);
+    }
+    /**
+     *
+     * @param trip
+     */
+    public void startTrip(Trip trip){
+        trip.tripState = Trip.ACTIVE_TRIP;
+        repository.updateData(trip);
+        repository.mainUpdateObservable.addObserver(stateStartObserver);
+    }
+    /**
+     *
+     * @param trip
+     */
+    public void stopTrip(Trip trip){
+        trip.tripState = Trip.INACTIVE_TRIP;
+        repository.updateData(trip);
+        repository.mainUpdateObservable.addObserver(stateStopObserver);
     }
 
 }

@@ -14,6 +14,7 @@ import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.eng.ashm.buschool.data.OnItemClickListener;
@@ -38,6 +39,8 @@ public class DispBusListActivity extends AppCompatActivity {
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = DispBusListActivityBinding.inflate(getLayoutInflater());
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(this,DividerItemDecoration.VERTICAL);
+        binding.manageBusListRv.addItemDecoration(dividerItemDecoration);
         setContentView(binding.getRoot());
         launcher  = registerForActivityResult(contract, resultCallback);
         initAdapter();
@@ -90,8 +93,10 @@ public class DispBusListActivity extends AppCompatActivity {
         carViewModel.getAllCars();
        carViewModel.requestCarListResult.observe(this,
                 cars ->{
-                    Toast.makeText(this, "car list observer called : ", Toast.LENGTH_SHORT).show();
-                    //carAdapter.updateCarList((ArrayList<Car>) cars);
+           if (cars != null && !cars.isEmpty()){
+               if (cars.get(0).getClass().equals(Car.class))
+           carAdapter.updateCarList((ArrayList<Car>) cars);
+           }
         }
                     );
 

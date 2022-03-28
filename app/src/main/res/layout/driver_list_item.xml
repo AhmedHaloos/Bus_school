@@ -1,102 +1,69 @@
 <?xml version="1.0" encoding="utf-8"?>
-
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginLeft="8dp"
     android:layout_marginTop="4dp"
     android:layout_marginRight="8dp"
-    android:layout_marginBottom="4dp"
-    android:background="@drawable/border"
-    android:backgroundTint="#D1D0D0"
-    android:orientation="vertical"
-    android:padding="4dp">
+    android:elevation="3dp"
+    android:orientation="horizontal">
 
-    <LinearLayout
-        android:id="@+id/linearLayout4"
+    <com.google.android.material.card.MaterialCardView
+        android:id="@+id/driver_material_cardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_marginTop="4dp"
-        android:elevation="3dp"
-        android:gravity="center"
-        android:layoutDirection="rtl"
-        android:orientation="horizontal"
-        android:padding="4dp"
-        android:textDirection="rtl"
-        android:weightSum="10">
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
 
-        <TextView
-            android:id="@+id/trip_item_num_tv"
-            android:layout_width="wrap_content"
+        <LinearLayout
+            android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_weight="2"
-            android:fontFamily="@font/noto_kufi_arabic_semi_bold"
-            android:layoutDirection="rtl"
-            android:padding="4dp"
-            android:text="اسم السائق"
-            android:textAlignment="center"
-            android:textColor="#C51162"
-            android:textDirection="rtl"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+            android:orientation="horizontal">
 
-        <TextView
-            android:id="@+id/driver_item_name"
-            android:layout_width="0dp"
-            android:layout_height="match_parent"
-            android:layout_weight="8"
-            android:background="@drawable/border"
-            android:backgroundTint="#00B8D4"
-            android:fontFamily="@font/noto_kufi_arabic_light"
-            android:layoutDirection="rtl"
-            android:padding="8dp"
-            android:text="20"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textDirection="rtl" />
-    </LinearLayout>
+            <ImageView
+                android:id="@+id/driver_item_img"
+                android:layout_width="100dp"
+                android:layout_height="100dp"
+                app:srcCompat="@drawable/profile_img_1" />
 
-    <LinearLayout
-        android:id="@+id/trip_item_short_view"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:elevation="3dp"
-        android:gravity="center"
-        android:layoutDirection="rtl"
-        android:orientation="horizontal"
-        android:padding="4dp"
-        android:textDirection="rtl"
-        android:weightSum="10">
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:weightSum="2">
 
-        <TextView
-            android:id="@+id/textView14"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_margin="4dp"
-            android:layout_weight="2"
-            android:fontFamily="@font/noto_kufi_arabic_semi_bold"
-            android:layoutDirection="rtl"
-            android:padding="4dp"
-            android:text="هاتف السائق"
-            android:textAlignment="center"
-            android:textColor="#C51162"
-            android:textDirection="rtl"
-            android:textSize="16sp"
-            android:textStyle="bold" />
+                <TextView
+                    android:id="@+id/driver_item_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/noto_sans_arabic_extra_condensed_semi_bold"
+                    android:text="محمد "
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
 
-        <TextView
-            android:id="@+id/driver_item_phone"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_weight="8"
-            android:background="@drawable/border"
-            android:backgroundTint="#00B8D4"
-            android:fontFamily="@font/noto_kufi_arabic_light"
-            android:layoutDirection="rtl"
-            android:padding="8dp"
-            android:text="انتهت"
-            android:textAlignment="center"
-            android:textColor="#FFFFFF"
-            android:textDirection="rtl" />
-    </LinearLayout>
-</LinearLayout>
+                <TextView
+                    android:id="@+id/driver_item_phone"
+                    android:layout_width="match_parent"
+                    android:layout_height="0dp"
+                    android:layout_margin="4dp"
+                    android:layout_weight="1"
+                    android:fontFamily="@font/noto_sans_arabic_extra_condensed_semi_bold"
+                    android:text="0514545"
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+    </com.google.android.material.card.MaterialCardView>
+
+</androidx.constraintlayout.widget.ConstraintLayout>

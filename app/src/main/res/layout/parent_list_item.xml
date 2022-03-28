@@ -14,8 +14,6 @@
         android:id="@+id/materialCardView"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border"
-        android:backgroundTint="#D1D0D0"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -44,13 +42,11 @@
                     android:layout_height="0dp"
                     android:layout_margin="4dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border"
-                    android:backgroundTint="#00B8D4"
                     android:fontFamily="@font/noto_sans_arabic_extra_condensed_semi_bold"
                     android:text="محمد "
-                    android:textAlignment="center"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
 
                 <TextView
                     android:id="@+id/parent_item_phone"
@@ -58,13 +54,11 @@
                     android:layout_height="0dp"
                     android:layout_margin="4dp"
                     android:layout_weight="1"
-                    android:background="@drawable/border"
-                    android:backgroundTint="#00B8D4"
                     android:fontFamily="@font/noto_sans_arabic_extra_condensed_semi_bold"
                     android:text="0514545"
-                    android:textAlignment="center"
-                    android:textColor="#FFFFFF"
-                    android:textSize="16sp" />
+                    android:textAlignment="textStart"
+                    android:textColor="#000000"
+                    android:textSize="14sp" />
             </LinearLayout>
 
 

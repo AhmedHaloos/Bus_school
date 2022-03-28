@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:background="#EDEDED"
     android:padding="4dp">
 
     <LinearLayout
@@ -58,14 +57,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:background="@drawable/border"
-                android:backgroundTint="#00B8D4"
                 android:fontFamily="@font/noto_kufi_arabic_light"
                 android:layoutDirection="rtl"
                 android:padding="8dp"
                 android:text="نوع السيارة "
                 android:textAlignment="center"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:textDirection="rtl"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -110,14 +107,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:background="@drawable/border"
-                android:backgroundTint="#00B8D4"
                 android:fontFamily="@font/noto_kufi_arabic_light"
                 android:layoutDirection="rtl"
                 android:padding="8dp"
                 android:text="موديل السيارة "
                 android:textAlignment="center"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:textDirection="rtl"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -161,14 +156,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:background="@drawable/border"
-                android:backgroundTint="#00B8D4"
                 android:fontFamily="@font/noto_kufi_arabic_light"
                 android:layoutDirection="rtl"
                 android:padding="8dp"
                 android:text="لون السيارة"
                 android:textAlignment="center"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:textDirection="rtl"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -214,14 +207,12 @@
                 android:layout_width="0dp"
                 android:layout_height="match_parent"
                 android:layout_weight="3"
-                android:background="@drawable/border"
-                android:backgroundTint="#00B8D4"
                 android:fontFamily="@font/noto_kufi_arabic_light"
                 android:layoutDirection="rtl"
                 android:padding="8dp"
                 android:text="50"
                 android:textAlignment="center"
-                android:textColor="#FFFFFF"
+                android:textColor="#000000"
                 android:textDirection="rtl"
                 android:textStyle="bold" />
         </LinearLayout>
@@ -251,8 +242,8 @@
         android:fontFamily="@font/noto_kufi_arabic_semi_bold"
         android:text="رقم السيارة "
         android:textAlignment="center"
-        android:textColor="#AA00FF"
-        android:textSize="34sp"
+        android:textColor="#000000"
+        android:textSize="20sp"
         android:textStyle="bold"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"

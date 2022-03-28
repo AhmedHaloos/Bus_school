@@ -1,28 +1,45 @@
 package com.eng.ashm.buschool.test;
 
+import static android.content.pm.PackageManager.PERMISSION_GRANTED;
+
+import android.Manifest;
 import android.content.Context;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Rect;
 import android.graphics.drawable.Drawable;
+import android.location.LocationManager;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.transition.Fade;
 
 import android.transition.Transition;
 import android.transition.TransitionManager;
 import android.view.View;
+import android.widget.Toast;
+
 import androidx.activity.result.ActivityResultCallback;
 import androidx.activity.result.contract.ActivityResultContract;
 import androidx.annotation.IdRes;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
+import androidx.annotation.RequiresApi;
+import androidx.annotation.RequiresPermission;
 import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.fragment.app.FragmentManager;
 import androidx.fragment.app.FragmentTransaction;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.eng.ashm.buschool.MapsActivity;
 import com.eng.ashm.buschool.R;
+import com.eng.ashm.buschool.data.FirestoreDataSource;
+import com.eng.ashm.buschool.data.FirestroreRepository;
+import com.eng.ashm.buschool.data.IDataModel;
+import com.eng.ashm.buschool.data.MainRepository;
+import com.eng.ashm.buschool.data.Result;
+import com.eng.ashm.buschool.data.datamodel.Car;
 import com.eng.ashm.buschool.data.datamodel.Trip;
 import com.eng.ashm.buschool.databinding.ParentProfileActivityBinding;
 import com.eng.ashm.buschool.databinding.TestActivityBinding;
@@ -30,44 +47,103 @@ import com.eng.ashm.buschool.databinding.TripListItemBinding;
 import com.eng.ashm.buschool.databinding.TripProfileLayoutBinding;
 import com.eng.ashm.buschool.ui.adapter.TripAdapter;
 import com.eng.ashm.buschool.ui.fragment.parent.ParentTripFragment;
+import com.google.android.gms.common.api.GoogleApi;
+import com.google.android.gms.location.FusedLocationProviderClient;
+import com.google.android.gms.location.LocationCallback;
+import com.google.android.gms.location.LocationRequest;
+import com.google.android.gms.location.LocationResult;
 
 import java.util.ArrayList;
+import java.util.List;
+import java.util.Observable;
+import java.util.Observer;
+
+import javax.sql.DataSource;
+
+import io.grpc.internal.ManagedChannelImplBuilder;
 
 public class TestActivity extends AppCompatActivity {
-/*
-    public static final String SELECTED_IMAGE = "selected image";
+
+
+    FirestroreRepository repository;
+    private  FirestoreDataSource dataSource;
+    private MainRepository mainRepository;
     TestActivityBinding binding;
-    TripListItemBinding tripItemBinding;
-    ManagementNewDriverActivityBinding newDriverActivityBinding;
-    ManagementNewParentActivityBinding parentActivityBinding;
-    ParentProfileActivityBinding parentProfileActivityBinding;
-    TripProfileLayoutBinding tripProfilelayout;
-*/
+    private static Context context = null;
+    FusedLocationProviderClient fusedLocationProvider = null;
+    @RequiresApi(api = Build.VERSION_CODES.S)
+    @RequiresPermission(allOf = {Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION })
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-       /* newDriverActivityBinding = ManagementNewDriverActivityBinding.inflate(getLayoutInflater());
+        context = getApplicationContext();
         binding = TestActivityBinding.inflate(getLayoutInflater());
-        tripItemBinding = TripListItemBinding.inflate(getLayoutInflater());
-        parentProfileActivityBinding = ParentProfileActivityBinding.inflate(getLayoutInflater());
-        parentActivityBinding = ManagementNewParentActivityBinding.inflate(getLayoutInflater());
-        tripProfilelayout = TripProfileLayoutBinding.inflate(getLayoutInflater());
-        View v = tripItemBinding.tripItemNum;
-        String transName = tripItemBinding.tripItemNum.getTransitionName();
-        setContentView(newDriverActivityBinding.getRoot());
-        ActivityResultLauncher<String> launcher = registerForActivityResult(contract, resultCallback);
-        newDriverActivityBinding.addNewDriverPic.setOnClickListener(new View.OnClickListener() {
+       binding.testData.setOnClickListener((v)->{
+           startActivity(new Intent(TestActivity.this, MapsActivity.class));
+       });
+        // maps api
+        LocationManager locationManager = getSystemService(LocationManager.class);
+        fusedLocationProvider = new FusedLocationProviderClient(this);
+        LocationRequest request = new LocationRequest();
+        request.setInterval(10*1000);
+        requestLocationPermission();
+        fusedLocationProvider.requestLocationUpdates(request, new LocationCallback() {
             @Override
-            public void onClick(View v) {
-                launcher.launch("image/*");
-            }
-        });
+            public void onLocationResult(@NonNull LocationResult locationResult) {
+                super.onLocationResult(locationResult);
 
-        RecyclerTestFragment listFragment = new RecyclerTestFragment();
-        listFragment.addOnTripSelectedListener(trip ->
-                showFragment(new TestTripItemFragment(trip), binding.tripFragmentContainer.getId(),v, transName ));
-       // showFragment(listFragment, binding.tripListFragment.getId());*/
+            }
+        }, getMainLooper());
+        setContentView(binding.getRoot());
     }
+
+    /**
+     * ***************************************************
+     * Location manager handling
+     * ***************************************************
+     */
+    private void requestLocationPermission(){
+        if (checkSelfPermission(Manifest.permission.ACCESS_FINE_LOCATION) == PERMISSION_GRANTED
+        || checkSelfPermission(Manifest.permission.ACCESS_COARSE_LOCATION) == PERMISSION_GRANTED){
+
+        }
+        else {
+            requestPermissions(new String[]{Manifest.permission.ACCESS_FINE_LOCATION,Manifest.permission.ACCESS_COARSE_LOCATION }, 25);
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+
+        if (requestCode == 25){
+            if (grantResults.length > 0 ){
+                if (grantResults[0] == PERMISSION_GRANTED && grantResults[1] == PERMISSION_GRANTED ){
+
+                }
+                else {
+
+                }
+            }
+
+        }
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+    }
+
+    /************************************************************************************/
+    private  Observer o1 = new Observer() {
+        @Override
+        public void update(Observable o, Object arg) {
+            Toast.makeText(context, "LIST >>  : " +arg.getClass().getName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "LIST >>  : " +dataSource.resultList.countObservers(), Toast.LENGTH_SHORT).show();
+        }
+    };
+    private  Observer o2 = new Observer() {
+        @Override
+        public void update(Observable o, Object arg) {
+            Toast.makeText(context, "ADD >>  : " + arg.getClass().getName(), Toast.LENGTH_SHORT).show();
+            Toast.makeText(context, "ADD >>  : " +dataSource.resultList.countObservers(), Toast.LENGTH_SHORT).show();
+        }
+    };
     ActivityResultContract<String, Uri> contract = new ActivityResultContract<String, Uri>() {
         @NonNull
         @Override

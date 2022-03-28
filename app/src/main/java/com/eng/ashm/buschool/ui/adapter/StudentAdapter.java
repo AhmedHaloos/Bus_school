@@ -68,6 +68,7 @@ public class StudentAdapter extends RecyclerView.Adapter<StudentAdapter.StudentV
         if (!studentList.contains(student))
             studentList.add(student);
         notifyItemInserted(studentList.size());
+        notifyDataSetChanged();
     }
     /**
      *

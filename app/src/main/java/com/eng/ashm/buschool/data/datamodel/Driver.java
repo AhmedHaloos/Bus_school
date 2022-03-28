@@ -19,6 +19,7 @@ public class Driver implements IDataModel {
     @NonNull
     public String email  = "";
     public String address;
+    public String currentLocation;
     @Ignore
     public String picURI;
     @Ignore

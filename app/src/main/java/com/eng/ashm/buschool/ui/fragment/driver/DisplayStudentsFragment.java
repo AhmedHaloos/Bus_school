@@ -42,14 +42,11 @@ public class DisplayStudentsFragment extends Fragment {
        studentListBinding = DriverStudentListFragmentBinding.inflate(inflater);
        if (studentAdapter == null)
            studentAdapter = new StudentAdapter(new ArrayList<>());
-        studentViewModel = new ViewModelProvider(getActivity()).get(StudentViewModel.class);
+        studentViewModel = new ViewModelProvider(this).get(StudentViewModel.class);
         studentViewModel.getAllStudents();
-        studentViewModel.requestStudentListResult.observe(getActivity(), new Observer<List<Student>>() {
-            @Override
-            public void onChanged(List<Student> students) {
-                studentAdapter.updateStudentList((ArrayList<Student>) students);
-            }
-        });
+        studentViewModel.requestStudentListResult.observe(getViewLifecycleOwner() ,
+                students -> studentAdapter.updateStudentList((ArrayList<Student>) students));
+
         studentListBinding.driverStudentListRv.setAdapter(studentAdapter);
        studentListBinding.driverStudentListRv.setLayoutManager(new LinearLayoutManager(getContext()));
         return studentListBinding.getRoot();
@@ -64,8 +61,6 @@ public class DisplayStudentsFragment extends Fragment {
     public void onDestroyView() {
         super.onDestroyView();
         studentListBinding = null;
-        studentViewModel.requestStudentListResult = null;
-        studentViewModel  = null;
         studentAdapter = null;
     }
 

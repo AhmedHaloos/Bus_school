@@ -19,6 +19,7 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.fragment.app.Fragment;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
+import androidx.recyclerview.widget.DividerItemDecoration;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
 import com.eng.ashm.buschool.data.IDataModel;
@@ -57,6 +58,8 @@ public class ManagementDriverFragment extends Fragment {
                              @Nullable Bundle savedInstanceState) {
         if (binding == null)
         binding = ManagementDriverFragmentBinding.inflate(inflater);
+        DividerItemDecoration dividerItemDecoration = new DividerItemDecoration(getContext(),DividerItemDecoration.VERTICAL);
+        binding.driverListRv.addItemDecoration(dividerItemDecoration);
         initAdapter();
         initModelView();
         binding.driverListRv.setAdapter(driverAdapter);
@@ -115,13 +118,11 @@ public class ManagementDriverFragment extends Fragment {
         driverViewModel.requestDriverListResult.observe(getViewLifecycleOwner(), observer);
     }
     Observer<List<? extends IDataModel>> observer = drivers -> {
-        if (drivers.get(0).getClass().equals(Driver.class))
-        Toast.makeText(getContext(), "driver list observer called with name =  : "
-                 + ((Driver)drivers.get(0)).name, Toast.LENGTH_SHORT).show();
-        else
-            Toast.makeText(getContext(), "driver list observer called from other place =  : "
-                    + ((Driver)drivers.get(0)).name, Toast.LENGTH_SHORT).show();
-       // driverAdapter.updateDriverList((ArrayList<Driver>) drivers);
+        if (!drivers.isEmpty() && drivers!=null){
+        if (drivers.get(0).getClass().equals(Driver.class)){
+            driverAdapter.updateDriverList((ArrayList<Driver>) drivers);
+        }
+        }
     };
     @Override
     public void onDestroyView() {

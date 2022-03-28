@@ -30,7 +30,7 @@ public class RecyclerTestFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
         Toast.makeText(getContext(), "list fragment", Toast.LENGTH_SHORT).show();
         binding = TripListLayoutBinding.inflate(inflater);
-        TripAdapter tripAdapter = new TripAdapter(createTestTripList());
+        TripAdapter tripAdapter = new TripAdapter();
         binding.parentTripLisRv.setAdapter(tripAdapter);
         binding.parentTripLisRv.setLayoutManager(new LinearLayoutManager(getContext()));
         tripAdapter.setOnItemClickListener(trip -> {

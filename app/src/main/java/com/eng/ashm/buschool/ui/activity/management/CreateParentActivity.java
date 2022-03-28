@@ -1,12 +1,10 @@
 package com.eng.ashm.buschool.ui.activity.management;
 
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.os.Parcelable;
-import android.os.PatternMatcher;
 import android.widget.Toast;
 
 import androidx.activity.result.ActivityResultCallback;
@@ -19,15 +17,17 @@ import androidx.appcompat.app.AppCompatActivity;
 import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 
-import com.eng.ashm.buschool.data.datamodel.Driver;
+import com.eng.ashm.buschool.data.datamodel.LoggedInUser;
 import com.eng.ashm.buschool.data.datamodel.Parent;
 import com.eng.ashm.buschool.databinding.NewParentActivityBinding;
+import com.eng.ashm.buschool.ui.viewmodel.LoginViewModel;
 import com.eng.ashm.buschool.ui.viewmodel.ParentViewModel;
 
 public class CreateParentActivity extends AppCompatActivity {
 
     NewParentActivityBinding binding;
     ParentViewModel parentViewModel;
+    LoginViewModel loginViewModel;
     private Parent mParent = null;
 
     @Override
@@ -41,13 +41,16 @@ public class CreateParentActivity extends AppCompatActivity {
     private void initView(){
 
         parentViewModel = new ViewModelProvider(this).get(ParentViewModel.class);
-        parentViewModel.addParentResult.observe(this, observer);
+        loginViewModel = new ViewModelProvider(this).get(LoginViewModel.class);
+        parentViewModel.addParentResult.observe(this, addParentObserver);
+        loginViewModel.addLoggedUserObservable.observe(this, addLoggedInParent);
         ActivityResultLauncher<String> launcher = registerForActivityResult(contract, resultCallback);
        //listeners
         binding.addNewParent.setOnClickListener(v->{
             Parent parent = getParentData();
             if (parent != null){
                 parentViewModel.addNewParent(parent);
+                loginViewModel.addLoggedInUser(getLoggedUser(parent));
                 mParent = parent;
                 resetFields();
                 }
@@ -58,9 +61,32 @@ public class CreateParentActivity extends AppCompatActivity {
         binding.addNewParentPic.setOnClickListener(v->{
             launcher.launch("image/*");
         });
-
     }
-    Observer<Boolean> observer = (isParentAdded)->{
+    /**
+     *
+     * @param parent
+     * @return
+     */
+    private LoggedInUser getLoggedUser(Parent parent){
+        LoggedInUser user = new LoggedInUser();
+        user.phone = parent.phone;
+        user.username = parent.username;
+        user.email = parent.email;
+        user.isLoggedIn = true;
+        user.password = parent.password;
+        user.userCollection = Parent.COLLECTION;
+        return user;
+    }
+    Observer<Boolean> addLoggedInParent = isAdded -> {
+        if (isAdded)
+            Toast.makeText(this, "تم اضافة حساب ولى الامر", Toast.LENGTH_SHORT).show();
+        else
+            Toast.makeText(this, "لم يتم اضافة حساب ولى الامر", Toast.LENGTH_SHORT).show();
+    };
+    /**
+     * add new parent profile addParentObserver
+     */
+    Observer<Boolean> addParentObserver = (isParentAdded)->{
         if(isParentAdded) {
             Toast.makeText(CreateParentActivity.this, "تم اضافة ولى الامر", Toast.LENGTH_SHORT).show();
             Intent intent = new Intent();

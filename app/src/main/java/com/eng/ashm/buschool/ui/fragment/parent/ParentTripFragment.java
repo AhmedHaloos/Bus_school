@@ -1,7 +1,10 @@
 package com.eng.ashm.buschool.ui.fragment.parent;
 
+import static com.eng.ashm.buschool.MapsActivity.SOURCE_OF_MAP;
+
 import android.content.Intent;
 import android.os.Bundle;
+import android.os.Parcelable;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,10 +12,13 @@ import android.view.ViewGroup;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.fragment.app.Fragment;
+import androidx.lifecycle.Observer;
 import androidx.lifecycle.ViewModelProvider;
 import androidx.recyclerview.widget.LinearLayoutManager;
 
+import com.eng.ashm.buschool.MapsActivity;
 import com.eng.ashm.buschool.data.OnItemClickListener;
+import com.eng.ashm.buschool.data.datamodel.Driver;
 import com.eng.ashm.buschool.data.datamodel.Parent;
 import com.eng.ashm.buschool.data.datamodel.Trip;
 import com.eng.ashm.buschool.databinding.ParentTripFragmentBinding;
@@ -20,7 +26,9 @@ import com.eng.ashm.buschool.ui.activity.profile.TripProfileActivity;
 import com.eng.ashm.buschool.ui.adapter.TripAdapter;
 import com.eng.ashm.buschool.ui.viewmodel.TripViewModel;
 
+import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.List;
 
 public class ParentTripFragment extends Fragment {
 
@@ -37,7 +45,7 @@ public class ParentTripFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
       binding = ParentTripFragmentBinding.inflate(inflater);
       if(tripAdapter == null)
-        tripAdapter = new TripAdapter();
+        tripAdapter = new TripAdapter(Parent.COLLECTION);
       binding.parentTripLisRv.setAdapter(tripAdapter);
       binding.parentTripLisRv.setLayoutManager(new LinearLayoutManager(getContext()));
         initView();
@@ -46,32 +54,50 @@ public class ParentTripFragment extends Fragment {
     }
     private void initView(){
         //adapter
-
-        tripAdapter.setOnItemClickListener((OnItemClickListener<Parent>) parent -> {
-            if (parent != null){
-                startActivity(new Intent(getActivity(), TripProfileActivity.class));
-            }
-        });
+        tripAdapter.setOnItemClickListener(onItemClickListener);
         //binding
-        tripViewModel  = new ViewModelProvider(getActivity()).get(TripViewModel.class);
+        tripViewModel  = new ViewModelProvider(this).get(TripViewModel.class);
         tripViewModel.getAllTrips();
-        tripViewModel.requestTripListResult.observe(getActivity(), trips -> {
-            tripAdapter.addTripList((ArrayList<Trip>) trips);
-        });
-
+        tripViewModel.requestTripListResult.observe(getViewLifecycleOwner(), tripListObserver);
     }
 
     @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
     }
-    private ArrayList<Trip> createTestTripList(){
-        ArrayList<Trip> list = new ArrayList<>();
-        for(int i = 0; i< 10; i++){
-           list.add(createTrip(i));
+    /**
+     * onItemClickListener
+     */
+    OnItemClickListener<Trip> onItemClickListener = new OnItemClickListener<Trip>() {
+        @Override
+        public void onItemClicked(Trip trip) {
+            if (trip != null){
+                Intent intent = new Intent(getActivity(), TripProfileActivity.class);
+                intent.putExtra(Trip.COLLECTION, (Serializable) trip );
+                startActivity(intent);
+            }
         }
-        return list;
-    }
+        @Override
+        public void onItemBtnClicked(Trip trip) {
+            if (trip != null){
+                if (trip.getClass().equals(Trip.class)){
+                    Intent intent = new Intent(getActivity(), MapsActivity.class);
+                    intent.putExtra(SOURCE_OF_MAP, Parent.COLLECTION);
+                    intent.putExtra(Trip.COLLECTION, (Parcelable) trip);
+                    startActivity(intent);
+                }
+            }
+        }
+    };
+    /**
+     * view model observer
+     */
+    Observer<List<Trip>> tripListObserver = trips -> {
+        if (trips != null && !trips.isEmpty()){
+            if (trips.get(0).getClass().equals(Trip.class))
+                tripAdapter.updateTripList((ArrayList<Trip>) trips);
+        }
+    };
 
     @Override
     public void onDestroyView() {
@@ -80,7 +106,17 @@ public class ParentTripFragment extends Fragment {
         tripViewModel = null;
         tripAdapter = null;
     }
-
+    /**
+     *
+     * @return
+     */
+    private ArrayList<Trip> createTestTripList(){
+        ArrayList<Trip> list = new ArrayList<>();
+        for(int i = 0; i< 10; i++){
+            list.add(createTrip(i));
+        }
+        return list;
+    }
     /**
      *
      * @param i

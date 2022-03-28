@@ -9,7 +9,6 @@ import com.eng.ashm.buschool.data.datamodel.Trip;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Observable;
 import java.util.Observer;
 
 public class FirestroreRepository {
@@ -19,18 +18,17 @@ public class FirestroreRepository {
 
     public final DataListObservable<IDataModel> requestListObservable = new DataListObservable();
     public final DataListObservable<IDataModel> searchListObservable = new DataListObservable();
+    public final DataListObservable<IDataModel> resultDataObservable = new DataListObservable();
     public final DataListObservable<IDataModel> addObservable = new DataListObservable();
     public final DataListObservable<IDataModel> updateObservable = new DataListObservable();
     public final DataListObservable<IDataModel> deleteObservable = new DataListObservable();
 
     private DataListObservable<IDataModel> repositoryData = null;
 
-    private static FirestoreDataSource firestoreDataSource = null;
+    private static  FirestoreDataSource firestoreDataSource = null ;
     private static FirestroreRepository repositoryInstance = null;
 
-
-
-    private FirestroreRepository(){}
+     private FirestroreRepository(){}
     /**
      * create instance from the FirestoreRepository class
      * @return
@@ -42,73 +40,147 @@ public class FirestroreRepository {
         }
         return repositoryInstance;
     }
-
-    private Observer resultListObserver = new Observer() {
-        @Override
-        public void update(Observable o, Object arg) {
-            ArrayList<IDataModel> dataModels = new ArrayList<>();
-            repositoryData.clearList();
-            for (Result<IDataModel> result: (List<Result<IDataModel>>)arg ) {
-                if (result.STATE == Result.ERROR){
-                    dataModels.add(null);
-                    break;
-                }
-                else if (result.STATE == Result.SUCCEED) {
-                    dataModels.add(result.getResult());
-                }
-            }
-            repositoryData.updateList(dataModels);
-        }
+    /**
+     *
+     */
+    private Observer resultListObserver = (o, arg) -> {
+        List<IDataModel> list = new ArrayList<>();
+        Class c = list.getClass();
+       if (arg.getClass().equals(c)) {
+           ArrayList<IDataModel> dataModels = new ArrayList<>();
+           requestListObservable.clearList();
+           for (Result<IDataModel> result : (List<Result<IDataModel>>) arg) {
+               if (result.STATE == Result.ERROR) {
+                   continue;
+               } else if (result.STATE == Result.SUCCEED) {
+                   dataModels.add(result.getResult());
+               }
+           }
+           requestListObservable.updateList(dataModels);
+       }
     };
-    private Observer resultDataObserver = new Observer() {
-        @Override
-        public void update(Observable o, Object arg) {
+    /**
+     * result data observer
+     */
+    private Observer resultDataObserver = (o, arg) -> {
+        Result<IDataModel> resultClass = Result.createResult(null, null);
+        Class c = resultClass.getClass();
+        if (arg.getClass().equals(c) && arg != null) {
             repositoryData.clearList();
-            Result<IDataModel> result = (Result<IDataModel>)arg;
+            Result<IDataModel> result = (Result<IDataModel>) arg;
             if (result.STATE == Result.SUCCEED)
-                repositoryData.addElement(result.getResult());
-            else if ((result.STATE == Result.ERROR))
-                repositoryData.addElement(null);
+                resultDataObservable.addElement(result.getResult());
+            else if (result.STATE == Result.ERROR)
+                updateObservable.addElement(null);
         }
     };
+    /**
+     * update data observer
+     */
+    private Observer resultUpdateObserver = (o, arg) -> {
+        Result<IDataModel> resultClass = Result.createResult(null, null);
+        Class c = resultClass.getClass();
+        if (arg.getClass().equals(c) && arg != null ) {
+            repositoryData.clearList();
+            Result<IDataModel> result = (Result<IDataModel>) arg;
+            if (result.STATE == Result.SUCCEED)
+                updateObservable.addElement(result.getResult());
+            else if (result.STATE == Result.ERROR)
+                updateObservable.addElement(null);
+        }
+    };
+    /**
+     * delete data observer
+     */
+    private Observer resultDeleteObserver = (o, arg) -> {
+        Result<IDataModel> resultClass = Result.createResult(null, null);
+        Class c = resultClass.getClass();
+        if (arg.getClass().equals(c) && arg != null ) {
+            repositoryData.clearList();
+            Result<IDataModel> result = (Result<IDataModel>) arg;
+            if (result.STATE == Result.SUCCEED)
+                deleteObservable.addElement(result.getResult());
+            else if (result.STATE == Result.ERROR)
+                deleteObservable.addElement(null);
+        }
+    };
+    /**
+     *
+     */
+    private Observer resultAddObserver = (o, arg) -> {
+        Result<IDataModel> resultClass = Result.createResult(null, null);
+        Class c = resultClass.getClass();
+        if (arg.getClass().equals(c) && arg != null ) {
+            repositoryData.clearList();
+            Result<IDataModel> result = (Result<IDataModel>) arg;
+            if (result.STATE == Result.SUCCEED)
+                addObservable.addElement(result.getResult());
+            else if (result.STATE == Result.ERROR)
+                addObservable.addElement(null);
+        }
+    };
+    /********************* DATA REQUESTS **************************/
 
-    public void requestDataFirestore(String dataURI){
-         }
-
+    public void requestDataFirestore(String collection, String document, Class<? extends IDataModel> c){
+        firestoreDataSource.requestData(collection, document, c);
+        repositoryData = resultDataObservable;
+        firestoreDataSource.resultList.addObserver(resultDataObserver);
+    }
+    /**
+     *
+     * @param dataClass
+     */
     public void requestListFirestore(Class<? extends IDataModel> dataClass){
         String collection = getCollection(dataClass);
         firestoreDataSource.requestDataList(collection, dataClass);
         repositoryData = requestListObservable;
-        bindResultList(firestoreDataSource.resultList);
+        firestoreDataSource.resultList.addObserver(resultListObserver);
     }
+    /**
+     *
+     * @param field
+     * @param value
+     * @param c
+     */
     public void searchDataFirestore(String field , Object value,Class<? extends IDataModel> c ){
         String collection = getCollection(c);
         firestoreDataSource.searchData(collection, field, value, c);
         repositoryData = searchListObservable;
-        bindResultList(firestoreDataSource.resultList);
+        firestoreDataSource.resultList.addObserver(resultListObserver);
     }
+    /**
+     *
+     * @param updatedObject
+     * @param c
+     */
     public void updateDataFirestore(IDataModel updatedObject, Class<? extends IDataModel> c  ){
         if (isUriValid(updatedObject)){
         firestoreDataSource.updateData(updatedObject, c);
         repositoryData = updateObservable;
-        bindResult(firestoreDataSource.resultList);
+        firestoreDataSource.resultList.addObserver(resultUpdateObserver);
         }
-
     }
+    /**
+     *
+     * @param dataModel
+     */
     public void addDataFirestore(IDataModel dataModel){
         if (isUriValid(dataModel)){
         firestoreDataSource.addData(dataModel);
         repositoryData = addObservable;
-        bindResult(firestoreDataSource.resultList);
+        firestoreDataSource.resultList.addObserver(resultAddObserver);
         }
     }
+    /**
+     *
+     * @param dataModel
+     */
     public void deleteDataFirestore(IDataModel dataModel){
         if (isUriValid(dataModel))
-        firestoreDataSource.addData(dataModel);
+        firestoreDataSource.deleteData(dataModel.collection(), dataModel.document(), dataModel.getClass());
         repositoryData = deleteObservable;
-        bindResult(firestoreDataSource.resultList);
+        firestoreDataSource.resultList.addObserver(resultDeleteObserver);
     }
-
     /**
      *
       * @param dataModel
@@ -138,33 +210,5 @@ public class FirestroreRepository {
             collection = Parent.COLLECTION;
         }
         return collection;
-    }
-
-    /**
-     *
-     * @param dataSource
-     */
-    private void bindResultList(DataListObservable<Result<IDataModel>> dataSource){
-        dataSource.addObserver(resultListObserver);
-    }
-
-    /**
-     *
-     * @param dataSource
-     */
-    private void bindResult(DataListObservable<Result<IDataModel>> dataSource){
-        dataSource.addObserver(resultDataObserver);
-    }
-
-    /**
-     *
-     */
-    private void closeObserver(){
-        if (resultDataObserver != null){
-            resultDataObserver = null;
-        }
-        if (resultListObserver != null){
-            resultListObserver = null;
-        }
     }
 }

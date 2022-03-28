@@ -39,6 +39,7 @@ import com.eng.ashm.buschool.ui.viewmodel.DriverViewModel;
 import com.eng.ashm.buschool.ui.viewmodel.StudentViewModel;
 
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.List;
 
 public class SearchActivity extends AppCompatActivity {
@@ -102,22 +103,37 @@ public class SearchActivity extends AppCompatActivity {
         handleSearchIntent(intent);
     }
     private void initView(){
-        // binding listeners
+        // buttons
+        binding.cancelAddTrip.setOnClickListener(v->finish());
+        binding.addToTrip.setOnClickListener(v->{
+            ArrayList<? extends IDataModel> resultList = getSelectedData();
+            if (requestCode == DRIVER_REQUEST_CODE){
+                if (resultList.size()>1)
+                {
+                    Toast.makeText(this, "يجب اختيار سائق واحد فقط", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+            else if (requestCode == CAR_REQUEST_CODE){
+                if (resultList.size()>1)
+                {
+                    Toast.makeText(this, "يجب اختيار حافلة واحدة فقط", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+            Intent intent = new Intent();
+            intent.putExtra(SEARCH_RESULT_KEY, resultList);
+            setResult(RESULT_OK, intent);
+            finish();
+        });
+
+        // searchView
+        SearchManager searchManager = getSystemService(SearchManager.class);
         binding.searchListRv.setLayoutManager(new LinearLayoutManager(this));
         DividerItemDecoration decoration = new DividerItemDecoration(binding.searchListRv.getContext(), LinearLayoutManager.VERTICAL);
         binding.searchListRv.addItemDecoration(decoration);
-        binding.cancelAddTrip.setOnClickListener(v->finish());
         binding.searchview.requestFocus();
-        SearchManager searchManager = getSystemService(SearchManager.class);
         binding.searchview.setSearchableInfo(searchManager.getSearchableInfo(getComponentName()));
-        binding.addToTrip.setOnClickListener(v->{
-            Intent intent = getSelectedData();
-            if (intent != null)
-            setResult(RESULT_OK, intent);
-            else
-                setResult(RESULT_CANCELED);
-            finish();
-        });
 
         // adapters
         searchAdapter = new SearchAdapter();
@@ -133,45 +149,34 @@ public class SearchActivity extends AppCompatActivity {
     /**
      *
      */
-    private Intent getSelectedData(){
+    private ArrayList<? extends IDataModel> getSelectedData(){
         List<SearchDataModel> selectedList = searchAdapter.getUpdatedSearchList();
-        Intent intent = new Intent();
-        ArrayList<Parcelable> resultArrayList = new ArrayList<>();
+
         if (requestCode == DRIVER_REQUEST_CODE){
+            ArrayList<Driver> resultArrayList = new ArrayList<>();
             for (int index = 0 ;index < selectedList.size() ;index++){
                 if (selectedList.get(index).isSelected)
-                    tripDriver = (Driver) searchList.get(index);
-                break ;
+                    resultArrayList.add((Driver) searchList.get(index));
             }
-            resultArrayList.add(tripDriver);
-            intent.putParcelableArrayListExtra(SEARCH_RESULT_KEY, resultArrayList);
+            return resultArrayList;
         }
         else if (requestCode == STUDENT_REQUEST_CODE){
-            studentList = new ArrayList<>();
+            ArrayList<Student> resultArrayList = new ArrayList<>();
            for(int index = 0 ; index < selectedList.size();index++) {
                if (selectedList.get(index).isSelected)
-                   studentList.add((Student) searchList.get(index));
+                   resultArrayList.add((Student) searchList.get(index));
            }
-           intent.putParcelableArrayListExtra(SEARCH_RESULT_KEY, studentList);
+            return resultArrayList;
         }
         else if (requestCode == CAR_REQUEST_CODE){
+            ArrayList<Car> resultArrayList = new ArrayList<>();
             for (int index = 0 ;index < selectedList.size() ;index++){
                 if (selectedList.get(index).isSelected)
-                    tripBus = (Car) searchList.get(index);
-                break ;
+                    resultArrayList.add((Car)searchList.get(index));
             }
-            resultArrayList.add(tripBus);
-            if (tripBus != null)
-                Toast.makeText(this, "تم اضافة حافلة رقم : "+ tripBus.carNum, Toast.LENGTH_SHORT).show();
-            else
-                Toast.makeText(this, "نتايج بحث 0", Toast.LENGTH_SHORT).show();
-
-            intent.putParcelableArrayListExtra(SEARCH_RESULT_KEY,resultArrayList);
+            return resultArrayList;
         }
-        else {
-            return null;
-        }
-        return intent;
+        return null;
     }
 
     /**
@@ -222,9 +227,11 @@ public class SearchActivity extends AppCompatActivity {
         if (drivers == null || drivers.isEmpty())
             Toast.makeText(SearchActivity.this, "لا يوجد سائقين", Toast.LENGTH_SHORT).show();
         else {
+            searchList = drivers;
             ArrayList<SearchDataModel> list = new ArrayList<>();
-            SearchDataModel dataModel = new SearchDataModel();
+
             for (Driver driver : drivers) {
+                SearchDataModel dataModel = new SearchDataModel();
                 dataModel.firstField = driver.name;
                 dataModel.secondField = driver.phone;
                 list.add(dataModel);
@@ -234,9 +241,11 @@ public class SearchActivity extends AppCompatActivity {
     };
     Observer<List<Student>> studentListObserver = students -> {
         if (students != null || !students.isEmpty()) {
+            searchList = students;
             ArrayList<SearchDataModel> list = new ArrayList<>();
-            SearchDataModel dataModel = new SearchDataModel();
+           // SearchDataModel dataModel = new SearchDataModel();
             for (Student student : students) {
+                SearchDataModel dataModel = new SearchDataModel();
                 dataModel.firstField = student.name;
                 dataModel.secondField = student.yearOFStudy + "";
                 list.add(dataModel);
@@ -251,9 +260,11 @@ public class SearchActivity extends AppCompatActivity {
             Toast.makeText(SearchActivity.this, "لا توجد باصات", Toast.LENGTH_SHORT).show();
             return;
         }
+        searchList = buses;
         ArrayList<SearchDataModel> list = new ArrayList<>();
-        SearchDataModel dataModel = new SearchDataModel();
+        //SearchDataModel dataModel = new SearchDataModel();
         for (Car car : buses) {
+            SearchDataModel dataModel = new SearchDataModel();
             dataModel.firstField = car.carNum;
             dataModel.secondField = car.color + "";
             list.add(dataModel);

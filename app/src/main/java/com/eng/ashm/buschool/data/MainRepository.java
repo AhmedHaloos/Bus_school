@@ -4,6 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 import com.eng.ashm.buschool.data.datamodel.DataListObservable;
+import com.eng.ashm.buschool.data.datamodel.LoggedInUser;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -21,6 +22,7 @@ public class MainRepository {
 
     public final DataListObservable<IDataModel> mainRequestListObservable = new DataListObservable();
     public final DataListObservable<IDataModel> mainSearchListObservable = new DataListObservable();
+    public final DataListObservable<IDataModel> mainDataObservable = new DataListObservable();
     public final DataListObservable<Boolean> mainAddObservable = new DataListObservable();
     public final DataListObservable<Boolean> mainUpdateObservable = new DataListObservable();
     public final DataListObservable<Boolean> mainDeleteObservable = new DataListObservable();
@@ -29,27 +31,28 @@ public class MainRepository {
     public DataListObservable<IDataModel> dataListObservable = new DataListObservable<>();
 
     private static CacheRepository cacheRepository;
-    private static FirestroreRepository firestroreRepository;
+    private static FirestroreRepository firestroreRepository = null;
     private static MainRepository repositoryInstance = null;
-    private static Context context;
+    private Context context;
     private Object value = null;
     private Class<? extends IDataModel> customClass = null;
     ExecutorService executor = Executors.newCachedThreadPool();
 
 
 
-    private MainRepository(){}
+    private MainRepository(Context context){
+        this.context = context;
+    }
     /**
      * create instance from the MAinRepository class
      * @return
      */
     public static final MainRepository getInstance(Context context){
-        //if (repositoryInstance == null){
-            MainRepository.context = context;
-            repositoryInstance = new MainRepository();
+        if (repositoryInstance == null){
+            repositoryInstance = new MainRepository(context);
             firestroreRepository = FirestroreRepository.getInstance();
             cacheRepository = CacheRepository.getInstance(context);
-      //  }
+       }
         return repositoryInstance;
     }
     /**
@@ -170,7 +173,9 @@ public class MainRepository {
      *      available, if not the notify the user that he needs to
      *      be online.
      */
-    public void requestData(){
+    public void requestData(String collection, String document, Class<? extends IDataModel>c){
+        firestroreRepository.requestDataFirestore(collection, document, c);
+        firestroreRepository.resultDataObservable.addObserver(resultDataObserver);
     }
     public void requestList(Class<? extends IDataModel> c){
         customClass = c;
@@ -217,36 +222,60 @@ public class MainRepository {
     }
     /**
      *
+     * @param username
+     * @param password
      */
-    private Observer itemAddObserver = new Observer() {
+    public void login(String username, String password){
+        firestroreRepository.requestDataFirestore(LoggedInUser.COLLECTION, "/"+username + "-" + password, LoggedInUser.class);
+        firestroreRepository.resultDataObservable.addObserver(itemRetrievedObserver);
+    }
+    /**
+     *
+     * @param username
+     * @param password
+     */
+    public void logout(String username, String password){
+
+    }
+    /**
+     ********************* Observers *******************************
+     */
+    /**
+     * result data observer
+     */
+    private Observer resultDataObserver = new Observer() {
         @Override
         public void update(Observable o, Object arg) {
-            if (arg != null)
-                mainAddObservable.addElement(true);
-            else mainAddObservable.addElement(false);
+            if (arg != null){
+                mainDataObservable.addElement((IDataModel) arg);
+            }
+            else
+                mainDataObservable.addElement(null);
         }
+    };
+    /**
+     * add observer
+     */
+    private Observer itemAddObserver = (o, arg) -> {
+        if (arg != null)
+            mainAddObservable.addElement(true);
+        else mainAddObservable.addElement(false);
     };
     /**
      *
      */
-    private Observer itemUpdateObserver = new Observer() {
-        @Override
-        public void update(Observable o, Object arg) {
-            if (arg != null)
-                mainUpdateObservable.addElement(true);
-            else mainUpdateObservable.addElement(false);
-        }
+    private Observer itemUpdateObserver = (o, arg) -> {
+        if (arg != null)
+            mainUpdateObservable.addElement(true);
+        else mainUpdateObservable.addElement(false);
     };
     /**
      *
      */
-    private Observer itemDeleteObserver = new Observer() {
-        @Override
-        public void update(Observable o, Object arg) {
-            if (arg != null)
-                mainDeleteObservable.addElement(true);
-            else mainDeleteObservable.addElement(false);
-        }
+    private Observer itemDeleteObserver = (o, arg) -> {
+        if (arg != null)
+            mainDeleteObservable.addElement(true);
+        else mainDeleteObservable.addElement(false);
     };
     /**
      *
@@ -283,4 +312,15 @@ public class MainRepository {
 
         }
     };
+    /**
+     *
+     */
+    private Observer itemRetrievedObserver = (o, arg) -> {
+
+        if (arg != null)
+            mainDataObservable.addElement((IDataModel) arg);
+        else
+            mainDataObservable.addElement(null);
+    };
+
 }

@@ -12,17 +12,16 @@ import com.eng.ashm.buschool.data.IDataModel;
 @Entity(primaryKeys ={"email", "phone"})
 public class Parent implements IDataModel {
     public static final String COLLECTION = "Parent";
-
-    public String name;
+    public String name = "";
     @NonNull
-    public String phone;
+    public String phone = "";
     public String relation;
     public String job;
     public String secondContact;
     @Ignore
     public Student[] relatedStudents;
     @NonNull
-    public String email;
+    public String email = "";
     public String address;
     public String picURI;
     public int age;

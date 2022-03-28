@@ -75,13 +75,10 @@ public class ManagementParentFragment extends Fragment {
     private void initAdapter(){
         if (parentAdapter == null)
         parentAdapter = new ParentAdapter();
-        parentAdapter.setOnItemClickListener(new OnItemClickListener<Parent>(){
-            @Override
-            public void onItemClicked(Parent parent) {
-                Intent intent = new Intent(getContext(), ParentProfileActivity.class);
-                intent.putExtra(Parent.COLLECTION,(Serializable) parent);
-                startActivity(intent);
-            }
+        parentAdapter.setOnItemClickListener((OnItemClickListener<Parent>) parent -> {
+            Intent intent = new Intent(getContext(), ParentProfileActivity.class);
+            intent.putExtra(Parent.COLLECTION,(Serializable) parent);
+            startActivity(intent);
         });
     }
     /**
@@ -93,7 +90,10 @@ public class ManagementParentFragment extends Fragment {
         parentViewModel.requestParentListResult.observe(getViewLifecycleOwner(),observer);
     }
     Observer<List<? extends IDataModel>> observer = parents -> {
+        if(parents != null && !parents.isEmpty()){
+        if (parents.get(0).getClass().equals(Parent.class))
          parentAdapter.updateParentList((ArrayList<Parent>) parents);
+        }
     };
     // start activity
     ActivityResultContract<Object , Parent> contract = new ActivityResultContract<Object, Parent>() {

@@ -14,8 +14,7 @@
         android:layout_marginLeft="8dp"
         android:layout_marginTop="8dp"
         android:layout_marginRight="8dp"
-        android:background="#E6E6E6"
-        android:elevation="3dp"
+        android:elevation="1dp"
         android:layoutDirection="rtl"
         android:textDirection="rtl"
         android:visibility="visible"
@@ -25,7 +24,6 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:background="#DFDDDD"
             android:orientation="vertical">
 
             <LinearLayout
@@ -33,8 +31,6 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="8dp"
                 android:layout_marginBottom="4dp"
-                android:background="@drawable/border"
-                android:backgroundTint="#C5C5C5"
                 android:orientation="vertical"
                 android:padding="4dp">
 
@@ -56,11 +52,9 @@
                         android:id="@+id/trip_item_num_tv"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:layout_margin="4dp"
                         android:layout_weight="2"
                         android:fontFamily="@font/noto_kufi_arabic_semi_bold"
                         android:layoutDirection="rtl"
-                        android:padding="4dp"
                         android:text="رقم الرحلة "
                         android:textAlignment="center"
                         android:textColor="#C51162"
@@ -73,14 +67,11 @@
                         android:layout_width="0dp"
                         android:layout_height="match_parent"
                         android:layout_weight="8"
-                        android:background="@drawable/border"
-                        android:backgroundTint="#00B8D4"
                         android:fontFamily="@font/noto_kufi_arabic_light"
                         android:layoutDirection="rtl"
-                        android:padding="8dp"
                         android:text="20"
                         android:textAlignment="center"
-                        android:textColor="#FFFFFF"
+                        android:textColor="#000000"
                         android:textDirection="rtl" />
                 </LinearLayout>
 
@@ -102,11 +93,9 @@
                         android:id="@+id/textView14"
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
-                        android:layout_margin="4dp"
                         android:layout_weight="2"
                         android:fontFamily="@font/noto_kufi_arabic_semi_bold"
                         android:layoutDirection="rtl"
-                        android:padding="4dp"
                         android:text="حالة الرحلة "
                         android:textAlignment="center"
                         android:textColor="#C51162"
@@ -119,14 +108,11 @@
                         android:layout_width="wrap_content"
                         android:layout_height="match_parent"
                         android:layout_weight="8"
-                        android:background="@drawable/border"
-                        android:backgroundTint="#00B8D4"
                         android:fontFamily="@font/noto_kufi_arabic_light"
                         android:layoutDirection="rtl"
-                        android:padding="8dp"
                         android:text="انتهت"
                         android:textAlignment="center"
-                        android:textColor="#FFFFFF"
+                        android:textColor="#000000"
                         android:textDirection="rtl" />
                 </LinearLayout>
             </LinearLayout>
@@ -160,7 +146,7 @@
                     android:layout_width="0dp"
                     android:layout_height="match_parent"
                     android:layout_weight="1"
-                    android:backgroundTint="#108497"
+                    android:backgroundTint="#00C853"
                     android:gravity="center"
                     android:text="عرض مسار الرحلة "
                     android:textAlignment="center"
@@ -176,7 +162,7 @@
                 android:id="@+id/parent_item_details_layout"
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
-                android:background="#E6E6E6"
+                android:background="#FFFFFF"
                 android:orientation="vertical"
                 android:visibility="gone">
 
@@ -195,7 +181,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="4dp"
                     android:background="@drawable/border"
                     android:backgroundTint="#848BB1"
                     android:fontFamily="@font/noto_sans_arabic_condensed_semi_bold"
@@ -231,11 +216,9 @@
                             android:id="@+id/trip_item_driver_name_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
                             android:layout_weight="2"
                             android:fontFamily="@font/noto_kufi_arabic_semi_bold"
                             android:layoutDirection="rtl"
-                            android:padding="4dp"
                             android:text="اسم السائق"
                             android:textAlignment="center"
                             android:textColor="#C51162"
@@ -248,14 +231,11 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="8"
-                            android:background="@drawable/border"
-                            android:backgroundTint="#00B8D4"
                             android:fontFamily="@font/noto_kufi_arabic_light"
                             android:layoutDirection="rtl"
-                            android:padding="8dp"
                             android:text="محمد"
                             android:textAlignment="center"
-                            android:textColor="#FFFFFF"
+                            android:textColor="#000000"
                             android:textDirection="rtl" />
                     </LinearLayout>
 
@@ -278,11 +258,9 @@
                             android:id="@+id/textView12"
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_margin="4dp"
                             android:layout_weight="2"
                             android:fontFamily="@font/noto_kufi_arabic_semi_bold"
                             android:layoutDirection="rtl"
-                            android:padding="4dp"
                             android:text="رقم الهاتف"
                             android:textAlignment="center"
                             android:textColor="#C51162"
@@ -295,14 +273,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="8"
-                            android:background="@drawable/border"
-                            android:backgroundTint="#00B8D4"
                             android:fontFamily="@font/noto_kufi_arabic_light"
                             android:layoutDirection="rtl"
-                            android:padding="8dp"
                             android:text="052585"
                             android:textAlignment="center"
-                            android:textColor="#FFFFFF"
+                            android:textColor="#000000"
                             android:textDirection="rtl" />
                     </LinearLayout>
                 </LinearLayout>
@@ -312,7 +287,6 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center"
-                    android:layout_margin="4dp"
                     android:background="@drawable/border"
                     android:backgroundTint="#848BB1"
                     android:fontFamily="@font/noto_sans_arabic_condensed_semi_bold"
@@ -348,11 +322,9 @@
                             android:id="@+id/trip_item_bus_num_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_margin="4dp"
                             android:layout_weight="2"
                             android:fontFamily="@font/noto_kufi_arabic_semi_bold"
                             android:layoutDirection="rtl"
-                            android:padding="4dp"
                             android:text="رقم الباص"
                             android:textAlignment="center"
                             android:textColor="#C51162"
@@ -365,14 +337,11 @@
                             android:layout_width="0dp"
                             android:layout_height="match_parent"
                             android:layout_weight="8"
-                            android:background="@drawable/border"
-                            android:backgroundTint="#00B8D4"
                             android:fontFamily="@font/noto_kufi_arabic_light"
                             android:layoutDirection="rtl"
-                            android:padding="8dp"
                             android:text="30"
                             android:textAlignment="center"
-                            android:textColor="#FFFFFF"
+                            android:textColor="#000000"
                             android:textDirection="rtl" />
                     </LinearLayout>
 
@@ -393,11 +362,9 @@
                         <TextView
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
-                            android:layout_margin="4dp"
                             android:layout_weight="2"
                             android:fontFamily="@font/noto_kufi_arabic_semi_bold"
                             android:layoutDirection="rtl"
-                            android:padding="4dp"
                             android:text="لون الباص"
                             android:textAlignment="center"
                             android:textColor="#C51162"
@@ -410,14 +377,11 @@
                             android:layout_width="wrap_content"
                             android:layout_height="match_parent"
                             android:layout_weight="8"
-                            android:background="@drawable/border"
-                            android:backgroundTint="#00B8D4"
                             android:fontFamily="@font/noto_kufi_arabic_light"
                             android:layoutDirection="rtl"
-                            android:padding="8dp"
                             android:text="اصفر"
                             android:textAlignment="center"
-                            android:textColor="#FFFFFF"
+                            android:textColor="#000000"
                             android:textDirection="rtl" />
                     </LinearLayout>
 
